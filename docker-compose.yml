@@ -1,0 +1,39 @@
+networks:
+  sae-5.net:
+    driver: bridge
+services:
+
+  api.sae-5:
+    build:
+      context: build
+      dockerfile: 8.3-cli.Dockerfile
+    env_file: ./sae-5.env
+    ports:
+      - '6080:80'
+    volumes:
+      - ./app:/var/php
+      - ./sql:/var/sql
+    working_dir: /var/php
+    networks:
+      - sae-5.net
+    depends_on:
+      - sae-5.db
+    command: php -S 0.0.0.0:80 -t /var/php/public
+    
+  sae-5.db:
+    image: 'postgres:latest'
+    env_file: ./sae-5db.env
+    ports:
+      - '5432:5432'
+    networks:
+      - sae-5.net
+    volumes:
+      - ./app/sql:/var/sql'
+
+  adminer:
+    image: adminer
+    ports:
+      - '8080:8080'
+    networks:
+      - sae-5.net
+
