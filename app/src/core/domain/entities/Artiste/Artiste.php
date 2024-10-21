@@ -20,4 +20,14 @@ class Artiste extends Entity
         return new ArtisteDTO($this->id, $this->nom);
 
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
 }

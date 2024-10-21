@@ -24,4 +24,14 @@ class Theme extends Entity
 
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getLabelle(): string
+    {
+        return $this->labelle;
+    }
+
 }

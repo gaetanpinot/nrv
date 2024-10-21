@@ -3,6 +3,8 @@
 namespace nrv\core\dto;
 
 
+use nrv\core\domain\entities\Billet\Billet;
+
 class BilletDTO extends DTO
 {
     public string $id;
@@ -10,12 +12,12 @@ class BilletDTO extends DTO
     public string $id_spectacle;
     public float $tarif;
 
-    public function __construct($id, $id_user, $id_spectacle, $tarif)
+    public function __construct(Billet $billet)
     {
-        $this->id = $id;
-        $this->id_user = $id_user;
-        $this->id_spectacle = $id_spectacle;
-        $this->tarif = $tarif;
+        $this->id = $billet->getId();
+        $this->id_user = $billet->getIdUser();
+        $this->id_spectacle = $billet->getIdSpectacle();
+        $this->tarif = $billet->getTarif();
     }
 
 

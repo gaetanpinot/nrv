@@ -20,7 +20,16 @@ class Panier extends Entity
     public function toDTO(): PanierDTO
     {
         return new PanierDTO($this->id, $this->is_valide);
+    }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getIsValide(): bool
+    {
+        return $this->is_valide;
     }
 
 }
