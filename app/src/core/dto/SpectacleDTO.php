@@ -10,8 +10,8 @@ class SpectacleDTO extends DTO{
     public string $id;
     public string $titre;
     public string $description;
-    public string $video;
-    public array $images;
+    public string $url_video;
+    public array $url_image;
     public DateTime $date;
     public array $artistes;
 
@@ -19,8 +19,8 @@ class SpectacleDTO extends DTO{
         $this->id = $spectacle->getId();
         $this->titre = $spectacle->getTitre();
         $this->description = $spectacle->getDescription();
-        $this->video = $spectacle->getVideo();
-        $this->images = $spectacle->getImages();
+        $this->url_video = $spectacle->geturl_Video();
+        $this->url_image = $spectacle->geturl_Image();
         $this->date = $spectacle->getDate();
         $this->artistes = $spectacle->getArtistes();
     }
