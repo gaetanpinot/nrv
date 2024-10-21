@@ -2,49 +2,47 @@
 
 namespace nrv\infrastructure\Repositories;
 
+use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Billet\Billet;
+use nrv\core\repositoryInterfaces\ArtisteRepositoryInterface;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
 
-class BilletRepository implements BilletRepositoryInterface
+class ArtisteRepository implements ArtisteRepositoryInterface
 {
 
-    public function getBillet(): array
+    public function getArtiste(): array
     {
-        return $this->pdo->query('SELECT * FROM billet')->fetchAll();
+        return $this->pdo->query('SELECT * FROM artiste')->fetchAll();
     }
 
-    public function getBilletById(string $id): Billet
+    public function getArtisteById(string $id): Artiste
     {
-        $result = $this->pdo->query('SELECT * FROM billet WHERE id = ' . $id)->fetch();
-        return new Billet($result['id'], $result['id_user'], $result['id_spectacle'], $result['tarif']);
+        $result = $this->pdo->query('SELECT * FROM artiste WHERE id = ' . $id)->fetch();
+        return new Artiste($result['id'], $result['prenom']);
 
     }
 
-    public function save(Billet $billet): void
+    public function save(Artiste $artiste): void
     {
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, id_user, id_spectacle, tarif) VALUES (:id, :id_user, :id_spectacle, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_user, id_spectacle = :id_spectacle, tarif = :tarif');
+        $request = $this->pdo->prepare('INSERT INTO artiste (id, prenom) VALUES (:id, :prenom) ON CONFLICT (id) DO UPDATE SET prenom = :prenom');
         $request->execute([
-            'id' => $billet->id,
-            'nom' => $billet->id_user,
-            'id_theme' => $billet->id_spectacle,
-            'date' => $billet->date,
+            'id' => $artiste->id,
+            'prenom' => $artiste->prenom,
         ]);
     }
 
-    public function updateBillet(Billet $billet): void
+    public function updateArtiste(Artiste $artiste): void
     {
-        $request = $this->pdo->prepare('UPDATE billet SET id_user = :id_user, id_spectacle = :id_spectacle, tarif = :tarif WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE artiste SET prenom = :prenom WHERE id = :id');
         $request->execute([
-            'id' => $billet->id,
-            'nom' => $billet->id_user,
-            'id_theme' => $billet->id_spectacle,
-            'date' => $billet->tarif,
+            'id' => $artiste->id,
+            'prenom' => $artiste->prenom,
         ]);
     }
 
-    public function deleteBillet(string $id): void
+    public function deleteArtiste(string $id): void
     {
-        $request = $this->pdo->prepare('DELETE FROM billet WHERE id = :id');
+        $request = $this->pdo->prepare('DELETE FROM artiste WHERE id = :id');
         $request->execute(['id' => $id]);
     }
 }

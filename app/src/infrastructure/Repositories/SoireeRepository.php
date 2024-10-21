@@ -19,9 +19,9 @@ class SoireeRepository implements SoireeRepositoryInterface{
     }
 
     public function getSoireeById(string $id): Soiree{
-        $result = $this->pdo->query('SELECT * FROM soiree WHERE id = ' . $id)->fetch();
-        return new Soiree($result['id'], $result['nom'], $result['id_theme'], $result['date'], $result['heureDebut'], $result['duree'], $result['id_lieu'], $result['nbPlaceAssiseRestante'], $result['nbPlaceDeboutRestante'], $result['tarifNormal'], $result['tarifReduit']);
-    }
+            $result = $this->pdo->query('SELECT * FROM soiree WHERE id = ' . $id)->fetch();
+            return new Soiree($result['id'], $result['nom'], $result['id_theme'], $result['date'], $result['heureDebut'], $result['duree'], $result['id_lieu'], $result['nbPlaceAssiseRestante'], $result['nbPlaceDeboutRestante'], $result['tarifNormal'], $result['tarifReduit']);
+        }
 
     public function save(Soiree $soiree): void{
         $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heureDebut, duree, id_lieu, nbPlaceAssiseRestante, nbPlaceDeboutRestante, tarifNormal, tarifReduit) VALUES (:id, :nom, :id_theme, :date, :heureDebut, :duree, :id_lieu, :nbPlaceAssiseRestante, :nbPlaceDeboutRestante, :tarifNormal, :tarifReduit) ON CONFLICT (id) DO UPDATE SET nom = :nom, id_theme = :id_theme, date = :date, heureDebut = :heureDebut, duree = :duree, id_lieu = :id_lieu, nbPlaceAssiseRestante = :nbPlaceAssiseRestante, nbPlaceDeboutRestante = :nbPlaceDeboutRestante, tarifNormal = :tarifNormal, tarifReduit = :tarifReduit');
