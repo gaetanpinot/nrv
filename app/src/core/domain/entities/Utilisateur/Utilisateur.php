@@ -7,7 +7,7 @@ use nrv\core\dto\UtilisateurDTO;
 
 class Utilisateur extends Entity
 {
-    public ?string $id;
+    public string $id;
     public string $email;
     public string $prenom;
     public string $nom;

@@ -9,7 +9,7 @@ use nrv\core\dto\UtilisateurDTO;
 
 class Billet extends Entity
 {
-    public ?string $id;
+    public string $id;
     public string $id_user;
     public string $id_spectacle;
     public float $tarif;

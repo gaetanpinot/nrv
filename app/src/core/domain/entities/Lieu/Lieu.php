@@ -1,5 +1,5 @@
 <?php
-namespace nrv\core\domain\entities;
+namespace nrv\core\domain\entities\Lieu;
 
 use nrv\core\dto\LieuDTO;
 use nrv\core\domain\entities\Entity;

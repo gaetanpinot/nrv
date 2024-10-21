@@ -9,7 +9,7 @@ use nrv\core\dto\UtilisateurDTO;
 
 class Soiree extends Entity
 {
-    public ?string $id;
+    public string $id;
     public string $nom;
     public int $id_theme;
     public DateTime $date;

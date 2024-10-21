@@ -9,7 +9,7 @@ use nrv\core\dto\UtilisateurDTO;
 
 class Panier extends Entity
 {
-    public ?string $id;
+    public string $id;
     public bool $is_valide;
 
     public function __construct($id, $is_valide)
