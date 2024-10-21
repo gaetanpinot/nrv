@@ -22,7 +22,7 @@ class Utilisateur extends Entity
 
     public function toDTO(): UtilisateurDTO
     {
-        return new UtilisateurDTO($this->email, $this->prenom, $this->nom);
+        return new UtilisateurDTO($this);
 
     }
 

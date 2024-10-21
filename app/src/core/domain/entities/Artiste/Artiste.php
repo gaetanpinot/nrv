@@ -17,7 +17,7 @@ class Artiste extends Entity
     }
     public function toDTO(): ArtisteDTO
     {
-        return new ArtisteDTO($this->id, $this->nom);
+        return new ArtisteDTO($this);
 
     }
 

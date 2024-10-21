@@ -20,7 +20,7 @@ class Theme extends Entity
     }
     public function toDTO(): ThemeDTO
     {
-        return new ThemeDTO($this->id, $this->labelle);
+        return new ThemeDTO($this);
 
     }
 

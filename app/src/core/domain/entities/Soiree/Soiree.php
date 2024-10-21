@@ -37,7 +37,7 @@ class Soiree extends Entity
     }
     public function toDTO(): SoireeDTO
     {
-        return new SoireeDTO($this->id, $this->nom, $this->id_theme, $this->date, $this->heureDebut, $this->duree, $this->id_lieu, $this->nbPlaceAssiseRestante, $this->nbPlaceDeboutRestante, $this->tarifNormal, $this->tarifReduit);
+        return new SoireeDTO($this);
 
     }
 
