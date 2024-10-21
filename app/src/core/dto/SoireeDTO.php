@@ -16,8 +16,8 @@ class SoireeDTO extends DTO
     public DateTime $heureDebut;
     public DateTime $duree;
     public string $id_lieu;
-    public int $nbPlaceAssiseRestante;
-    public int $nbPlaceDeboutRestante;
+    public int $nbPlaces;
+    public int $nbPlacesRestantes;
     public float $tarifNormal;
     public float $tarifReduit;
 
@@ -30,8 +30,8 @@ class SoireeDTO extends DTO
         $this->heureDebut = $soiree->getHeureDebut();
         $this->duree = $soiree->getDuree();
         $this->id_lieu = $soiree->getIdLieu();
-        $this->nbPlaceAssiseRestante = $soiree->getNbPlaceAssiseRestante();
-        $this->nbPlaceDeboutRestante = $soiree->getNbPlaceDeboutRestante();
+        $this->nbPlaces = $soiree->getNbPlaces();
+        $this->nbPlacesRestantes = $soiree->getNbPlacesRestantes();
         $this->tarifNormal = $soiree->getTarifNormal();
         $this->tarifReduit = $soiree->getTarifReduit();
     }

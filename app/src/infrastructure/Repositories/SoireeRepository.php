@@ -20,40 +20,40 @@ class SoireeRepository implements SoireeRepositoryInterface{
 
     public function getSoireeById(string $id): Soiree{
         $result = $this->pdo->query('SELECT * FROM soiree WHERE id = ' . $id)->fetch();
-        return new Soiree($result['id'], $result['nom'], $result['id_theme'], $result['date'], $result['heureDebut'], $result['duree'], $result['id_lieu'], $result['nbPlaceAssiseRestante'], $result['nbPlaceDeboutRestante'], $result['tarifNormal'], $result['tarifReduit']);
+        return new Soiree($result['id'], $result['nom'], $result['id_theme'], $result['date'], $result['heure_debut'], $result['duree'], $result['id_lieu'], $result['nb_places'], $result['nb_places_restantes'], $result['tarif_normal'], $result['tarif_reduit']);
     }
 
     public function save(Soiree $soiree): void{
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heureDebut, duree, id_lieu, nbPlaceAssiseRestante, nbPlaceDeboutRestante, tarifNormal, tarifReduit) VALUES (:id, :nom, :id_theme, :date, :heureDebut, :duree, :id_lieu, :nbPlaceAssiseRestante, :nbPlaceDeboutRestante, :tarifNormal, :tarifReduit) ON CONFLICT (id) DO UPDATE SET nom = :nom, id_theme = :id_theme, date = :date, heureDebut = :heureDebut, duree = :duree, id_lieu = :id_lieu, nbPlaceAssiseRestante = :nbPlaceAssiseRestante, nbPlaceDeboutRestante = :nbPlaceDeboutRestante, tarifNormal = :tarifNormal, tarifReduit = :tarifReduit');
+        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heure_debut, duree, id_lieu, nb_places, nb_places_restantes, tarif_normal, tarif_reduit) VALUES (:id, :nom, :id_theme, :date, :heure_debut, :duree, :id_lieu, :nb_places, :nb_places_restantes, :tarif_normal, :tarif_reduit) ON CONFLICT (id) DO UPDATE SET nom = :nom, id_theme = :id_theme, date = :date, heure_debut = :heure_debut, duree = :duree, id_lieu = :id_lieu, nb_places = :nb_places, nb_places_restantes = :nb_places_restantes, tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit');
         $request->execute([
             'id' => $soiree->id,
             'nom' => $soiree->nom,
             'id_theme' => $soiree->id_theme,
             'date' => $soiree->date,
-            'heureDebut' => $soiree->heureDebut,
+            'heure_debut' => $soiree->heure_debut,
             'duree' => $soiree->duree,
             'id_lieu' => $soiree->id_lieu,
-            'nbPlaceAssiseRestante' => $soiree->nbPlaceAssiseRestante,
-            'nbPlaceDeboutRestante' => $soiree->nbPlaceDeboutRestante,
-            'tarifNormal' => $soiree->tarifNormal,
-            'tarifReduit' => $soiree->tarifReduit
+            'nb_places' => $soiree->nb_places,
+            'nb_places_restantes' => $soiree->nb_places_restantes,
+            'tarif_normal' => $soiree->tarif_normal,
+            'tarif_reduit' => $soiree->tarif_reduit
         ]);
     }
 
     public function updateSoiree(Soiree $soiree): void{
-        $request = $this->pdo->prepare('UPDATE soiree SET nom = :nom, id_theme = :id_theme, date = :date, heureDebut = :heureDebut, duree = :duree, id_lieu = :id_lieu, nbPlaceAssiseRestante = :nbPlaceAssiseRestante, nbPlaceDeboutRestante = :nbPlaceDeboutRestante, tarifNormal = :tarifNormal, tarifReduit = :tarifReduit WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE soiree SET nom = :nom, id_theme = :id_theme, date = :date, heure_debut = :heure_debut, duree = :duree, id_lieu = :id_lieu, nb_places = :nb_places, nb_places_restantes = :nb_places_restantes, tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit WHERE id = :id');
         $request->execute([
             'id' => $soiree->id,
             'nom' => $soiree->nom,
             'id_theme' => $soiree->id_theme,
             'date' => $soiree->date,
-            'heureDebut' => $soiree->heureDebut,
+            'heure_debut' => $soiree->heure_debut,
             'duree' => $soiree->duree,
             'id_lieu' => $soiree->id_lieu,
-            'nbPlaceAssiseRestante' => $soiree->nbPlaceAssiseRestante,
-            'nbPlaceDeboutRestante' => $soiree->nbPlaceDeboutRestante,
-            'tarifNormal' => $soiree->tarifNormal,
-            'tarifReduit' => $soiree->tarifReduit
+            'nb_places' => $soiree->nb_places,
+            'nb_places_restantes' => $soiree->nb_places_restantes,
+            'tarif_normal' => $soiree->tarif_normal,
+            'tarif_reduit' => $soiree->tarif_reduit
         ]);
     }
 

@@ -16,12 +16,12 @@ class Soiree extends Entity
     public DateTime $heureDebut;
     public DateTime $duree;
     public string $id_lieu;
-    public int $nbPlaceAssiseRestante;
-    public int $nbPlaceDeboutRestante;
+    public int $nbPlaces;
+    public int $nbPlacesRestantes;
     public float $tarifNormal;
     public float $tarifReduit;
 
-    public function __construct($id, $nom, $id_theme, $date, $heureDebut, $duree, $id_lieu, $nbPlaceAssiseRestante, $nbPlaceDeboutRestante, $tarifNormal, $tarifReduit)
+    public function __construct($id, $nom, $id_theme, $date, $heureDebut, $duree, $id_lieu, $nbPlaces, $nbPlacesRestantes, $tarifNormal, $tarifReduit)
     {
         $this->id = $id;
         $this->nom = $nom;
@@ -30,8 +30,8 @@ class Soiree extends Entity
         $this->heureDebut = $heureDebut;
         $this->duree = $duree;
         $this->id_lieu = $id_lieu;
-        $this->nbPlaceAssiseRestante = $nbPlaceAssiseRestante;
-        $this->nbPlaceDeboutRestante = $nbPlaceDeboutRestante;
+        $this->nbPlaces = $nbPlaces;
+        $this->nbPlacesRestantes = $nbPlacesRestantes;
         $this->tarifNormal = $tarifNormal;
         $this->tarifReduit = $tarifReduit;
     }
@@ -76,14 +76,14 @@ class Soiree extends Entity
         return $this->id_lieu;
     }
 
-    public function getNbPlaceAssiseRestante(): int
+    public function getNbPlaces(): int
     {
-        return $this->nbPlaceAssiseRestante;
+        return $this->nbPlaces;
     }
 
-    public function getNbPlaceDeboutRestante(): int
+    public function getNbPlacesRestantes(): int
     {
-        return $this->nbPlaceDeboutRestante;
+        return $this->nbPlacesRestantes;
     }
 
     public function getTarifNormal(): float

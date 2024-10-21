@@ -10,17 +10,17 @@ class Spectacle extends Entity{
     protected string $id;
     protected string $titre;
     protected string $description;
-    protected string $video;
-    protected array $images;
+    protected string $url_video;
+    protected array $url_image;
     protected DateTime $date;
     protected array $artistes;
 
-    public function __construct(string $id, string $titre, string $description, string $video, array $images, DateTime $date, array $artistes){
+    public function __construct(string $id, string $titre, string $description, string $url_video, array $url_image, DateTime $date, array $artistes){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
-        $this->video = $video;
-        $this->images = $images;
+        $this->url_video = $url_video;
+        $this->url_image = $url_image;
         $this->date = $date;
         $this->artistes = $artistes;
     }
@@ -37,12 +37,12 @@ class Spectacle extends Entity{
         return $this->description;
     }
 
-    public function getVideo(): string{
-        return $this->video;
+    public function geturl_Video(): string{
+        return $this->url_video;
     }
 
-    public function getImages(): array{
-        return $this->images;
+    public function geturl_Image(): array{
+        return $this->url_image;
     }
 
     public function getDate(): DateTime{
