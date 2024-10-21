@@ -13,6 +13,7 @@ class SoireeRepository implements SoireeRepositoryInterface{
     public function __construct(Container $cont){
         $this->pdo = $cont->get('pdo.commun');
     }
+
     public function getSoirees(): array{
         return $this->pdo->query('SELECT * FROM soiree')->fetchAll();
     }
@@ -41,6 +42,19 @@ class SoireeRepository implements SoireeRepositoryInterface{
 
     public function updateSoiree(Soiree $soiree): void{
         $request = $this->pdo->prepare('UPDATE soiree SET nom = :nom, id_theme = :id_theme, date = :date, heureDebut = :heureDebut, duree = :duree, id_lieu = :id_lieu, nbPlaceAssiseRestante = :nbPlaceAssiseRestante, nbPlaceDeboutRestante = :nbPlaceDeboutRestante, tarifNormal = :tarifNormal, tarifReduit = :tarifReduit WHERE id = :id');
+        $request->execute([
+            'id' => $soiree->id,
+            'nom' => $soiree->nom,
+            'id_theme' => $soiree->id_theme,
+            'date' => $soiree->date,
+            'heureDebut' => $soiree->heureDebut,
+            'duree' => $soiree->duree,
+            'id_lieu' => $soiree->id_lieu,
+            'nbPlaceAssiseRestante' => $soiree->nbPlaceAssiseRestante,
+            'nbPlaceDeboutRestante' => $soiree->nbPlaceDeboutRestante,
+            'tarifNormal' => $soiree->tarifNormal,
+            'tarifReduit' => $soiree->tarifReduit
+        ]);
     }
 
     public function deleteSoiree(string $id): void{
