@@ -20,8 +20,18 @@ class Theme extends Entity
     }
     public function toDTO(): ThemeDTO
     {
-        return new ThemeDTO($this->id, $this->labelle);
+        return new ThemeDTO($this);
 
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getLabelle(): string
+    {
+        return $this->labelle;
     }
 
 }

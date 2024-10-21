@@ -37,7 +37,63 @@ class Soiree extends Entity
     }
     public function toDTO(): SoireeDTO
     {
-        return new SoireeDTO($this->id, $this->nom, $this->id_theme, $this->date, $this->heureDebut, $this->duree, $this->id_lieu, $this->nbPlaceAssiseRestante, $this->nbPlaceDeboutRestante, $this->tarifNormal, $this->tarifReduit);
+        return new SoireeDTO($this);
 
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
+    public function getIdTheme(): int
+    {
+        return $this->id_theme;
+    }
+
+    public function getDate(): DateTime
+    {
+        return $this->date;
+    }
+
+    public function getHeureDebut(): DateTime
+    {
+        return $this->heureDebut;
+    }
+
+    public function getDuree(): DateTime
+    {
+        return $this->duree;
+    }
+
+    public function getIdLieu(): string
+    {
+        return $this->id_lieu;
+    }
+
+    public function getNbPlaceAssiseRestante(): int
+    {
+        return $this->nbPlaceAssiseRestante;
+    }
+
+    public function getNbPlaceDeboutRestante(): int
+    {
+        return $this->nbPlaceDeboutRestante;
+    }
+
+    public function getTarifNormal(): float
+    {
+        return $this->tarifNormal;
+    }
+
+    public function getTarifReduit(): float
+    {
+        return $this->tarifReduit;
+    }
+
 }
