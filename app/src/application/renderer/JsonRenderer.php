@@ -1,5 +1,6 @@
 <?php
-namespace sae-dev-web\application\renderer;
+
+namespace nrv\application\renderer;
 
 use Psr\Http\Message\ResponseInterface as Response;
 

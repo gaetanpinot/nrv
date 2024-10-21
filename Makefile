@@ -1,4 +1,4 @@
-phpdocker=sae-5-dev-web-api.sae-5-1
+phpdocker=nrv-api.nrv-1
 install: 
 	sudo docker compose up -d
 	sudo docker exec -it $(phpdocker) composer install

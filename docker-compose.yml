@@ -1,39 +1,39 @@
 networks:
-  sae-5.net:
+  nrv.net:
     driver: bridge
 services:
 
-  api.sae-5:
+  api.nrv:
     build:
       context: build
       dockerfile: 8.3-cli.Dockerfile
-    env_file: ./sae-5.env
+    env_file: ./nrv.env
     ports:
-      - '6080:80'
+      - '44010:80'
     volumes:
       - ./app:/var/php
       - ./sql:/var/sql
     working_dir: /var/php
     networks:
-      - sae-5.net
+      - nrv.net
     depends_on:
-      - sae-5.db
+      - nrv.db
     command: php -S 0.0.0.0:80 -t /var/php/public
     
-  sae-5.db:
+  nrv.db:
     image: 'postgres:latest'
-    env_file: ./sae-5db.env
+    env_file: ./nrvdb.env
     ports:
-      - '5432:5432'
+      - '44012:5432'
     networks:
-      - sae-5.net
+      - nrv.net
     volumes:
       - ./app/sql:/var/sql'
 
   adminer:
     image: adminer
     ports:
-      - '8080:8080'
+      - '44011:8080'
     networks:
-      - sae-5.net
+      - nrv.net
 

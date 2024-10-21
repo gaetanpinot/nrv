@@ -1,6 +1,6 @@
 <?php
 
-namespace saedevweb\application\actions;
+namespace nrv\application\actions;
 
 
 use DI\Container;
