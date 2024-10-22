@@ -2,13 +2,19 @@
 
 namespace nrv\infrastructure\Repositories;
 
+use DI\Container;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\repositoryInterfaces\ThemeRepositoryInterface;
 use \nrv\core\domain\entities\Theme\Theme;
+use PDO;
 
 class ThemeRepository implements ThemeRepositoryInterface
 {
+    protected PDO $pdo;
 
+    public function __construct(Container $cont){
+        $this->pdo = $cont->get('pdo.commun');
+    }
     public function getTheme(): array
     {
         return $this->pdo->query('SELECT * FROM artiste')->fetchAll();

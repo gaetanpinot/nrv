@@ -2,16 +2,22 @@
 
 namespace nrv\infrastructure\Repositories;
 
+use DI\Container;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Billet\Billet;
 use nrv\core\domain\entities\Panier\Panier;
 use nrv\core\repositoryInterfaces\ArtisteRepositoryInterface;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
 use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
+use PDO;
 
 class PanierRepository implements PanierRepositoryInterface
 {
+    protected PDO $pdo;
 
+    public function __construct(Container $cont){
+        $this->pdo = $cont->get('pdo.commun');
+    }
     public function getPanier(): array
     {
         return $this->pdo->query('SELECT * FROM panier')->fetchAll();

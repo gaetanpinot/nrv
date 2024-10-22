@@ -2,14 +2,20 @@
 
 namespace nrv\infrastructure\Repositories;
 
+use DI\Container;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Billet\Billet;
 use nrv\core\repositoryInterfaces\ArtisteRepositoryInterface;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
+use PDO;
 
 class ArtisteRepository implements ArtisteRepositoryInterface
 {
+    protected PDO $pdo;
 
+    public function __construct(Container $cont){
+        $this->pdo = $cont->get('pdo.commun');
+    }
     public function getArtiste(): array
     {
         return $this->pdo->query('SELECT * FROM artiste')->fetchAll();

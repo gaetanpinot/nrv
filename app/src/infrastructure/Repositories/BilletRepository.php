@@ -2,12 +2,18 @@
 
 namespace nrv\infrastructure\Repositories;
 
+use DI\Container;
 use nrv\core\domain\entities\Billet\Billet;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
+use PDO;
 
 class BilletRepository implements BilletRepositoryInterface
 {
+    protected PDO $pdo;
 
+    public function __construct(Container $cont){
+        $this->pdo = $cont->get('pdo.commun');
+    }
     public function getBillet(): array
     {
         return $this->pdo->query('SELECT * FROM billet')->fetchAll();
