@@ -40,3 +40,15 @@ services:
       - nrv.net
     command: php -S 0.0.0.0:8080 -t /var/www/html
 
+  web:
+    build: 
+      context: build
+      dockerfile: web.Dockerfile
+    volumes :
+      - ./web:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - '44013:80'
+    networks:
+      - nrv.net
+

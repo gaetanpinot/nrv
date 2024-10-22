@@ -1,7 +1,12 @@
 phpdocker=nrv-api.nrv-1
+webdocker = nrv-web-1
 install: 
 	sudo docker compose up -d
 	sudo docker exec -it $(phpdocker) composer install
+watchSassNoSudo:
+	docker exec -it $(webdocker) node-sass -w ./sass -o ./css
+watchSass:
+	sudo docker exec -it $(webdocker) node-sass -w ./sass -o ./css
 installNoSudo:
 	docker compose up -d
 	docker exec -it $(phpdocker) composer install

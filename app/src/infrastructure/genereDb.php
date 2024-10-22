@@ -356,7 +356,6 @@ values (:id_spectacle, :id_soiree);';
 $insert = $co->prepare($query);
 foreach($soireeArray as $soir){
 	for($i = 0; $i<$faker->numberBetween(2,4);$i++){
-
 		$val = [
 			'id_spectacle' => $idSpectacle[$faker->numberBetween(0,count($idSpectacle)-1)],
 			'id_soiree' => $soir['id'],
