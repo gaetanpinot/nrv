@@ -22,18 +22,12 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         }
         return $utilisateurs;
     }
-
-    public function getUtilisateurByEmail(string $email): Utilisateur {
+    
+    public function getUtilisateurByEmail(string $email): Utilisateur{
         $request = $this->pdo->prepare('SELECT * FROM utilisateur WHERE email = :email');
         $request->execute(['email' => $email]);
-
-        $result = $request->fetch();
-
-        if (!$result) {
-            throw new \Exception("Utilisateur avec l'email {$email} non trouve.");
-        }
-
-        return new Utilisateur($result['id'], $result['email'], $result['nom'], $result['prenom'], $result['password'], $result['role']);
+        $request = $request->fetch();
+        return new Utilisateur($request['id'], $request['email'], $request['nom'], $request['prenom'], $request['password']);
     }
 
 
@@ -47,6 +41,7 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
             'password' => $utilisateur->password,
             'role' => $utilisateur->role
         ]);
+        $request = $request->fetch();
     }
 
     public function updateUtilisateur(Utilisateur $utilisateur): void{
@@ -59,11 +54,13 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
             'password' => $utilisateur->password,
             'role' => $utilisateur->role
         ]);
+        $request = $request->fetch();
     }
 
     public function deleteUtilisateur(Utilisateur $utilisateur): void{
         $request = $this->pdo->prepare('DELETE FROM utilisateur WHERE id = :id');
         $request->execute(['id' => $utilisateur->id]);
+        $request = $request->fetch();
     }
 
 }
