@@ -1,3 +1,266 @@
-h1 {
-  background-color: blue;
+%logo {
+    width: 100%;
+    border-radius: 100%;
+}
+
+%primaire-background {
+    background-color: #F9F7F4;
+    color: #FFF;
+    font-family: sans-serif;
+    font-weight: 400;
+}
+
+%second-background {
+    background-color: #11074D;
+}
+
+%thertiry-background {
+    background-color: #3ADDE2;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #000;
+}
+
+%light-blue {
+    color: #3ADDE2;
+}
+
+%dark-blue {
+    color: #11074D;
+}
+
+%creme {
+    color: #F9F7F4;
+}
+
+@mixin dropdown-menu {
+    #dropdown ul li {
+        display: none;
+        width: 50%;
+        z-index: 1;
+    }
+
+    #dropdown:hover ul li {
+        display: block;
+    }
+
+    #dropdown:hover ul {
+        margin-left: -10px;
+        padding-left: 0px;
+        margin-top: 5px;
+        flex-direction: column;
+    }
+}
+
+body {
+    @extend %primaire-background;
+    margin: 0px;
+}
+
+header {
+    @extend %second-background;
+    width: 100%;
+    height: 100px;
+}
+
+#top {
+    display: flex;
+    flex-direction: row;
+}
+
+#top h1 {
+    width: 50%;
+    font-size: 3em;
+    margin: 20px;
+}
+
+#top nav {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+#top nav .active {
+    background-color: #F9F7F4;
+    color: #11074D;
+}
+
+#top nav ul {
+    padding-left: 0px;
+    display: flex;
+    flex-direction: row;
+    @include dropdown-menu;
+    height: 40px;
+    gap: 0 10px;
+}
+
+#top nav ul li {
+    @extend %thertiry-background;
+    padding: 10px;
+    list-style: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#top nav #logo-panier {
+    width: 20px;
+}
+
+#top nav #logo-panier img {
+    @extend %logo;
+    background-color: none;
+}
+
+#top nav #img-compte {
+    padding: 0px;
+    background-color: unset;
+}
+
+#top nav #img-compte img {
+    @extend %logo;
+    width: 40px;
+}
+
+#top nav a {
+    text-decoration: none;
+    color: black;
+}
+
+main {
+    width: 100%;
+}
+
+main>* {
+    max-width: 1100px;
+    padding: 2em;
+    @extend %thertiry-background;
+    margin: 20px auto;
+}
+
+main #description {
+    @extend %dark-blue;
+    font-size: 1.2em;
+}
+
+main #description .creme {
+    @extend %creme;
+    font-size: 2em;
+}
+
+main #edt #schedule {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 1fr);
+    margin: 20px;
+}
+
+main #edt .entete {
+    display: contents;
+}
+
+main #edt .row {
+    display: contents;
+}
+
+main #edt .time-label {
+    font-weight: bold;
+}
+
+main #edt .day,
+main #edt .time-label {
+    text-align: center;
+    padding: 10px;
+    color: #F9F7F4;
+    background-color: #11074D;
+    border: 1px solid #3ADDE2;
+}
+
+main #edt .slot {
+    background-color: #F9F7F4;
+    border: 1px solid #3ADDE2;
+    height: 20px;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8em;
+}
+
+main #liste-soiree {
+    &>#filtre {
+        @extend %second-background;
+        height: 80px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    &>#soirees {
+        padding-top: 20px;
+        margin: auto;
+        max-width: 1000px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 800px auto;
+        gap: 20px;
+
+        &>article {
+            @extend %primaire-background;
+            text-align: center;
+            color: #11074D;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-sizing: content-box;
+            border-radius: 20px 10px 20px 0px;
+
+            &>.soiree-info {
+                &>ul {
+                    padding: 0px;
+                    list-style: none;
+                }
+
+                &>ul li {
+                    padding: 0;
+                    list-style: none;
+
+                    &>ul {
+                        padding: 0;
+                        list-style: none;
+                    }
+
+                    &>ul li {
+                        padding: 0;
+                        list-style: none;
+                    }
+                }
+            }
+
+            &>.concerts {
+                &>ul {
+                    padding: 0px;
+                    list-style: none;
+                }
+
+                &>ul li {
+                    padding: 0;
+                    list-style: none;
+
+                    &>ul {
+                        padding: 0;
+                        list-style: none;
+                    }
+
+                    &>ul li {
+                        padding: 0;
+                        list-style: none;
+                    }
+                }
+
+                &>ul li .info-concert {
+                    display: none;
+                }
+            }
+        }
+    }
 }
