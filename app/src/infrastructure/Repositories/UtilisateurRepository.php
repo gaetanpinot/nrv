@@ -6,7 +6,7 @@ use nrv\core\domain\entities\Utilisateur\Utilisateur;
 use nrv\core\repositoryInterfaces\UtilisateurRepositoryInterface;
 use PDO;
 
-class UserRepository implements UtilisateurRepositoryInterface{
+class UtilisateurRepository implements UtilisateurRepositoryInterface{
     
     protected PDO $pdo;
 
@@ -15,7 +15,12 @@ class UserRepository implements UtilisateurRepositoryInterface{
     }
 
     public function getUtilisateurs(): array{
-        return $this->pdo->query('SELECT * FROM utilisateur')->fetchAll();
+        $result = $this->pdo->query('SELECT * FROM utilisateur')->fetchAll();
+        $utilisateurs = [];
+        foreach($result as $row){
+            $utilisateurs[] = new Utilisateur($row['email'], $row['nom'], $row['prenom'], $row['password']);
+        }
+        return $utilisateurs;
     }
 
     public function getUtilisateurByEmail(string $email): Utilisateur{
