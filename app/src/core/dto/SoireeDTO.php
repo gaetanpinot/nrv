@@ -13,13 +13,13 @@ class SoireeDTO extends DTO
     public string $nom;
     public int $id_theme;
     public DateTime $date;
-    public DateTime $heureDebut;
+    public DateTime $heure_debut;
     public DateTime $duree;
     public string $id_lieu;
-    public int $nbPlaces;
-    public int $nbPlacesRestantes;
-    public float $tarifNormal;
-    public float $tarifReduit;
+    public int $nb_places_assises_restantes;
+    public int $nb_places_debout_restantes;
+    public float $tarif_normal;
+    public float $tarif_reduit;
 
     public function __construct(Soiree $soiree)
     {
@@ -27,14 +27,13 @@ class SoireeDTO extends DTO
         $this->nom = $soiree->nom;
         $this->id_theme = $soiree->id_theme;
         $this->date = $soiree->date;
-        $this->heureDebut = $soiree->heureDebut;
+        $this->heure_debut = $soiree->heure_debut;
         $this->duree = $soiree->duree;
         $this->id_lieu = $soiree->id_lieu;
-        $this->nbPlaces = $soiree->nbPlaces;
-        $this->nbPlacesRestantes = $soiree->nbPlacesRestantes;
-        $this->tarifNormal = $soiree->tarifNormal;
-        $this->tarifReduit = $soiree->tarifReduit;
+        $this->nb_places_assises_restantes = $soiree->nb_places_assises_restantes;
+        $this->nb_places_debout_restantes = $soiree->nb_places_debout_restantes;
+        $this->tarif_normal = $soiree->tarif_normal;
+        $this->tarif_reduit = $soiree->tarif_reduit;
     }
-
 
 }
