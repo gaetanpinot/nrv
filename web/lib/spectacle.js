@@ -12,7 +12,10 @@ export function afficheSpectacles(){
         .then( (resp) => resp.json( ))
         .then( (data)=>{ 
             // console.log(data);
-            document.querySelector('#soiree').innerHTML = TEMPLATE_SPECTACLE(data[0]);
+            data.forEach(function(val){
+                console.log(val);
+            document.querySelector('#liste-soiree').innerHTML += TEMPLATE_SPECTACLE(val);
+            });
         });
 }
 

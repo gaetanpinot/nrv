@@ -84,11 +84,6 @@
 
         <div id="liste-soiree">
 
-            <div id="filtre">
-            </div>
-
-            <div id="soirees">
-            </div>
         </div>
 
 
@@ -96,12 +91,7 @@
     </main>
     <footer></footer>
 
-    <script id="templateSpectacle">
-        <picture class="image">
-        <img src ="{{this.url_image}}">
-        </picture>
-                    <div class="title">{{this.titre}}</div>
-                    <div class="soiree-info">
+    <script id="templateSoiree">
                         <ul>
                             <li>
                                 <ul>
@@ -114,8 +104,8 @@
                             <li class="tarif">
                                 <ul>
                                     <li>prix</li>
-                                    <li id="normal "> tarif normal: 10€</li>
-                                    <li id="reduit"> tarif reduit: 5€</li>
+                                    <li id="normal ">tarif norma : {{this.tarif_normal}}</li>
+                                    <li id="reduit"> tarif reduit: {{this.tarif_reduit}}</li>
                                     <!-- todo hover tooltips-->
                                 </ul>
 
@@ -123,100 +113,38 @@
                             <li class="places">
                                 <ul>
                                     <li>Places restante</li>
-                                    <li id="assises">50 places assises</li>
-                                    <li id="debout">150 places debout</li>
+                                    <li id="assises">{{this.nb_places_assises_restantes}} places assises</li>
+                                    <li id="debout">{{this.nb_places_debout_restantes}} places debout</li>
                                     <!-- todo barre place restante-->
                                 </ul>
                             </li>
                         </ul>
+    </script>
+
+    <script id="templateSpectacle">
+    <div class="concerts">
+        <h3>concert: </h3>
+        <ul>
+            <li>
+                <h4 class="title representation toggle">{{this.titre}}</h4>
+                <div class="info-concert">
+                    <div class="concert-image">
+                    <img src = "{{this.url_image}}" alt ="image spectacle" style="width:30em;">
                     </div>
 
-                    <div class="concerts">
-                        <h3>concert: </h3>
-                        <ul>
-                            <li>
-                                <h4 class="title representation toggle">jameellle</h4>
-                                <div class="info-concert">
-                                    <div class="concert-image"></div>
-
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-
-                            </li>
-                            <li>
-                                <h4 class="title representation toggle">jamaaaaeellle</h4>
-                                <div class="info-concert">
-                                    <div class="concert-image"></div>
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <h4 class="title representation toggle">eeeee</h4>
-                                <div class="info-concert">
-                                    <div class="concert-image"></div>
-
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="description">
+                        <p class="description-content">{{this.description}}</p>
                     </div>
+
+                            <ul class="artistes">
+                            {{#each this.artistes}}
+                                <li>{{this.prenom}}</li>
+                                {{/each}}
+                            </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
 
     </script>
 
