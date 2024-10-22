@@ -26,12 +26,16 @@ class LieuRepository implements LieuRepositoryInterface{
     }
 
     public function getLieuById(string $id): Lieu{
-        $result = $this->pdo->query('SELECT * FROM lieu_spectacle WHERE id = ' . $id)->fetch();
+        $result = $this->pdo->query('SELECT * FROM lieu_spectacle WHERE id = :id');
+        $result->execute(['id' => $id]);
+        $result = $result->fetch();
         return new Lieu($result['id'], $result['nom'], $result['adresse'], $result['nb_places_assises'], $result['nb_places_debout'], $result['lien_image']);
     }
 
     public function getLieuBySoiree(Soiree $soiree): Lieu{
-        $result = $this->pdo->query('SELECT * FROM lieu_spectacle WHERE id = ' . $soiree->id_lieu)->fetch();
+        $result = $this->pdo->query('SELECT * FROM lieu_spectacle WHERE id = :id_lieu');
+        $result->execute(['id_lieu' => $soiree->id_lieu]);
+        $result = $result->fetch();
         return new Lieu($result['id'], $result['nom'], $result['adresse'], $result['nb_places_assises'], $result['nb_places_debout'], $result['lien_image']);
     }
 
@@ -45,6 +49,7 @@ class LieuRepository implements LieuRepositoryInterface{
             'nb_places_debout' => $lieu->nb_places_debout,
             'lien_image' => $lieu->lien_image
         ]);
+        $request = $request->fetch();
     }
 
     public function updateLieu(Lieu $lieu): void{
@@ -57,10 +62,12 @@ class LieuRepository implements LieuRepositoryInterface{
             'nb_places_debout' => $lieu->nb_places_debout,
             'lien_image' => $lieu->lien_image
         ]);
+        $request = $request->fetch();
     }
 
     public function deleteLieu(string $id): void{
         $request = $this->pdo->prepare('DELETE FROM lieu_spectacle WHERE id = :id');
         $request->execute(['id' => $id]);
+        $request = $request->fetch();
     }
 }

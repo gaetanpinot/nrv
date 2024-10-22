@@ -21,10 +21,12 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         foreach($result as $spectacle){
             $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
             $artistes_prep->execute(['spectacle_id' => $spectacle['id']]);
+            $artistes_prep = $artistes_prep->fetchAll();
             $artistes = [];
             foreach($artistes_prep as $artiste){
                 $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
                 $artiste_req->execute(['id' => $artiste['id_artiste']]);
+                $artiste_req = $artiste_req->fetch();
                 $artistes[] = new Artiste($artiste_req['id'], $artiste_req['prenom']);
             }
             $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $artistes);
@@ -50,12 +52,15 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     public function getSpectacleById(string $id): Spectacle{
         $result = $this->pdo->prepare('SELECT * FROM spectacle WHERE id = :id');
         $result->execute(['id' => $id]);
+        $result = $result->fetch();
         $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
         $artistes_prep->execute(['spectacle_id' => $result['id_artiste']]);
+        $artistes_prep = $artistes_prep->fetchAll();
         $artistes = [];
         foreach($artistes_prep as $artiste){
             $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
             $artiste_req->execute(['id' => $artiste['id']]);
+            $artiste_req = $artiste_req->fetch();
             $artistes[] = new Artiste($artiste_req['id'], $artiste_req['prenom']);
         }
         return new Spectacle($result['id'], $result['titre'], $result['description'], $result['url_url_video'], $result['url_image'], $artistes);
@@ -70,6 +75,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             'url_video' => $spectacle->url_video,
             'url_image' => $spectacle->url_image
         ]);
+        $request = $request->fetch();
     }
 
     public function updateSpectacle(Spectacle $spectacle): void{
@@ -81,12 +87,15 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             'url_video' => $spectacle->url_video,
             'url_image' => $spectacle->url_image
         ]);
+        $request->fetch();
     }
 
     public function deleteSpectacle(string $id): void{
         $request = $this->pdo->prepare('DELETE FROM spectacle WHERE id = :id');
         $request->execute(['id' => $id]);
+        $request = $request->fetch();
         $request = $this->pdo->prepare('DELETE FROM spectacle_artistes WHERE id_spectacle = :id');
         $request->execute(['id' => $id]);
+        $request = $request->fetch();
     }
 }
