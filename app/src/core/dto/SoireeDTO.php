@@ -36,4 +36,15 @@ class SoireeDTO extends DTO
         $this->tarif_reduit = $soiree->tarif_reduit;
     }
 
+    public function jsonSerialize(): array
+    {
+        $vars = get_object_vars($this);
+        unset($vars['businessValidator']);
+        $vars['date']=$vars['date']->format('Y-m-d');
+        $vars['heure_debut']=$vars['heure_debut']->format('H:i');
+        $vars['duree']=$vars['duree']->format('H:i');
+        return $vars;
+    }
+
+
 }
