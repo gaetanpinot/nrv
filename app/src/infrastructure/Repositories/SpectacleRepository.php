@@ -19,11 +19,13 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $result = $this->pdo->query('SELECT * FROM spectacle')->fetchAll();
         $spectacles = [];
         foreach($result as $spectacle){
-            $artistes_prep = $this->pdo->prepare('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
+            $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
             $artistes_prep->execute(['spectacle_id' => $spectacle['id']]);
             $artistes = [];
             foreach($artistes_prep as $artiste){
-                $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
+                $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
+                $artiste_req->execute(['id' => $artiste['id_artiste']]);
+                $artistes[] = new Artiste($artiste_req['id'], $artiste_req['prenom']);
             }
             $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $artistes);
         }
@@ -33,11 +35,13 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     public function getSpectacleById(string $id): Spectacle{
         $result = $this->pdo->prepare('SELECT * FROM spectacle WHERE id = :id');
         $result->execute(['id' => $id]);
-        $artistes_prep = $this->pdo->prepare('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
-        $artistes_prep->execute(['spectacle_id' => $result['id']]);
+        $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
+        $artistes_prep->execute(['spectacle_id' => $result['id_artiste']]);
         $artistes = [];
         foreach($artistes_prep as $artiste){
-            $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
+            $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
+            $artiste_req->execute(['id' => $artiste['id']]);
+            $artistes[] = new Artiste($artiste_req['id'], $artiste_req['prenom']);
         }
         return new Spectacle($result['id'], $result['titre'], $result['description'], $result['url_url_video'], $result['url_image'], $artistes);
     }
