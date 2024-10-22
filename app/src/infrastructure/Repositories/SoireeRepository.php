@@ -18,7 +18,7 @@ class SoireeRepository implements SoireeRepositoryInterface{
         $result = $this->pdo->query('SELECT * FROM soiree')->fetchAll();
         $soirees = [];
         foreach($result as $soiree){
-            $soirees[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $soiree['id_lieu'], $soiree['nb_places'], $soiree['nb_places_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
+            $soirees[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $soiree['id_lieu'], $soiree['nb_places_assises_restantes'], $soiree['nb_places_debout_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
         }
         return $soirees;
     }
@@ -27,7 +27,7 @@ class SoireeRepository implements SoireeRepositoryInterface{
         $request = $this->pdo->prepare('SELECT * FROM soiree WHERE id = :id');
         $request->execute(['id' => $id]);
         $request = $request->fetch();
-        return new Soiree($request['id'], $request['nom'], $request['id_theme'], $request['date'], $request['heure_debut'], $request['duree'], $request['id_lieu'], $request['nb_places'], $request['nb_places_restantes'], $request['tarif_normal'], $request['tarif_reduit']);
+        return new Soiree($request['id'], $request['nom'], $request['id_theme'], $request['date'], $request['heure_debut'], $request['duree'], $request['id_lieu'], $request['nb_places_assises_restantes'], $request['nb_places_debout_restantes'], $request['tarif_normal'], $request['tarif_reduit']);
     }
 
     public function save(Soiree $soiree): void{
