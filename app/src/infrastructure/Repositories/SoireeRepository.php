@@ -18,12 +18,56 @@ class SoireeRepository implements SoireeRepositoryInterface{
     }
 
     public function getSoirees(): array{
-        $result = $this->pdo->query('SELECT * FROM soiree')->fetchAll();
-        $soirees = [];
-        foreach($result as $soiree){
-            $soirees[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $soiree['id_lieu'], $soiree['nb_places_assises_restantes'], $soiree['nb_places_debout_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
+        $request = $this->pdo->prepare("SELECT soiree.*,
+                                                json_agg(json_build_object('id', spectacle.id, 'titre', spectacle.titre, 'description', spectacle.description, 'url_image', spectacle.url_image, 'url_video', spectacle.url_video, 
+                                                    'artistes', (
+                                                                   SELECT json_agg(json_build_object(
+                                                                       'id', artiste.id, 
+                                                                       'prenom', artiste.prenom
+                                                                   ))
+                                                                   FROM artiste
+                                                                   INNER JOIN spectacle_artistes ON artiste.id = spectacle_artistes.id_artiste
+                                                                   WHERE spectacle_artistes.id_spectacle = spectacle.id
+                                                                   )
+                                                    )) as spectacle,
+                                                json_build_object('id', lieu_spectacle.id, 'nom', lieu_spectacle.nom, 'adresse', lieu_spectacle.adresse, 'nb_places_assises', lieu_spectacle.nb_places_assises, 'nb_places_debout', lieu_spectacle.nb_places_debout, 'lien_image', lieu_spectacle.lien_image) as lieu
+                                                FROM soiree,
+                                                spectacles_soiree,
+                                                spectacle,
+                                                spectacle_artistes,
+                                                artiste,
+                                                lieu_spectacle
+                                                WHERE 
+                                                soiree.id = spectacles_soiree.id_soiree and
+                                                spectacle.id = spectacles_soiree.id_spectacle and
+                                                spectacle.id = spectacle_artistes.id_spectacle and
+                                                artiste.id = spectacle_artistes.id_artiste
+                                                
+                                                GROUP BY soiree.id, spectacle.id, lieu_spectacle.id;");
+
+        $soirees = $request->fetch();
+
+        foreach($soirees as $soiree){
+
+            $lieu_decodee = json_decode($soiree['lieu'],true);
+            $lieu = new Lieu($lieu_decodee['id'], $lieu_decodee['nom'], $lieu_decodee['adresse'], $lieu_decodee['nb_places_assises'], $lieu_decodee['nb_places_debout'], $lieu_decodee['lien_image']);
+
+            $spectacles = array();
+            $spectacles_decodee = json_decode($soiree['spectacle'], true);
+            foreach ($spectacles_decodee as $spec) {
+                $artistes = array();
+                foreach ($spec['artistes'] as $artiste) {
+                    $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
+                }
+
+                $spectacles[] = new Spectacle($spec['id'], $spec['titre'], $spec['description'], $spec['url_video'], $spec['url_image'], $artistes);
+            }
+
+            $retour = [];
+            $retour[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $lieu, $spectacles,
+                $soiree['nb_places_assises_restantes'], $soiree['nb_places_debout_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
         }
-        return $soirees;
+        return $retour;
     }
 
     public function getSoireeById(string $id): Soiree{
