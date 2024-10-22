@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Slim\Exception\HttpNotFoundException;
 use nrv\application\actions\HomeAction;
+use nrv\application\actions\GetSoireesSpectacles;
 
 return function (\Slim\App $app): \Slim\App {
 
@@ -11,6 +12,8 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/soirees/{id}', \nrv\application\actions\AfficheDetailSoireeAction::class);
 
     $app->get('/spectacles', \nrv\application\actions\AfficheListeSpectaclesAction::class);
+    
+    $app->get('/spectacles/{id}/soirees[/]', GetSoireesSpectacles::class);
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;

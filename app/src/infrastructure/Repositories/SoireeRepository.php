@@ -16,7 +16,19 @@ class SoireeRepository implements SoireeRepositoryInterface{
     public function __construct(Container $cont){
         $this->pdo = $cont->get('pdo.commun');
     }
+    public function getSoireeBySpectacleId(string $id): array{
+        $query = "select soiree.id as id from soiree,spectacles_soiree where soiree.id = spectacles_soiree.id_soiree and spectacles_soiree.id_spectacle = :id;";
+        $result = $this->pdo->prepare($query);
+        $result->execute(['id'=>$id]);
+        $soirees = $result->fetchAll();
+        $retour = [];
+        foreach($soirees as $s){
+            $retour[]= $this->getSoireeById($s['id']);
+        }
+        return $retour;
 
+
+    }
     public function getSoirees(): array{
         $result = $this->pdo->query('SELECT * FROM soiree')->fetchAll();
         $soirees = [];
@@ -27,34 +39,48 @@ class SoireeRepository implements SoireeRepositoryInterface{
     }
 
     public function getSoireeById(string $id): Soiree{
-        $request = $this->pdo->prepare("SELECT soiree.*,
-                                                json_agg(json_build_object('id', spectacle.id, 'titre', spectacle.titre, 'description', spectacle.description, 'url_image', spectacle.url_image, 'url_video', spectacle.url_video, 
-                                                    'artistes', (
-                                                                   SELECT json_agg(json_build_object(
-                                                                       'id', artiste.id, 
-                                                                       'prenom', artiste.prenom
-                                                                   ))
-                                                                   FROM artiste
-                                                                   INNER JOIN spectacle_artistes ON artiste.id = spectacle_artistes.id_artiste
-                                                                   WHERE spectacle_artistes.id_spectacle = spectacle.id
-                                                                   )
-                                                    )) as spectacle,
-                                                json_build_object('id', lieu_spectacle.id, 'nom', lieu_spectacle.nom, 'adresse', lieu_spectacle.adresse, 'nb_places_assises', lieu_spectacle.nb_places_assises, 'nb_places_debout', lieu_spectacle.nb_places_debout, 'lien_image', lieu_spectacle.lien_image) as lieu
-                                                FROM soiree,
-                                                spectacles_soiree,
-                                                spectacle,
-                                                spectacle_artistes,
-                                                artiste,
-                                                lieu_spectacle
-                                                WHERE 
-                                                soiree.id = spectacles_soiree.id_soiree and
-                                                spectacle.id = spectacles_soiree.id_spectacle and
-                                                spectacle.id = spectacle_artistes.id_spectacle and
-                                                artiste.id = spectacle_artistes.id_artiste and
-                                                
-                                                soiree.id = :id
-                                                
-                                                GROUP BY soiree.id, spectacle.id, lieu_spectacle.id;");
+        
+        $request = $this->pdo->prepare("SELECT 
+    soiree.*,
+    json_agg(
+        json_build_object(
+            'id', spectacle.id, 
+            'titre', spectacle.titre, 
+            'description', spectacle.description, 
+            'url_image', spectacle.url_image, 
+            'url_video', spectacle.url_video, 
+            'artistes', (
+                SELECT json_agg(
+                    json_build_object(
+                        'id', artiste.id, 
+                        'prenom', artiste.prenom
+                    )
+                )
+                FROM artiste
+                INNER JOIN spectacle_artistes 
+                    ON artiste.id = spectacle_artistes.id_artiste
+                WHERE spectacle_artistes.id_spectacle = spectacle.id
+            )
+        )
+    ) as spectacle,
+    json_build_object(
+        'id', lieu_spectacle.id, 
+        'nom', lieu_spectacle.nom, 
+        'adresse', lieu_spectacle.adresse, 
+        'nb_places_assises', lieu_spectacle.nb_places_assises, 
+        'nb_places_debout', lieu_spectacle.nb_places_debout, 
+        'lien_image', lieu_spectacle.lien_image
+    ) as lieu
+FROM soiree
+INNER JOIN spectacles_soiree 
+    ON soiree.id = spectacles_soiree.id_soiree
+INNER JOIN spectacle 
+    ON spectacle.id = spectacles_soiree.id_spectacle
+INNER JOIN lieu_spectacle 
+    ON soiree.id_lieu = lieu_spectacle.id
+WHERE soiree.id = :id
+GROUP BY soiree.id, lieu_spectacle.id;
+");
 
         $request->execute(['id' => $id]);
         $soiree = $request->fetch();
