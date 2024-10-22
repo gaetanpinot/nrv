@@ -10,8 +10,8 @@ use nrv\core\dto\UtilisateurDTO;
 
 class Theme extends Entity
 {
-    public string $id;
-    public string $label;
+    protected string $id;
+    protected string $label;
 
     public function __construct($id, $label)
     {

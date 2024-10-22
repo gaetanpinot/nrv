@@ -9,10 +9,10 @@ use nrv\core\dto\UtilisateurDTO;
 
 class Billet extends Entity
 {
-    public string $id;
-    public string $id_user;
-    public string $id_spectacle;
-    public float $tarif;
+    protected string $id;
+    protected string $id_user;
+    protected string $id_spectacle;
+    protected float $tarif;
 
     public function __construct($id, $id_user, $id_spectacle, $tarif)
     {

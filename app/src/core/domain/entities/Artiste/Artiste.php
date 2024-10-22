@@ -7,8 +7,8 @@ use nrv\core\dto\ArtisteDTO;
 
 class Artiste extends Entity
 {
-    public string $id;
-    public string $prenom;
+    protected string $id;
+    protected string $prenom;
 
     public function __construct($id, $prenom)
     {

@@ -9,9 +9,9 @@ use nrv\core\dto\UtilisateurDTO;
 
 class Panier extends Entity
 {
-    public string $id;
-    public string $email_utilisateur;
-    public bool $is_valide;
+    protected string $id;
+    protected string $email_utilisateur;
+    protected bool $is_valide;
 
     public function __construct($id, $email_utilisateur, $is_valide)
     {

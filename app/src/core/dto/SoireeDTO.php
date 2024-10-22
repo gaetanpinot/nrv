@@ -23,17 +23,17 @@ class SoireeDTO extends DTO
 
     public function __construct(Soiree $soiree)
     {
-        $this->id = $soiree->getId();
-        $this->nom = $soiree->getNom();
-        $this->id_theme = $soiree->getIdTheme();
-        $this->date = $soiree->getDate();
-        $this->heureDebut = $soiree->getHeureDebut();
-        $this->duree = $soiree->getDuree();
-        $this->id_lieu = $soiree->getIdLieu();
-        $this->nbPlaces = $soiree->getNbPlaces();
-        $this->nbPlacesRestantes = $soiree->getNbPlacesRestantes();
-        $this->tarifNormal = $soiree->getTarifNormal();
-        $this->tarifReduit = $soiree->getTarifReduit();
+        $this->id = $soiree->id;
+        $this->nom = $soiree->nom;
+        $this->id_theme = $soiree->id_theme;
+        $this->date = $soiree->date;
+        $this->heureDebut = $soiree->heureDebut;
+        $this->duree = $soiree->duree;
+        $this->id_lieu = $soiree->id_lieu;
+        $this->nbPlaces = $soiree->nbPlaces;
+        $this->nbPlacesRestantes = $soiree->nbPlacesRestantes;
+        $this->tarifNormal = $soiree->tarifNormal;
+        $this->tarifReduit = $soiree->tarifReduit;
     }
 
 

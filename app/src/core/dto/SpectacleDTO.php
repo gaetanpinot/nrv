@@ -16,12 +16,12 @@ class SpectacleDTO extends DTO{
     public array $artistes;
 
     public function __construct(Spectacle $spectacle){
-        $this->id = $spectacle->getId();
-        $this->titre = $spectacle->getTitre();
-        $this->description = $spectacle->getDescription();
-        $this->url_video = $spectacle->geturl_Video();
-        $this->url_image = $spectacle->geturl_Image();
-        $this->date = $spectacle->getDate();
-        $this->artistes = $spectacle->getArtistes();
+        $this->id = $spectacle->id;
+        $this->titre = $spectacle->titre;
+        $this->description = $spectacle->description;
+        $this->url_video = $spectacle->url_video;
+        $this->url_image = $spectacle->url_image;
+        $this->date = $spectacle->date;
+        $this->artistes = $spectacle->artistes;
     }
 }
