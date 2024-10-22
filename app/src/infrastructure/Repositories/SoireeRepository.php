@@ -25,7 +25,9 @@ class SoireeRepository implements SoireeRepositoryInterface{
 
     public function getSoireeById(string $id): Soiree{
         $request = $this->pdo->prepare('SELECT * FROM soiree WHERE id = :id');
+
         $request->execute(['id' => $id]);
+        var_dump($request);
         return new Soiree($request['id'], $request['nom'], $request['id_theme'], $request['date'], $request['heure_debut'], $request['duree'], $request['id_lieu'], $request['nb_places'], $request['nb_places_restantes'], $request['tarif_normal'], $request['tarif_reduit']);
     }
 

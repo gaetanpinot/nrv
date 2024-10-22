@@ -19,10 +19,11 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $result = $this->pdo->query('SELECT * FROM spectacle')->fetchAll();
         $spectacles = [];
         foreach($result as $spectacle){
-            $artistes_prep = $this->pdo->prepare('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
+            $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
             $artistes_prep->execute(['spectacle_id' => $spectacle['id']]);
             $artistes = [];
             foreach($artistes_prep as $artiste){
+                var_dump($artiste);
                 $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
             }
             $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $artistes);
