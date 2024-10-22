@@ -15,7 +15,13 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     }
 
     public function getSpectacles(): array{
-        return $this->pdo->query('SELECT * FROM spectacle')->fetchAll();
+        $result = $this->pdo->query('SELECT * FROM spectacle')->fetchAll();
+        $spectacles = [];
+        foreach($result as $spectacle){
+            $artistes = $this->pdo->query('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = ' . $spectacle['id'])->fetchAll();
+            $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $spectacle['date'], $artistes);
+        }
+        return $spectacles;
     }
 
     public function getSpectacleById(string $id): Spectacle{

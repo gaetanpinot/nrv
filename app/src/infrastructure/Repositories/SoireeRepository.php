@@ -15,7 +15,12 @@ class SoireeRepository implements SoireeRepositoryInterface{
     }
 
     public function getSoirees(): array{
-        return $this->pdo->query('SELECT * FROM soiree')->fetchAll();
+        $result = $this->pdo->query('SELECT * FROM soiree')->fetchAll();
+        $soirees = [];
+        foreach($result as $soiree){
+            $soirees[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $soiree['id_lieu'], $soiree['nb_places'], $soiree['nb_places_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
+        }
+        return $soirees;
     }
 
     public function getSoireeById(string $id): Soiree{
