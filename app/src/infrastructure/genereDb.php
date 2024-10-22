@@ -18,7 +18,8 @@ label varchar(50)
 
 $user = '
 create table utilisateur(
-email varchar(100) primary key,
+id uuid primary key,
+email varchar(100),
 nom varchar(50),
 prenom varchar(50),
 password varchar(100)
@@ -27,9 +28,9 @@ password varchar(100)
 $panier = '
 create table panier(
 id uuid primary key,
-email_utilisateur varchar(50) not null,
+id_utilisateur uuid not null,
 is_valide bool not null,
-foreign key(email_utilisateur) references utilisateur(email)
+foreign key(id_utilisateur) references utilisateur(id)
 );';
 
 $lieu_spectacle = '
@@ -87,10 +88,10 @@ foreign key(id_spectacle) references spectacle(id)
 $billet = '
 create table billet(
 id uuid primary key,
-email_utilisateur varchar(50) not null,
+id_utilisateur uuid not null,
 id_soiree uuid not null,
 tarif numeric(6,2) not null,
-foreign key(email_utilisateur) references utilisateur(email),
+foreign key(id_utilisateur) references utilisateur(id),
 foreign key(id_soiree) references soiree(id)
 );';
 
@@ -144,23 +145,24 @@ foreach($theme as $t){
 // password varchar(50)
 
 echo "debut utilisateur \r\n";
-$userMail=[];
+$userID=[];
 $query = 'insert into utilisateur
-(email, nom, prenom, password)
-values (:email, :nom, :prenom, :password);';
+(id, email, nom, prenom, password)
+values (:id, :email, :nom, :prenom, :password);';
 $insert = $co->prepare($query);
 for($i = 0; $i<$nbUser ; $i++){
 
 	$nom = $faker->lastName();
 	$prenom = $faker->firstName();
 	$val = [
-		'email' => "$nom.$prenom@".$faker->domainName(),
+		'id' => $faker->uuid(),
+		'email' => $faker->email(),
 		'nom' =>$nom,
 		'prenom' => $prenom,
-		'password'=> password_hash("$nom.$prenom",PASSWORD_DEFAULT),
+		'password'=> password_hash("1234",PASSWORD_DEFAULT),
 	];
 	$insert->execute($val);
-	$userMail[] = $val['email'];
+	$userID[] = $val['id'];
 }
 
 // create table panier(
@@ -169,8 +171,8 @@ for($i = 0; $i<$nbUser ; $i++){
 // is_valide bool not null,
 // foreign key(email_utilisateur) references utilisateur(email)
 $query = 'insert into panier 
-(id, email_utilisateur, is_valide)
-values (:id, :email, :valide);';
+(id, id_utilisateur, is_valide)
+values (:id, :id, :valide);';
 
 
 // id uuid primary key,
@@ -323,14 +325,14 @@ $billet;
 // tarif numeric(6,2) not null,
 echo 'debut billet';
 $query = 'insert into billet
-(id, email_utilisateur, id_soiree, tarif)
-values (:id, :email_utilisateur, :id_soiree, :tarif);';
+(id, id_utilisateur, id_soiree, tarif)
+values (:id, :id_utilisateur, :id_soiree, :tarif);';
 $insert = $co->prepare($query);
 for($i = 0; $i<$nbBillet; $i++){
 	$so = $soireeArray[$faker->numberBetween(0,count($soireeArray)-1)];
 	$val = [
 		'id' => $faker->uuid(),
-		'email_utilisateur' => $userMail[$faker->numberBetween(0, count($userMail)-1)],
+		'id_utilisateur' => $userID[$faker->numberBetween(0, count($userID)-1)],
 		'id_soiree' => $so['id'],
 		'tarif' => $so['tarif_normal']
 	];
