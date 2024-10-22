@@ -1,0 +1,7 @@
+driver=pgsql
+user=user
+password=toto
+host=nrv.db
+port=5432
+dbname=nrv
+
