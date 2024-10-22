@@ -315,8 +315,7 @@ insert into spectacle_artistes
 (id_spectacle, id_artiste)
 values (:id_spectacle, :id_artiste);';
 $insert = $co->prepare($query);
-for($i = 0; $i<$nbSpectacle; $i++){
-	$sp = $idSpectacle[$faker->numberBetween(0,count($idSpectacle)-1)];
+foreach($idSpectacle as $sp){
 	for($j = 0; $j<3; $j++){
 		$val = [
 			'id_spectacle' => $sp,
