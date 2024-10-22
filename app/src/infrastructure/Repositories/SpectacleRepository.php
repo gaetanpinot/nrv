@@ -21,6 +21,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         foreach($result as $spectacle){
             $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
             $artistes_prep->execute(['spectacle_id' => $spectacle['id']]);
+            $artistes_prep = $artistes_prep->fetchAll();
             $artistes = [];
             foreach($artistes_prep as $artiste){
                 $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
@@ -36,8 +37,10 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     public function getSpectacleById(string $id): Spectacle{
         $result = $this->pdo->prepare('SELECT * FROM spectacle WHERE id = :id');
         $result->execute(['id' => $id]);
+        $result = $result->fetch();
         $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
         $artistes_prep->execute(['spectacle_id' => $result['id_artiste']]);
+        $artistes_prep = $artistes_prep->fetchAll();
         $artistes = [];
         foreach($artistes_prep as $artiste){
             $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
@@ -57,6 +60,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             'url_video' => $spectacle->url_video,
             'url_image' => $spectacle->url_image
         ]);
+        $request = $request->fetch();
     }
 
     public function updateSpectacle(Spectacle $spectacle): void{
@@ -68,12 +72,15 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             'url_video' => $spectacle->url_video,
             'url_image' => $spectacle->url_image
         ]);
+        $request->fetch();
     }
 
     public function deleteSpectacle(string $id): void{
         $request = $this->pdo->prepare('DELETE FROM spectacle WHERE id = :id');
         $request->execute(['id' => $id]);
+        $request = $request->fetch();
         $request = $this->pdo->prepare('DELETE FROM spectacle_artistes WHERE id_spectacle = :id');
         $request->execute(['id' => $id]);
+        $request = $request->fetch();
     }
 }
