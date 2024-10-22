@@ -23,8 +23,6 @@ class AfficheDetailSoireeAction extends AbstractAction
     {
         //Affichage du détail d’une soirée : nom de la soirée, thématique, date et horaire, lieu, tarifs,
         //ainsi que la liste des spectacles : titre, artistes, description, style de musique, vidéo.
-// $app->get('/soirees/{id}', \nrv\application\actions\AfficheDetailSoireeAction::class);
-
         $data = $rq->getAttribute('id');
         if (!isset($data)) {
             throw new HttpBadRequestException($rq, 'Missing soiree_id');

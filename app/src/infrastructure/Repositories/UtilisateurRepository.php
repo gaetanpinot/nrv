@@ -27,7 +27,7 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         $request = $this->pdo->prepare('SELECT * FROM utilisateur WHERE email = :email');
         $request->execute(['email' => $email]);
         $request = $request->fetch();
-        return new Utilisateur($request['id'], $request['email'], $request['nom'], $request['prenom'], $request['password']);
+        return new Utilisateur($request['id'], $request['email'], $request['nom'], $request['prenom'], $request['password'], $request['role']);
     }
 
 
