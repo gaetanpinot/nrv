@@ -17,13 +17,13 @@ class ThemeRepository implements ThemeRepositoryInterface
     }
     public function getTheme(): array
     {
-        return $this->pdo->query('SELECT * FROM artiste')->fetchAll();
+        return $this->pdo->query('SELECT * FROM theme')->fetchAll();
     }
 
     public function getThemeById(string $id): Theme
     {
         $result = $this->pdo->query('SELECT * FROM theme WHERE id = ' . $id)->fetch();
-        return new Artiste($result['id'], $result['label']);
+        return new Theme($result['id'], $result['label']);
 
     }
 

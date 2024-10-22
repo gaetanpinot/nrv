@@ -26,26 +26,26 @@ class PanierRepository implements PanierRepositoryInterface
     public function getPanierById(string $id): Panier
     {
         $result = $this->pdo->query('SELECT * FROM panier WHERE id = ' . $id)->fetch();
-        return new Panier($result['id'], $result['$email_utilisateur'], $result['is_valide']);
+        return new Panier($result['id'], $result['id_utilisateur'], $result['is_valide']);
 
     }
 
     public function save(Panier $panier): void
     {
-        $request = $this->pdo->prepare('INSERT INTO panier (id, email_utilisateur, is_valide) VALUES (:id, :email_utilisateur, :is_valide) ON CONFLICT (id) DO UPDATE SET email_utilisateur = :email_utilisateur, is_valide = :is_valide');
+        $request = $this->pdo->prepare('INSERT INTO panier (id, id_utilisateur, is_valide) VALUES (:id, :id_utilisateur, :is_valide) ON CONFLICT (id) DO UPDATE SET id_utilisateur = :id_utilisateur, is_valide = :is_valide');
         $request->execute([
             'id' => $panier->id,
-            'email_utilisateur' => $panier->email_utilisateur,
+            'id_utilisateur' => $panier->id_utilisateur,
             'is_valide' => $panier->is_valide,
         ]);
     }
 
     public function updatePanier(Panier $panier): void
     {
-        $request = $this->pdo->prepare('UPDATE panier SET email_utilisateur = :email_utilisateur, is_valide = :is_valide WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE panier SET id_utilisateur = :id_utilisateur, is_valide = :is_valide WHERE id = :id');
         $request->execute([
             'id' => $panier->id,
-            'email_utilisateur' => $panier->email_utilisateur,
+            'id_utilisateur' => $panier->id_utilisateur,
             'is_valide' => $panier->is_valide,
         ]);
     }
