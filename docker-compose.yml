@@ -1,6 +1,7 @@
 networks:
   nrv.net:
     driver: bridge
+
 services:
 
   api.nrv:
@@ -19,6 +20,7 @@ services:
     depends_on:
       - nrv.db
     command: php -S 0.0.0.0:80 -t /var/php/public
+    restart: unless-stopped
     
   nrv.db:
     image: 'postgres:latest'
@@ -29,6 +31,7 @@ services:
       - nrv.net
     volumes:
       - ./app/sql:/var/sql'
+    restart: unless-stopped
 
   adminer:
     build:
@@ -39,6 +42,7 @@ services:
     networks:
       - nrv.net
     command: php -S 0.0.0.0:8080 -t /var/www/html
+    restart: unless-stopped
 
   web:
     build: 
