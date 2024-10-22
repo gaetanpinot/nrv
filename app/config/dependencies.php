@@ -12,6 +12,7 @@ use nrv\infrastructure\Repositories\SoireeRepository;
 use nrv\infrastructure\Repositories\SpectacleRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use nrv\middlewares\CorsMiddleware;
 
 
 
@@ -41,8 +42,9 @@ return [
         $output = "[%datetime%] %channel%.%level_name%: %message% %context%\n"; // Format des logs
         return new LineFormatter($output, $dateFormat);
     },
-    
     LoggerInterface::class => DI\create(Logger::class)->constructor('sae-5-Logger', [DI\get(StreamHandler::class)]),
+
+    CorsMiddleware::class => DI\autowire(),
 
 
 
