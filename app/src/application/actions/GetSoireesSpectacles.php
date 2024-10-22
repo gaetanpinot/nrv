@@ -1,20 +1,19 @@
 <?php
-
 namespace nrv\application\actions;
 
 use DI\Container;
-use nrv\application\renderer\JsonRenderer;
-use nrv\core\service\soiree\SoireeService;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Log\LoggerInterface;
 use Slim\Exception\HttpBadRequestException;
+use nrv\application\renderer\JsonRenderer;
+use nrv\application\actions\AbstractAction;
+use nrv\core\service\soiree\SoireeService;
 
-class AfficheDetailSoireeAction extends AbstractAction
-{
-
+class GetSoireesSpectacles extends AbstractAction{
+    
     private SoireeService $soireeService;
-    public function __construct(Container $cont)
+    public function __construct(ContainerInterface $cont)
     {
         parent::__construct($cont);
         $this->soireeService = $cont->get(SoireeService::class);
@@ -28,7 +27,8 @@ class AfficheDetailSoireeAction extends AbstractAction
             throw new HttpBadRequestException($rq, 'Missing soiree_id');
         }
 
-        $soiree = $this->soireeService->getSoireeDetail($data);
+        $soiree = $this->soireeService->getSoireeSpectacleId($data);
         return JsonRenderer::render($rs, 200, $soiree);
     }
+
 }

@@ -22,28 +22,28 @@ class BilletRepository implements BilletRepositoryInterface
     public function getBilletById(string $id): Billet
     {
         $result = $this->pdo->query('SELECT * FROM billet WHERE id = ' . $id)->fetch();
-        return new Billet($result['id'], $result['id_user'], $result['id_spectacle'], $result['tarif']);
+        return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
 
     }
 
     public function save(Billet $billet): void
     {
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, id_user, id_spectacle, tarif) VALUES (:id, :id_user, :id_spectacle, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_user, id_spectacle = :id_spectacle, tarif = :tarif');
+        $request = $this->pdo->prepare('INSERT INTO soiree (id, id_user, id_spectacle, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif');
         $request->execute([
             'id' => $billet->id,
-            'id_user' => $billet->id_user,
-            'id_spectacle' => $billet->id_spectacle,
+            'id_utilisateur' => $billet->id_user,
+            'id_soiree' => $billet->id_spectacle,
             'tarif' => $billet->tarif,
         ]);
     }
 
     public function updateBillet(Billet $billet): void
     {
-        $request = $this->pdo->prepare('UPDATE billet SET id_user = :id_user, id_spectacle = :id_spectacle, tarif = :tarif WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE billet SET id_user = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif WHERE id = :id');
         $request->execute([
             'id' => $billet->id,
-            'id_user' => $billet->id_user,
-            'id_spectacle' => $billet->id_spectacle,
+            'id_utilisateur' => $billet->id_user,
+            'id_soiree' => $billet->id_spectacle,
             'tarif' => $billet->tarif,
         ]);
     }

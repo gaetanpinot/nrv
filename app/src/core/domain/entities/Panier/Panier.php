@@ -10,13 +10,13 @@ use nrv\core\dto\UtilisateurDTO;
 class Panier extends Entity
 {
     protected string $id;
-    protected string $email_utilisateur;
+    protected string $id_utilisateur;
     protected bool $is_valide;
 
-    public function __construct($id, $email_utilisateur, $is_valide)
+    public function __construct($id, $id_utilisateur, $is_valide)
     {
         $this->id = $id;
-        $this->email_utilisateur = $email_utilisateur;
+        $this->id_utilisateur = $id_utilisateur;
         $this->is_valide = $is_valide;
     }
     public function toDTO(): PanierDTO
