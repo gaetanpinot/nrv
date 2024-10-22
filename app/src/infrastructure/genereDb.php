@@ -9,7 +9,7 @@ $nbSoire = 13;
 $nbBillet = 30;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$drop = 'drop table if exists spectacle,soiree_panier,billet,spectacle_artistes,soiree,theme,panier,lieu_spectacle,utilisateur,artiste;';
+$drop = 'drop table if exists spectacle,soiree_panier,billet,spectacle_artistes,soiree,theme,panier,lieu_spectacle,utilisateur,artiste, spectacles_soiree cascade;';
 $theme = '
 create table theme(
 id int primary key,
@@ -76,6 +76,15 @@ foreign key(id_lieu) references lieu_spectacle(id),
 foreign key(id_theme) references theme(id)
 );';
 
+$spectacles_soiree = '
+create table spectacles_soiree(
+id_spectacle uuid,
+id_soiree uuid,
+primary key(id_spectacle,id_soiree),
+foreign key(id_spectacle) references spectacle(id),
+foreign key(id_soiree) references soiree(id)
+);';
+
 $spectacles_artistes = 
 'create table spectacle_artistes(
 id_spectacle uuid ,
@@ -118,6 +127,7 @@ $co->exec($soiree);
 $co->exec($spectacles_artistes);
 $co->exec($billet);
 $co->exec($soiree_panier);
+$co->exec($spectacles_soiree);
 $faker = Faker\Factory::create('fr_FR');
 
 $theme=[
@@ -323,7 +333,7 @@ $billet;
 // email_utilisateur varchar(50) not null,
 // id_soiree uuid not null,
 // tarif numeric(6,2) not null,
-echo 'debut billet';
+echo "debut billet\r\n";
 $query = 'insert into billet
 (id, id_utilisateur, id_soiree, tarif)
 values (:id, :id_utilisateur, :id_soiree, :tarif);';
@@ -337,4 +347,24 @@ for($i = 0; $i<$nbBillet; $i++){
 		'tarif' => $so['tarif_normal']
 	];
 }
-echo 'fin billet';
+echo "fin billet\r\n";
+
+$spectacles_soiree;
+$query = 'insert into spectacles_soiree
+(id_spectacle, id_soiree)
+values (:id_spectacle, :id_soiree);';
+$insert = $co->prepare($query);
+foreach($soireeArray as $soir){
+	for($i = 0; $i<$faker->numberBetween(2,4);$i++){
+
+		$val = [
+			'id_spectacle' => $idSpectacle[$faker->numberBetween(0,count($idSpectacle)-1)],
+			'id_soiree' => $soir['id'],
+		];
+		try{
+			$insert->execute($val);
+		}catch(PDOException  $e){
+		}
+	}
+
+}
