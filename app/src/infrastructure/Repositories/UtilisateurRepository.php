@@ -18,19 +18,20 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         $result = $this->pdo->query('SELECT * FROM utilisateur')->fetchAll();
         $utilisateurs = [];
         foreach($result as $row){
-            $utilisateurs[] = new Utilisateur($row['email'], $row['nom'], $row['prenom'], $row['password']);
+            $utilisateurs[] = new Utilisateur($row['id'], $row['email'], $row['nom'], $row['prenom'], $row['password']);
         }
         return $utilisateurs;
     }
 
     public function getUtilisateurByEmail(string $email): Utilisateur{
         $result = $this->pdo->query('SELECT * FROM utilisateur WHERE email = ' . $email)->fetch();
-        return new Utilisateur($result['email'], $result['nom'], $result['prenom'], $result['password']);
+        return new Utilisateur($result['id'], $result['email'], $result['nom'], $result['prenom'], $result['password']);
     }
 
     public function save(Utilisateur $utilisateur): void{
-        $request = $this->pdo->prepare('INSERT INTO utilisateur (email, nom, prenom, password) VALUES (:email, :nom, :prenom, :password) ON CONFLICT (email) DO UPDATE SET nom = :nom, prenom = :prenom, password = :password');
+        $request = $this->pdo->prepare('INSERT INTO utilisateur (id, email, nom, prenom, password) VALUES (:id, :email, :nom, :prenom, :password) ON CONFLICT (id) DO UPDATE SET email = :email, nom = :nom, prenom = :prenom, password = :password');
         $request->execute([
+            'id' => $utilisateur->id,
             'nom' => $utilisateur->nom,
             'prenom' => $utilisateur->prenom,
             'email' => $utilisateur->email,
@@ -39,8 +40,9 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
     }
 
     public function updateUtilisateur(Utilisateur $utilisateur): void{
-        $request = $this->pdo->prepare('UPDATE utilisateur SET nom = :nom, prenom = :prenom, password = :password WHERE email = :email');
+        $request = $this->pdo->prepare('UPDATE utilisateur SET email= :email nom = :nom, prenom = :prenom, password = :password WHERE id = :id');
         $request->execute([
+            'id' => $utilisateur->id,
             'nom' => $utilisateur->nom,
             'prenom' => $utilisateur->prenom,
             'email' => $utilisateur->email,
@@ -48,9 +50,9 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         ]);
     }
 
-    public function deleteUtilisateur(string $email): void{
-        $request = $this->pdo->prepare('DELETE FROM utilisateur WHERE email = :email');
-        $request->execute(['email' => $email]);
+    public function deleteUtilisateur(Utilisateur $utilisateur): void{
+        $request = $this->pdo->prepare('DELETE FROM utilisateur WHERE id = :id');
+        $request->execute(['id' => $utilisateur->id]);
     }
 
 }
