@@ -4,6 +4,10 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
+use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\core\service\spectacle\SpectacleService;
+use nrv\core\service\spectacle\SpectacleServiceInterface;
+use nrv\infrastructure\Repositories\SpectacleRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
@@ -13,9 +17,9 @@ use Psr\Log\LoggerInterface;
 return [
 
     //Repository interface
-
+    SpectacleRepositoryInterface::class => DI\autowire(SpectacleRepository::class),
     //Services
-
+    SpectacleServiceInterface::class => DI\create(SpectacleService::class)->constructor(DI\get(ContainerInterface::class)),
     //PDO
     'pdo.commun' => function(ContainerInterface $c){
         $config= parse_ini_file($c->get('db.config'));
