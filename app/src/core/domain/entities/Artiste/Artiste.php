@@ -8,12 +8,12 @@ use nrv\core\dto\ArtisteDTO;
 class Artiste extends Entity
 {
     public string $id;
-    public string $nom;
+    public string $prenom;
 
-    public function __construct($id, $nom)
+    public function __construct($id, $prenom)
     {
         $this->id = $id;
-        $this->nom = $nom;
+        $this->prenom = $prenom;
     }
     public function toDTO(): ArtisteDTO
     {
@@ -26,8 +26,8 @@ class Artiste extends Entity
         return $this->id;
     }
 
-    public function getNom(): string
+    public function getPrenom(): string
     {
-        return $this->nom;
+        return $this->prenom;
     }
 }

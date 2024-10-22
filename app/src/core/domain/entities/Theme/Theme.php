@@ -11,12 +11,12 @@ use nrv\core\dto\UtilisateurDTO;
 class Theme extends Entity
 {
     public string $id;
-    public string $labelle;
+    public string $label;
 
-    public function __construct($id, $labelle)
+    public function __construct($id, $label)
     {
         $this->id = $id;
-        $this->labelle = $labelle;
+        $this->label = $label;
     }
     public function toDTO(): ThemeDTO
     {
@@ -29,9 +29,9 @@ class Theme extends Entity
         return $this->id;
     }
 
-    public function getLabelle(): string
+    public function getLabel(): string
     {
-        return $this->labelle;
+        return $this->label;
     }
 
 }
