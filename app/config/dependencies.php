@@ -4,9 +4,11 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
+use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\core\service\spectacle\SpectacleService;
 use nrv\core\service\spectacle\SpectacleServiceInterface;
+use nrv\infrastructure\Repositories\SoireeRepository;
 use nrv\infrastructure\Repositories\SpectacleRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
@@ -18,6 +20,7 @@ return [
 
     //Repository interface
     SpectacleRepositoryInterface::class => DI\autowire(SpectacleRepository::class),
+    SoireeRepositoryInterface::class => DI\autowire(SoireeRepository::class),
     //Services
     SpectacleServiceInterface::class => DI\create(SpectacleService::class)->constructor(DI\get(ContainerInterface::class)),
     //PDO
