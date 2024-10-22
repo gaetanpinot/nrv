@@ -22,24 +22,8 @@ class Utilisateur extends Entity
         $this->password = $password;
     }
 
-    public function toDTO(): UtilisateurDTO
-    {
+    public function toDTO(): UtilisateurDTO{
         return new UtilisateurDTO($this);
 
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function getNom(): string
-    {
-        return $this->nom;
-    }
-
-    public function getPrenom(): string
-    {
-        return $this->prenom;
     }
 }

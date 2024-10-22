@@ -11,14 +11,14 @@ class LieuDTO extends DTO{
     public string $adresse;
     public string $nb_places_assises;
     public string $nb_places_debout;
-    public array $url_image;
+    public array $lien_image;
 
     public function __construct(Lieu $lieu){
-        $this->id = $lieu->getId();
-        $this->nom = $lieu->getNom();
-        $this->adresse = $lieu->getAdresse();
-        $this->nb_places_assises = $lieu->getNbPlacesAssises();
-        $this->nb_places_debout = $lieu->getNbPlacesDebout();
-        $this->url_image = $lieu->geturl_Image();
+        $this->id = $lieu->id;
+        $this->nom = $lieu->nom;
+        $this->adresse = $lieu->adresse;
+        $this->nb_places_assises = $lieu->nb_places_assises;
+        $this->nb_places_debout = $lieu->nb_places_debout;
+        $this->lien_image = $lieu->lien_image;
     }
 }

@@ -8,5 +8,5 @@ interface UtilisateurRepositoryInterface{
     public function getUtilisateurByEmail(string $email): Utilisateur;
     public function save(Utilisateur $utilisateur): void;
     public function updateUtilisateur(Utilisateur $utilisateur): void;
-    public function deleteUtilisateur(string $id): void;
+    public function deleteUtilisateur(Utilisateur $utilisateur): void;
 }
