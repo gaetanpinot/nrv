@@ -18,35 +18,46 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         $result = $this->pdo->query('SELECT * FROM utilisateur')->fetchAll();
         $utilisateurs = [];
         foreach($result as $row){
-            $utilisateurs[] = new Utilisateur($row['id'], $row['email'], $row['nom'], $row['prenom'], $row['password']);
+            $utilisateurs[] = new Utilisateur($row['id'], $row['email'], $row['nom'], $row['prenom'], $row['password'], $row['role']);
         }
         return $utilisateurs;
     }
 
-    public function getUtilisateurByEmail(string $email): Utilisateur{
-        $result = $this->pdo->query('SELECT * FROM utilisateur WHERE email = ' . $email)->fetch();
-        return new Utilisateur($result['id'], $result['email'], $result['nom'], $result['prenom'], $result['password']);
+    public function getUtilisateurByEmail(string $email): Utilisateur {
+        $request = $this->pdo->prepare('SELECT * FROM utilisateur WHERE email = :email');
+        $request->execute(['email' => $email]);
+
+        $result = $request->fetch();
+
+        if (!$result) {
+            throw new \Exception("Utilisateur avec l'email {$email} non trouve.");
+        }
+
+        return new Utilisateur($result['id'], $result['email'], $result['nom'], $result['prenom'], $result['password'], $result['role']);
     }
 
+
     public function save(Utilisateur $utilisateur): void{
-        $request = $this->pdo->prepare('INSERT INTO utilisateur (id, email, nom, prenom, password) VALUES (:id, :email, :nom, :prenom, :password) ON CONFLICT (id) DO UPDATE SET email = :email, nom = :nom, prenom = :prenom, password = :password');
+        $request = $this->pdo->prepare('INSERT INTO utilisateur (id, email, nom, prenom, password, role) VALUES (:id, :email, :nom, :prenom, :password, :role) ON CONFLICT (id) DO UPDATE SET email = :email, nom = :nom, prenom = :prenom, password = :password, role = :role');
         $request->execute([
             'id' => $utilisateur->id,
             'nom' => $utilisateur->nom,
             'prenom' => $utilisateur->prenom,
             'email' => $utilisateur->email,
-            'password' => $utilisateur->password
+            'password' => $utilisateur->password,
+            'role' => $utilisateur->role
         ]);
     }
 
     public function updateUtilisateur(Utilisateur $utilisateur): void{
-        $request = $this->pdo->prepare('UPDATE utilisateur SET email= :email nom = :nom, prenom = :prenom, password = :password WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE utilisateur SET email = :email nom = :nom, prenom = :prenom, password = :password, role = :role WHERE id = :id');
         $request->execute([
             'id' => $utilisateur->id,
             'nom' => $utilisateur->nom,
             'prenom' => $utilisateur->prenom,
             'email' => $utilisateur->email,
-            'password' => $utilisateur->password
+            'password' => $utilisateur->password,
+            'role' => $utilisateur->role
         ]);
     }
 

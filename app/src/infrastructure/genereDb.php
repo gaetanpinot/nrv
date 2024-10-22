@@ -22,7 +22,8 @@ id uuid primary key,
 email varchar(100),
 nom varchar(50),
 prenom varchar(50),
-password varchar(100)
+password varchar(100),
+role int
 );';
 
 $panier = '
@@ -147,8 +148,8 @@ foreach($theme as $t){
 echo "debut utilisateur \r\n";
 $userID=[];
 $query = 'insert into utilisateur
-(id, email, nom, prenom, password)
-values (:id, :email, :nom, :prenom, :password);';
+(id, email, nom, prenom, password, role)
+values (:id, :email, :nom, :prenom, :password, :role);';
 $insert = $co->prepare($query);
 for($i = 0; $i<$nbUser ; $i++){
 
@@ -160,6 +161,7 @@ for($i = 0; $i<$nbUser ; $i++){
 		'nom' =>$nom,
 		'prenom' => $prenom,
 		'password'=> password_hash("1234",PASSWORD_DEFAULT),
+        'role' => 1
 	];
 	$insert->execute($val);
 	$userID[] = $val['id'];
