@@ -22,7 +22,7 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         }
         return $utilisateurs;
     }
-    
+
     public function getUtilisateurByEmail(string $email): Utilisateur{
         $request = $this->pdo->prepare('SELECT * FROM utilisateur WHERE email = :email');
         $request->execute(['email' => $email]);

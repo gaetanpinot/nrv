@@ -20,7 +20,6 @@ class SpectacleService implements SpectacleServiceInterface
     {
         $res = array();
         $spectacles = $this->spectacleRepository->getSpectacles();
-//        var_dump($spectacles);
         foreach ($spectacles as $spectacle) {
             $res[] = $spectacle->toDTO();
         }

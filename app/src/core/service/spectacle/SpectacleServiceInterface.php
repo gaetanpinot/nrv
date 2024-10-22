@@ -8,3 +8,4 @@ interface SpectacleServiceInterface
     public function getSpectaclesByDate($dateDebut, $dateFin): array;
 
 }
+
