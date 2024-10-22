@@ -5722,11 +5722,31 @@
   var TEMPLATE_SPECTACLE = import_handlebars.default.compile(
     document.querySelector("#templateSpectacle").innerHTML
   );
+  var TEMPLATE_SOIREE = import_handlebars.default.compile(
+    document.querySelector("#templateSoiree").innerHTML
+  );
   function afficheSpectacles() {
     fetch(URL_API + URI_SPECTACLES).then((resp) => resp.json()).then((data) => {
       data.forEach(function(val) {
-        console.log(val);
         document.querySelector("#liste-soiree").innerHTML += TEMPLATE_SPECTACLE(val);
+      });
+    }).then(() => {
+      document.querySelectorAll(".concerts").forEach((e) => {
+        e.addEventListener("click", () => {
+          afficheSoiree(e.querySelector("input").value);
+        });
+      });
+    });
+  }
+  function afficheSoiree(idSpectacles) {
+    console.log("affiche soiree " + idSpectacles);
+    let uri = URL_API + "/spectacles/" + idSpectacles + "/soirees";
+    console.log(uri);
+    fetch(uri).then((resp) => resp.json()).then((data) => {
+      data.forEach((val) => {
+        let insertion = document.querySelector("#liste-soiree");
+        insertion.innerHTML = "";
+        insertion.innerHTML += TEMPLATE_SOIREE(val);
       });
     });
   }
