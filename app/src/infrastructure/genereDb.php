@@ -22,7 +22,8 @@ id uuid primary key,
 email varchar(100),
 nom varchar(50),
 prenom varchar(50),
-password varchar(100)
+password varchar(100),
+role int
 );';
 
 $panier = '
@@ -157,8 +158,8 @@ foreach($theme as $t){
 echo "debut utilisateur \r\n";
 $userID=[];
 $query = 'insert into utilisateur
-(id, email, nom, prenom, password)
-values (:id, :email, :nom, :prenom, :password);';
+(id, email, nom, prenom, password, role)
+values (:id, :email, :nom, :prenom, :password, :role);';
 $insert = $co->prepare($query);
 for($i = 0; $i<$nbUser ; $i++){
 
@@ -170,6 +171,7 @@ for($i = 0; $i<$nbUser ; $i++){
 		'nom' =>$nom,
 		'prenom' => $prenom,
 		'password'=> password_hash("1234",PASSWORD_DEFAULT),
+        'role' => 1
 	];
 	$insert->execute($val);
 	$userID[] = $val['id'];
@@ -313,8 +315,7 @@ insert into spectacle_artistes
 (id_spectacle, id_artiste)
 values (:id_spectacle, :id_artiste);';
 $insert = $co->prepare($query);
-for($i = 0; $i<$nbSpectacle; $i++){
-	$sp = $idSpectacle[$faker->numberBetween(0,count($idSpectacle)-1)];
+foreach($idSpectacle as $sp){
 	for($j = 0; $j<3; $j++){
 		$val = [
 			'id_spectacle' => $sp,
@@ -356,7 +357,6 @@ values (:id_spectacle, :id_soiree);';
 $insert = $co->prepare($query);
 foreach($soireeArray as $soir){
 	for($i = 0; $i<$faker->numberBetween(2,4);$i++){
-
 		$val = [
 			'id_spectacle' => $idSpectacle[$faker->numberBetween(0,count($idSpectacle)-1)],
 			'id_soiree' => $soir['id'],

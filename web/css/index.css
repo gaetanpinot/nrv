@@ -1,0 +1,186 @@
+#top nav #img-compte img, #top nav #logo-panier img {
+  width: 100%;
+  border-radius: 100%; }
+
+main #liste-soiree > #soirees > article, body {
+  background-color: #F9F7F4;
+  color: #FFF;
+  font-family: sans-serif;
+  font-weight: 400; }
+
+main #liste-soiree > #filtre, header {
+  background-color: #11074D; }
+
+main > *, #top nav ul li {
+  background-color: #3ADDE2;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #000; }
+
+main #description {
+  color: #11074D; }
+
+main #description .creme {
+  color: #F9F7F4; }
+
+body {
+  margin: 0px; }
+
+header {
+  width: 100%;
+  height: 100px; }
+
+#top {
+  display: flex;
+  flex-direction: row; }
+
+#top h1 {
+  width: 50%;
+  font-size: 3em;
+  margin: 20px; }
+
+#top nav {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  gap: 10px;
+  justify-content: flex-end; }
+
+#top nav .active {
+  background-color: #F9F7F4;
+  color: #11074D; }
+
+#top nav ul {
+  padding-left: 0px;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  gap: 0 10px; }
+  #top nav ul #dropdown ul li {
+    display: none;
+    width: 50%;
+    z-index: 1; }
+  #top nav ul #dropdown:hover ul li {
+    display: block; }
+  #top nav ul #dropdown:hover ul {
+    margin-left: -10px;
+    padding-left: 0px;
+    margin-top: 5px;
+    flex-direction: column; }
+
+#top nav ul li {
+  padding: 10px;
+  list-style: none;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 20px; }
+
+#top nav #logo-panier {
+  width: 20px; }
+
+#top nav #logo-panier img {
+  background-color: none; }
+
+#top nav #img-compte {
+  padding: 0px;
+  background-color: unset; }
+
+#top nav #img-compte img {
+  width: 40px; }
+
+#top nav a {
+  text-decoration: none;
+  color: black; }
+
+main {
+  width: 100%; }
+
+main > * {
+  max-width: 1100px;
+  padding: 2em;
+  margin: 20px auto; }
+
+main #description {
+  font-size: 1.2em; }
+
+main #description .creme {
+  font-size: 2em; }
+
+main #edt #schedule {
+  display: grid;
+  grid-template-columns: 1fr repeat(7, 1fr);
+  margin: 20px; }
+
+main #edt .entete {
+  display: contents; }
+
+main #edt .row {
+  display: contents; }
+
+main #edt .time-label {
+  font-weight: bold; }
+
+main #edt .day,
+main #edt .time-label {
+  text-align: center;
+  padding: 10px;
+  color: #F9F7F4;
+  background-color: #11074D;
+  border: 1px solid #3ADDE2; }
+
+main #edt .slot {
+  background-color: #F9F7F4;
+  border: 1px solid #3ADDE2;
+  height: 20px;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.8em; }
+
+main #liste-soiree > #filtre {
+  height: 80px;
+  max-width: 1000px;
+  margin: auto; }
+
+main #liste-soiree > #soirees {
+  padding-top: 20px;
+  margin: auto;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 800px auto;
+  gap: 20px; }
+  main #liste-soiree > #soirees > article {
+    text-align: center;
+    color: #11074D;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: content-box;
+    border-radius: 20px 10px 20px 0px; }
+    main #liste-soiree > #soirees > article > .soiree-info > ul {
+      padding: 0px;
+      list-style: none; }
+    main #liste-soiree > #soirees > article > .soiree-info > ul li {
+      padding: 0;
+      list-style: none; }
+      main #liste-soiree > #soirees > article > .soiree-info > ul li > ul {
+        padding: 0;
+        list-style: none; }
+      main #liste-soiree > #soirees > article > .soiree-info > ul li > ul li {
+        padding: 0;
+        list-style: none; }
+    main #liste-soiree > #soirees > article > .concerts > ul {
+      padding: 0px;
+      list-style: none; }
+    main #liste-soiree > #soirees > article > .concerts > ul li {
+      padding: 0;
+      list-style: none; }
+      main #liste-soiree > #soirees > article > .concerts > ul li > ul {
+        padding: 0;
+        list-style: none; }
+      main #liste-soiree > #soirees > article > .concerts > ul li > ul li {
+        padding: 0;
+        list-style: none; }
+    main #liste-soiree > #soirees > article > .concerts > ul li .info-concert {
+      display: none; }
