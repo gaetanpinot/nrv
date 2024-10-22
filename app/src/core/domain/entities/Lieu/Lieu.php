@@ -25,24 +25,4 @@ class Lieu extends Entity{
     public function toDTO(): LieuDTO{
         return new LieuDTO($this);
     }
-
-    public function getNom(): string{
-        return $this->nom;
-    }
-
-    public function getAdresse(): string{
-        return $this->adresse;
-    }
-
-    public function getNbPlacesAssises(): string{
-        return $this->nb_places_assises;
-    }
-
-    public function getNbPlacesDebout(): string{
-        return $this->nb_places_debout;
-    }
-
-    public function geturl_Image(): array{
-        return $this->url_image;
-    }
 }

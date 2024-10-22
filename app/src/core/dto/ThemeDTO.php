@@ -12,8 +12,8 @@ class ThemeDTO extends DTO
 
     public function __construct(Theme $theme)
     {
-        $this->id = $theme->getId();
-        $this->label = $theme->getLabel();
+        $this->id = $theme->id;
+        $this->label = $theme->label;
     }
 
 }

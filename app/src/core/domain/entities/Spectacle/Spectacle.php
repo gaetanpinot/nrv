@@ -28,28 +28,4 @@ class Spectacle extends Entity{
     public function toDTO(): SpectacleDTO{
         return new SpectacleDTO($this);
     }
-
-    public function getTitre(): string{
-        return $this->titre;
-    }
-
-    public function getDescription(): string{
-        return $this->description;
-    }
-
-    public function geturl_Video(): string{
-        return $this->url_video;
-    }
-
-    public function geturl_Image(): array{
-        return $this->url_image;
-    }
-
-    public function getDate(): DateTime{
-        return $this->date;
-    }
-
-    public function getArtistes(): array{
-        return $this->artistes;
-    }
 }

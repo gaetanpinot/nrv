@@ -11,7 +11,7 @@ class ArtisteDTO extends DTO
 
     public function __construct(Artiste $artiste)
     {
-        $this->id = $artiste->getId();
-        $this->prenom = $artiste->getPrenom();
+        $this->id = $artiste->id;
+        $this->prenom = $artiste->prenom;
     }
 }

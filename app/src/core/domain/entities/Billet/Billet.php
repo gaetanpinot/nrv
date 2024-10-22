@@ -27,24 +27,4 @@ class Billet extends Entity
         return new BilletDTO($this);
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getIdUser(): string
-    {
-        return $this->id_user;
-    }
-
-    public function getIdSpectacle(): string
-    {
-        return $this->id_spectacle;
-    }
-
-    public function getTarif(): string
-    {
-        return $this->tarif;
-    }
-
 }

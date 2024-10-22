@@ -12,9 +12,9 @@ class PanierDTO extends DTO
 
     public function __construct(Panier $panier)
     {
-        $this->id = $panier->getId();
-        $this->email_utilisateur = $panier->getEmail();
-        $this->is_valide = $panier->getIsValide();
+        $this->id = $panier->id;
+        $this->email_utilisateur = $panier->email_utilisateur;
+        $this->is_valide = $panier->is_valide;
     }
 
 

@@ -24,19 +24,4 @@ class Panier extends Entity
         return new PanierDTO($this);
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email_utilisateur;
-    }
-
-    public function getIsValide(): bool
-    {
-        return $this->is_valide;
-    }
-
 }

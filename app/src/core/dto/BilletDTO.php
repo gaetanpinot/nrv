@@ -14,10 +14,10 @@ class BilletDTO extends DTO
 
     public function __construct(Billet $billet)
     {
-        $this->id = $billet->getId();
-        $this->id_user = $billet->getIdUser();
-        $this->id_spectacle = $billet->getIdSpectacle();
-        $this->tarif = $billet->getTarif();
+        $this->id = $billet->id;
+        $this->id_user = $billet->id_user;
+        $this->id_spectacle = $billet->id_spectacle;
+        $this->tarif = $billet->tarif;
     }
 
 
