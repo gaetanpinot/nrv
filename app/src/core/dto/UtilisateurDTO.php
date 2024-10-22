@@ -2,19 +2,20 @@
 
 namespace nrv\core\dto;
 
-use Monolog\Handler\Curl\Util;
 use nrv\core\domain\entities\Utilisateur\Utilisateur;
 
 class UtilisateurDTO extends DTO
 {
-    public string $email;
-    public string $prenom;
-    public string $nom;
+    protected string $id;
+    protected string $email;
+    protected string $prenom;
+    protected string $nom;
 
     public function __construct(Utilisateur $utilisateur)
     {
-        $this->email = $utilisateur->getEmail();
-        $this->prenom = $utilisateur->getPrenom();
-        $this->nom = $utilisateur->getNom();
+        $this->id = $utilisateur->id;
+        $this->email = $utilisateur->email;
+        $this->prenom = $utilisateur->prenom;
+        $this->nom = $utilisateur->nom;
     }
 }
