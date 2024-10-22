@@ -1,16 +1,31 @@
 <?php
 declare(strict_types=1);
 
+use nrv\application\actions\AfficheListeSpectaclesAction;
+use nrv\application\actions\ConnexionAction;
+use nrv\application\actions\GetPanierByIdAction;
+use nrv\application\actions\GetUserBilletsAction;
+use nrv\application\actions\InscriptionAction;
 use Slim\Exception\HttpNotFoundException;
 use nrv\application\actions\HomeAction;
+use \nrv\application\actions\AfficheDetailSoireeAction;
 
 return function (\Slim\App $app): \Slim\App {
 
     $app->get('/', HomeAction::class);
 
-    $app->get('/soirees/{id}', \nrv\application\actions\AfficheDetailSoireeAction::class);
+    $app->get('/soirees/{id}', AfficheDetailSoireeAction::class);
 
-    $app->get('/spectacles', \nrv\application\actions\AfficheListeSpectaclesAction::class);
+    $app->get('/spectacles', AfficheListeSpectaclesAction::class);
+
+    $app->post('/inscription', [InscriptionAction::class, 'inscription']);
+
+    $app->post('/connexion', ConnexionAction::class);
+
+    $app->get('/utilisateur/{id}/billets', GetUserBilletsAction::class);
+
+    $app->get('/utilisateur/{id}/paniers', GetPanierByIdAction::class);
+
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
