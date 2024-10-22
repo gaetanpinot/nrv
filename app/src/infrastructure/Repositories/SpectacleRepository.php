@@ -1,11 +1,11 @@
 <?php
 namespace nrv\infrastructure\Repositories;
 
+use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Spectacle\Spectacle;
 use \PDO;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use DI\Container;
-use nrv\core\domain\entities\Artiste\Artiste;
 
 class SpectacleRepository implements SpectacleRepositoryInterface{
 
@@ -16,22 +16,50 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     }
 
     public function getSpectacles(): array{
-        $result = $this->pdo->query('SELECT * FROM spectacle')->fetchAll();
-        $spectacles = [];
-        foreach($result as $spectacle){
-            $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
-            $artistes_prep->execute(['spectacle_id' => $spectacle['id']]);
-            $artistes_prep = $artistes_prep->fetchAll();
-            $artistes = [];
-            foreach($artistes_prep as $artiste){
-                $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
-                $artiste_req->execute(['id' => $artiste['id_artiste']]);
-                $artiste_req = $artiste_req->fetch();
-                $artistes[] = new Artiste($artiste_req['id'], $artiste_req['prenom']);
+        //on veut un spectacle et tous ses artistes en une seul requete
+        //on ne veut pas à avoir plusieurs lignes avec le meme id de spectacle pour les differents artistes
+        //on fait le select avec un group by sur la table principale
+        //dans le select on construit un object json avec les elements de la table secondaire
+        //puis les concatennes tous avec json_agg
+        $query = "
+        select
+        spectacle.*,
+        json_agg(json_build_object('id', artiste.id, 'prenom', artiste.prenom)) as artistes
+        from spectacle,
+        spectacle_artistes,
+        artiste
+        where
+        spectacle.id = spectacle_artistes.id_spectacle and
+        artiste.id = spectacle_artistes.id_artiste
+        group by spectacle.id
+        ;";
+
+        $request = $this->pdo->prepare($query);
+        $request->execute([]);
+        $spectacles = $request->fetchAll();
+        $retour = [];
+
+        //on a plusieur spectacle
+        foreach($spectacles as $spectacle){
+
+            //on decodes les multiples artistes des spectacles
+            $artistes = json_decode($spectacle['artistes'],true);
+            $artistes_decodee=[];
+
+            //on créer une entité pour chaque artiste du spectacle
+            foreach($artistes as $artiste) {
+                $artistes_decodee[] = new Artiste($artiste['id'], $artiste['prenom']);
             }
-            $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $artistes);
+
+            //on l'ajoute au spectacle
+            $retour[] = new Spectacle($spectacle['id'],
+                $spectacle['titre'],
+                $spectacle['description'],
+                $spectacle['url_video'],
+                $spectacle['url_image'],
+                $artistes_decodee);
         }
-        return $spectacles;
+        return $retour;
     }
 
 
