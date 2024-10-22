@@ -31,9 +31,12 @@ services:
       - ./app/sql:/var/sql'
 
   adminer:
-    image: adminer
+    build:
+      context: build
+      dockerfile: adminer.Dockerfile
     ports:
       - '44011:8080'
     networks:
       - nrv.net
+    command: php -S 0.0.0.0:8080 -t /var/www/html
 
