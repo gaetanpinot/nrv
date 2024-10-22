@@ -11,10 +11,10 @@ class Spectacle extends Entity{
     protected string $titre;
     protected string $description;
     protected string $url_video;
-    protected array $url_image;
+    protected string $url_image;
     protected array $artistes;
 
-    public function __construct(string $id, string $titre, string $description, string $url_video, array $url_image, array $artistes){
+    public function __construct(string $id, string $titre, string $description, string $url_video, string $url_image, array $artistes){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;

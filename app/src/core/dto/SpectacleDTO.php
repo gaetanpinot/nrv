@@ -11,7 +11,7 @@ class SpectacleDTO extends DTO{
     public string $titre;
     public string $description;
     public string $url_video;
-    public array $url_image;
+    public string $url_image;
     public array $artistes;
 
     public function __construct(Spectacle $spectacle){
