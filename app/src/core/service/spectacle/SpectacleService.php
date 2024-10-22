@@ -14,7 +14,6 @@ class SpectacleService implements SpectacleServiceInterface
 
     public function __construct(ContainerInterface $cont) {
         $this->spectacleRepository = $cont->get(SpectacleRepositoryInterface::class);
-        echo "bonjour";
     }   
 
     public function getSpectacles(): array
