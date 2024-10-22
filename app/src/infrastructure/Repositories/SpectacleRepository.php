@@ -5,6 +5,7 @@ use nrv\core\domain\entities\Spectacle\Spectacle;
 use \PDO;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use DI\Container;
+use nrv\core\domain\entities\Artiste\Artiste;
 
 class SpectacleRepository implements SpectacleRepositoryInterface{
 
@@ -18,15 +19,26 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $result = $this->pdo->query('SELECT * FROM spectacle')->fetchAll();
         $spectacles = [];
         foreach($result as $spectacle){
-            $artistes = $this->pdo->query('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = ' . $spectacle['id'])->fetchAll();
+            $artistes_prep = $this->pdo->prepare('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
+            $artistes_prep->execute(['spectacle_id' => $spectacle['id']]);
+            $artistes = [];
+            foreach($artistes_prep as $artiste){
+                $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
+            }
             $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $artistes);
         }
         return $spectacles;
     }
 
     public function getSpectacleById(string $id): Spectacle{
-        $result = $this->pdo->query('SELECT * FROM spectacle WHERE id = ' . $id)->fetch();
-        $artistes = $this->pdo->query('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = ' . $id)->fetchAll();
+        $result = $this->pdo->prepare('SELECT * FROM spectacle WHERE id = :id');
+        $result->execute(['id' => $id]);
+        $artistes_prep = $this->pdo->prepare('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
+        $artistes_prep->execute(['spectacle_id' => $result['id']]);
+        $artistes = [];
+        foreach($artistes_prep as $artiste){
+            $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
+        }
         return new Spectacle($result['id'], $result['titre'], $result['description'], $result['url_url_video'], $result['url_image'], $artistes);
     }
 
