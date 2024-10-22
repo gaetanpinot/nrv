@@ -12,7 +12,6 @@ class SpectacleDTO extends DTO{
     public string $description;
     public string $url_video;
     public array $url_image;
-    public DateTime $date;
     public array $artistes;
 
     public function __construct(Spectacle $spectacle){
@@ -21,7 +20,6 @@ class SpectacleDTO extends DTO{
         $this->description = $spectacle->description;
         $this->url_video = $spectacle->url_video;
         $this->url_image = $spectacle->url_image;
-        $this->date = $spectacle->date;
         $this->artistes = $spectacle->artistes;
     }
 }
