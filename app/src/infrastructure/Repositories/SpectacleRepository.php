@@ -62,21 +62,6 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         return $retour;
     }
 
-
-    public function test(){
-        $result = $this->pdo->query('SELECT spectacle.id as spectacle_id, 
-                                                spectacle.titre, 
-                                                spectacle.description, 
-                                                spectacle.url_video, 
-                                                spectacle.url_image,
-                                                json_agg(json_build_object(\'id\', artiste.id, \'prenom\', artiste.prenom)) as artistes
-                                                FROM spectacle 
-                                                    INNER JOIN spectacle_artistes ON spectacle.id=spectacle_artistes.id_spectacle
-                                                    INNER JOIN artiste ON spectacle_artistes.id_artiste=artiste.id
-                                                GROUP BY spectacle_id')->fetchAll();
-        var_dump($result);
-    }
-
     public function getSpectacleById(string $id): Spectacle{
         $result = $this->pdo->prepare('SELECT * FROM spectacle WHERE id = :id');
         $result->execute(['id' => $id]);

@@ -15,7 +15,8 @@ class SoireeDTO extends DTO
     public DateTime $date;
     public DateTime $heure_debut;
     public DateTime $duree;
-    public string $id_lieu;
+    public LieuDTO $lieu;
+    public array $spectacles;
     public int $nb_places_assises_restantes;
     public int $nb_places_debout_restantes;
     public float $tarif_normal;
@@ -29,15 +30,22 @@ class SoireeDTO extends DTO
         $this->date = $soiree->date;
         $this->heure_debut = $soiree->heure_debut;
         $this->duree = $soiree->duree;
-        $this->id_lieu = $soiree->id_lieu;
+        $this->lieu = $soiree->lieu->toDTO();
         $this->nb_places_assises_restantes = $soiree->nb_places_assises_restantes;
         $this->nb_places_debout_restantes = $soiree->nb_places_debout_restantes;
         $this->tarif_normal = $soiree->tarif_normal;
         $this->tarif_reduit = $soiree->tarif_reduit;
+
+        $this->spectacles = [];
+        foreach($soiree->spectacles as $spectacle){
+            $this->spectacles[] = $spectacle->toDTO();
+        }
+
     }
 
     public function jsonSerialize(): array
     {
+        parent::jsonserialize();
         $vars = get_object_vars($this);
         unset($vars['businessValidator']);
         $vars['date']=$vars['date']->format('Y-m-d');
