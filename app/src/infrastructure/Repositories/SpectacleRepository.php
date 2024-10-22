@@ -19,7 +19,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $spectacles = [];
         foreach($result as $spectacle){
             $artistes = $this->pdo->query('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = ' . $spectacle['id'])->fetchAll();
-            $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $spectacle['date'], $artistes);
+            $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $artistes);
         }
         return $spectacles;
     }
@@ -27,30 +27,28 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     public function getSpectacleById(string $id): Spectacle{
         $result = $this->pdo->query('SELECT * FROM spectacle WHERE id = ' . $id)->fetch();
         $artistes = $this->pdo->query('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = ' . $id)->fetchAll();
-        return new Spectacle($result['id'], $result['titre'], $result['description'], $result['url_url_video'], $result['url_image'], $result['date'], $artistes);
+        return new Spectacle($result['id'], $result['titre'], $result['description'], $result['url_url_video'], $result['url_image'], $artistes);
     }
 
     public function save(Spectacle $spectacle): void{
-        $request = $this->pdo->prepare('INSERT INTO spectacle (id, titre, description, url_video, url_image, date) VALUES (:id, :titre, :description, :url_video, :url_image, :date) ON CONFLICT (id) DO UPDATE SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image, date = :date');
+        $request = $this->pdo->prepare('INSERT INTO spectacle (id, titre, description, url_video, url_image, date) VALUES (:id, :titre, :description, :url_video, :url_image) ON CONFLICT (id) DO UPDATE SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image');
         $request->execute([
             'id' => $spectacle->id,
             'titre' => $spectacle->titre,
             'description' => $spectacle->description,
             'url_video' => $spectacle->url_video,
-            'url_image' => $spectacle->url_image,
-            'date' => $spectacle->date,
+            'url_image' => $spectacle->url_image
         ]);
     }
 
     public function updateSpectacle(Spectacle $spectacle): void{
-        $request = $this->pdo->prepare('UPDATE spectacle SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image, date = :date WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE spectacle SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image WHERE id = :id');
         $request->execute([
             'id' => $spectacle->id,
             'titre' => $spectacle->titre,
             'description' => $spectacle->description,
             'url_video' => $spectacle->url_video,
-            'url_image' => $spectacle->url_image,
-            'date' => $spectacle->date,
+            'url_image' => $spectacle->url_image
         ]);
     }
 
