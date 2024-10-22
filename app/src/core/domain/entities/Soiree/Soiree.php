@@ -3,6 +3,7 @@
 namespace nrv\core\domain\entities\Soiree;
 
 use DateTime;
+use Monolog\DateTimeImmutable;
 use nrv\core\domain\entities\Entity;
 use nrv\core\dto\SoireeDTO;
 use nrv\core\dto\UtilisateurDTO;
@@ -26,9 +27,9 @@ class Soiree extends Entity
         $this->id = $id;
         $this->nom = $nom;
         $this->id_theme = $id_theme;
-        $this->date = $date;
-        $this->heure_debut = $heure_debut;
-        $this->duree = $duree;
+        $this->date = DateTime::createFromFormat('Y-m-d', $date);
+        $this->heure_debut = DateTime::createFromFormat('H:i:s', $heure_debut);
+        $this->duree = DateTime::createFromFormat('H:i:s', $duree);
         $this->id_lieu = $id_lieu;
         $this->nb_places_assises_restantes = $nb_places_assises_restantes;
         $this->nb_places_debout_restantes = $nb_places_debout_restantes;
