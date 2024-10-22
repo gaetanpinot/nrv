@@ -24,8 +24,9 @@ class SoireeRepository implements SoireeRepositoryInterface{
     }
 
     public function getSoireeById(string $id): Soiree{
-        $result = $this->pdo->query('SELECT * FROM soiree WHERE id = ' . $id)->fetch();
-        return new Soiree($result['id'], $result['nom'], $result['id_theme'], $result['date'], $result['heure_debut'], $result['duree'], $result['id_lieu'], $result['nb_places'], $result['nb_places_restantes'], $result['tarif_normal'], $result['tarif_reduit']);
+        $request = $this->pdo->prepare('SELECT * FROM soiree WHERE id = :id');
+        $request->execute(['id' => $id]);
+        return new Soiree($request['id'], $request['nom'], $request['id_theme'], $request['date'], $request['heure_debut'], $request['duree'], $request['id_lieu'], $request['nb_places'], $request['nb_places_restantes'], $request['tarif_normal'], $request['tarif_reduit']);
     }
 
     public function save(Soiree $soiree): void{
