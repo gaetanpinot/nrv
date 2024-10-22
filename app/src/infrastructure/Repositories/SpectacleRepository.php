@@ -23,22 +23,40 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             $artistes_prep->execute(['spectacle_id' => $spectacle['id']]);
             $artistes = [];
             foreach($artistes_prep as $artiste){
-                var_dump($artiste);
-                $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
+                $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
+                $artiste_req->execute(['id' => $artiste['id_artiste']]);
+                $artistes[] = new Artiste($artiste_req['id'], $artiste_req['prenom']);
             }
             $spectacles[] = new Spectacle($spectacle['id'], $spectacle['titre'], $spectacle['description'], $spectacle['url_video'], $spectacle['url_image'], $artistes);
         }
         return $spectacles;
     }
 
+
+    public function test(){
+        $result = $this->pdo->query('SELECT spectacle.id as spectacle_id, 
+                                                spectacle.titre, 
+                                                spectacle.description, 
+                                                spectacle.url_video, 
+                                                spectacle.url_image,
+                                                json_agg(json_build_object(\'id\', artiste.id, \'prenom\', artiste.prenom)) as artistes
+                                                FROM spectacle 
+                                                    INNER JOIN spectacle_artistes ON spectacle.id=spectacle_artistes.id_spectacle
+                                                    INNER JOIN artiste ON spectacle_artistes.id_artiste=artiste.id
+                                                GROUP BY spectacle_id')->fetchAll();
+        var_dump($result);
+    }
+
     public function getSpectacleById(string $id): Spectacle{
         $result = $this->pdo->prepare('SELECT * FROM spectacle WHERE id = :id');
         $result->execute(['id' => $id]);
-        $artistes_prep = $this->pdo->prepare('SELECT id_artistes FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
-        $artistes_prep->execute(['spectacle_id' => $result['id']]);
+        $artistes_prep = $this->pdo->prepare('SELECT id_artiste FROM spectacle_artistes WHERE id_spectacle = :spectacle_id');
+        $artistes_prep->execute(['spectacle_id' => $result['id_artiste']]);
         $artistes = [];
         foreach($artistes_prep as $artiste){
-            $artistes[] = new Artiste($artiste['id'], $artiste['prenom']);
+            $artiste_req = $this->pdo->prepare('SELECT * FROM artiste WHERE id = :id');
+            $artiste_req->execute(['id' => $artiste['id']]);
+            $artistes[] = new Artiste($artiste_req['id'], $artiste_req['prenom']);
         }
         return new Spectacle($result['id'], $result['titre'], $result['description'], $result['url_url_video'], $result['url_image'], $artistes);
     }

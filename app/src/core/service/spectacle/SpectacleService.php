@@ -18,6 +18,7 @@ class SpectacleService implements SpectacleServiceInterface
 
     public function getSpectacles(): array
     {
+        $this->spectacleRepository->test();
         $res = array();
         $spectacles = $this->spectacleRepository->getSpectacles();
 //        var_dump($spectacles);
