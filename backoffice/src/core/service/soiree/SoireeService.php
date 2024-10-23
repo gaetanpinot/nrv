@@ -41,4 +41,9 @@ class SoireeService implements SoireeServiceInterface
             return ['soiree' => new SoireeDTO($s['soiree']), 'nbPlacesVendues' => $s['nbPlacesVendues']];
         },$jauge);
     }
+
+
+    public function addSoiree($soiree){
+        $this->soireeRepository->save($soiree);
+    }
 }
