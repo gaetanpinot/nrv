@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\core\repositoryInterfaces;
+namespace nrv\back\core\repositoryInterfaces;
 
-use nrv\core\domain\entities\Artiste\Artiste;
-use nrv\core\domain\entities\Billet\Billet;
-use nrv\core\domain\entities\Theme\Theme;
+use nrv\back\core\domain\entities\Artiste\Artiste;
+use nrv\back\core\domain\entities\Billet\Billet;
+use nrv\back\core\domain\entities\Theme\Theme;
 use PhpParser\Node\Stmt\Label;
 
 interface ThemeRepositoryInterface

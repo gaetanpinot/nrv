@@ -1,11 +1,11 @@
 <?php
 
-namespace nrv\core\domain\entities\Billet;
+namespace nrv\back\core\domain\entities\Billet;
 
 use DateTime;
-use nrv\core\domain\entities\Entity;
-use nrv\core\dto\BilletDTO;
-use nrv\core\dto\UtilisateurDTO;
+use nrv\back\core\domain\entities\Entity;
+use nrv\back\core\dto\BilletDTO;
+use nrv\back\core\dto\UtilisateurDTO;
 
 class Billet extends Entity
 {

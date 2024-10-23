@@ -1,8 +1,8 @@
 <?php
-namespace nrv\core\dto;
+namespace nrv\back\core\dto;
 
-use nrv\core\domain\entities\Lieu\Lieu;
-use nrv\core\dto\DTO;
+use nrv\back\core\domain\entities\Lieu\Lieu;
+use nrv\back\core\dto\DTO;
 
 class LieuDTO extends DTO{
     

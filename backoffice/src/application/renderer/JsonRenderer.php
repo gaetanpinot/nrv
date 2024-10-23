@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\application\renderer;
+namespace nrv\back\application\renderer;
 
 use Psr\Http\Message\ResponseInterface as Response;
 

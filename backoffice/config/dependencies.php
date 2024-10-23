@@ -4,15 +4,15 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
-use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
-use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
-use nrv\core\service\spectacle\SpectacleService;
-use nrv\core\service\spectacle\SpectacleServiceInterface;
-use nrv\infrastructure\Repositories\SoireeRepository;
-use nrv\infrastructure\Repositories\SpectacleRepository;
+use nrv\back\core\repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\back\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\back\core\service\spectacle\SpectacleService;
+use nrv\back\core\service\spectacle\SpectacleServiceInterface;
+use nrv\back\infrastructure\Repositories\SoireeRepository;
+use nrv\back\infrastructure\Repositories\SpectacleRepository;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use nrv\middlewares\CorsMiddleware;
+use nrv\back\middlewares\CorsMiddleware;
 
 
 

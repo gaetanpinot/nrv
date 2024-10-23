@@ -1,11 +1,11 @@
 <?php
 
-namespace nrv\core\service\utilisateur;
+namespace nrv\back\core\service\utilisateur;
 
 use Firebase\JWT\JWT;
-use nrv\core\domain\entities\Utilisateur\Utilisateur;
-use nrv\core\dto\UtilisateurDTO;
-use nrv\infrastructure\Repositories\UtilisateurRepository;
+use nrv\back\core\domain\entities\Utilisateur\Utilisateur;
+use nrv\back\core\dto\UtilisateurDTO;
+use nrv\back\infrastructure\Repositories\UtilisateurRepository;
 use Ramsey\Uuid\Uuid;
 
 class UtilisateurService

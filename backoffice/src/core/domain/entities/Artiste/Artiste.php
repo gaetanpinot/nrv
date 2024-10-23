@@ -1,9 +1,9 @@
 <?php
 
-namespace nrv\core\domain\entities\Artiste;
+namespace nrv\back\core\domain\entities\Artiste;
 
-use nrv\core\domain\entities\Entity;
-use nrv\core\dto\ArtisteDTO;
+use nrv\back\core\domain\entities\Entity;
+use nrv\back\core\dto\ArtisteDTO;
 
 class Artiste extends Entity
 {

@@ -1,9 +1,9 @@
 <?php
-namespace nrv\core\dto;
+namespace nrv\back\core\dto;
 
-use nrv\core\domain\entities\Artiste\Artiste;
-use nrv\core\domain\entities\Spectacle\Spectacle;
-use nrv\core\dto\DTO;
+use nrv\back\core\domain\entities\Artiste\Artiste;
+use nrv\back\core\domain\entities\Spectacle\Spectacle;
+use nrv\back\core\dto\DTO;
 use DateTime;
 
 class SpectacleDTO extends DTO{

@@ -1,8 +1,8 @@
 <?php
 
-namespace nrv\core\service\soiree;
+namespace nrv\back\core\service\soiree;
 
-use nrv\core\dto\SoireeDTO;
+use nrv\back\core\dto\SoireeDTO;
 
 interface SoireeServiceInterface
 {

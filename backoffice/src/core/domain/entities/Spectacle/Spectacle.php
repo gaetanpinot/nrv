@@ -1,8 +1,8 @@
 <?php
-namespace nrv\core\domain\entities\Spectacle;
+namespace nrv\back\core\domain\entities\Spectacle;
 
-use nrv\core\dto\SpectacleDTO;
-use nrv\core\domain\entities\Entity;
+use nrv\back\core\dto\SpectacleDTO;
+use nrv\back\core\domain\entities\Entity;
 use DateTime;
 
 class Spectacle extends Entity{

@@ -1,11 +1,11 @@
 <?php
 
-namespace nrv\core\domain\entities\Panier;
+namespace nrv\back\core\domain\entities\Panier;
 
 use DateTime;
-use nrv\core\domain\entities\Entity;
-use nrv\core\dto\PanierDTO;
-use nrv\core\dto\UtilisateurDTO;
+use nrv\back\core\domain\entities\Entity;
+use nrv\back\core\dto\PanierDTO;
+use nrv\back\core\dto\UtilisateurDTO;
 
 class Panier extends Entity
 {

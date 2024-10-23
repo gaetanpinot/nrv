@@ -1,8 +1,8 @@
 <?php
 
-namespace nrv\core\dto;
+namespace nrv\back\core\dto;
 
-use nrv\core\domain\entities\Utilisateur\Utilisateur;
+use nrv\back\core\domain\entities\Utilisateur\Utilisateur;
 
 class UtilisateurDTO extends DTO
 {

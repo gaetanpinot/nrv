@@ -1,12 +1,12 @@
 <?php
 
-namespace nrv\core\domain\entities\Theme;
+namespace nrv\back\core\domain\entities\Theme;
 
 use DateTime;
-use nrv\core\domain\entities\Entity;
-use nrv\core\dto\SoireeDTO;
-use nrv\core\dto\ThemeDTO;
-use nrv\core\dto\UtilisateurDTO;
+use nrv\back\core\domain\entities\Entity;
+use nrv\back\core\dto\SoireeDTO;
+use nrv\back\core\dto\ThemeDTO;
+use nrv\back\core\dto\UtilisateurDTO;
 
 class Theme extends Entity
 {

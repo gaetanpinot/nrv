@@ -1,10 +1,10 @@
 <?php
-namespace nrv\infrastructure\Repositories;
+namespace nrv\back\infrastructure\Repositories;
 
-use nrv\core\domain\entities\Artiste\Artiste;
-use nrv\core\domain\entities\Spectacle\Spectacle;
+use nrv\back\core\domain\entities\Artiste\Artiste;
+use nrv\back\core\domain\entities\Spectacle\Spectacle;
 use \PDO;
-use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\back\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use DI\Container;
 use \DateTime;
 

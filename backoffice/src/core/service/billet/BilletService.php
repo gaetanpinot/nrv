@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\core\service\billet;
+namespace nrv\back\core\service\billet;
 
-use nrv\core\domain\entities\Billet\Billet;
-use nrv\core\dto\BilletDTO;
-use nrv\infrastructure\Repositories\BilletRepository;
+use nrv\back\core\domain\entities\Billet\Billet;
+use nrv\back\core\dto\BilletDTO;
+use nrv\back\infrastructure\Repositories\BilletRepository;
 
 class BilletService
 {

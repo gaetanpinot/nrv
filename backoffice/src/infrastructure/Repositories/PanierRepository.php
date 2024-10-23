@@ -1,14 +1,14 @@
 <?php
 
-namespace nrv\infrastructure\Repositories;
+namespace nrv\back\infrastructure\Repositories;
 
 use DI\Container;
-use nrv\core\domain\entities\Artiste\Artiste;
-use nrv\core\domain\entities\Billet\Billet;
-use nrv\core\domain\entities\Panier\Panier;
-use nrv\core\repositoryInterfaces\ArtisteRepositoryInterface;
-use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
-use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
+use nrv\back\core\domain\entities\Artiste\Artiste;
+use nrv\back\core\domain\entities\Billet\Billet;
+use nrv\back\core\domain\entities\Panier\Panier;
+use nrv\back\core\repositoryInterfaces\ArtisteRepositoryInterface;
+use nrv\back\core\repositoryInterfaces\BilletRepositoryInterface;
+use nrv\back\core\repositoryInterfaces\PanierRepositoryInterface;
 use PDO;
 
 class PanierRepository implements PanierRepositoryInterface

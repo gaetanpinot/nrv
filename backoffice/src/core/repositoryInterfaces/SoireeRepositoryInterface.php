@@ -1,7 +1,7 @@
 <?php
-namespace nrv\core\repositoryInterfaces;
+namespace nrv\back\core\repositoryInterfaces;
 
-use nrv\core\domain\entities\Soiree\Soiree;
+use nrv\back\core\domain\entities\Soiree\Soiree;
 
 interface SoireeRepositoryInterface{
     public function getSoirees(): array;

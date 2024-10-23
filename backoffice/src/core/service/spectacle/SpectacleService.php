@@ -1,11 +1,11 @@
 <?php
 
-namespace nrv\core\service\spectacle;
+namespace nrv\back\core\service\spectacle;
 
 
 use DI\Container;
-use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
-use nrv\infrastructure\Repositories\SpectacleRepository;
+use nrv\back\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\back\infrastructure\Repositories\SpectacleRepository;
 use Psr\Container\ContainerInterface;
 
 class SpectacleService implements SpectacleServiceInterface

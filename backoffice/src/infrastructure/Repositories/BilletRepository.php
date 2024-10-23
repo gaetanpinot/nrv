@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\infrastructure\Repositories;
+namespace nrv\back\infrastructure\Repositories;
 
 use DI\Container;
-use nrv\core\domain\entities\Billet\Billet;
-use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
+use nrv\back\core\domain\entities\Billet\Billet;
+use nrv\back\core\repositoryInterfaces\BilletRepositoryInterface;
 use PDO;
 
 class BilletRepository implements BilletRepositoryInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\core\service\spectacle;
+namespace nrv\back\core\service\spectacle;
 
 interface SpectacleServiceInterface
 {

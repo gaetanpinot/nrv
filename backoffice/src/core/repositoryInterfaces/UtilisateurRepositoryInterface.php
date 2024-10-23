@@ -1,7 +1,7 @@
 <?php
-namespace nrv\core\repositoryInterfaces;
+namespace nrv\back\core\repositoryInterfaces;
 
-use nrv\core\domain\entities\Utilisateur\Utilisateur;
+use nrv\back\core\domain\entities\Utilisateur\Utilisateur;
 
 interface UtilisateurRepositoryInterface{
     public function getUtilisateurs(): array;
