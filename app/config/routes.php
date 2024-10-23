@@ -17,7 +17,6 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/soirees/{id}[/]', AfficheDetailSoireeAction::class);
 
-    
     $app->get('/spectacles/{id}/soirees[/]', GetSoireesSpectaclesAction::class);
     $app->get('/spectacles[/]', AfficheListeSpectaclesAction::class);
 
@@ -29,8 +28,6 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/utilisateur/{id}/paniers[/]', GetPanierByIdAction::class);
 
-
-    $app->get('/spectacles/{dateDeb}/{dateFin}[/]', \nrv\application\actions\AfficheDateSpectacleAction::class);
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;

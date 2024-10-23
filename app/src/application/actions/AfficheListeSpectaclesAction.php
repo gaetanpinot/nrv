@@ -3,6 +3,8 @@
 namespace nrv\application\actions;
 
 use DI\Container;
+use Respect\Validation\Exceptions\NestedValidationException;
+use Respect\Validation\Validator;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\service\spectacle\SpectacleService;
 use nrv\core\service\spectacle\SpectacleServiceInterface;
@@ -20,7 +22,25 @@ class AfficheListeSpectaclesAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
+<<<<<<< HEAD
         $spectacles = $this->spectacleService->getSpectacles();
+=======
+        //Affichage de la liste des spectacles : pour chaque spectacle, on affiche le titre, la date et
+        //l’horaire, une image.
+        $params = $rq->getQueryParams();
+        $pageValidator = Validator::key('page',Validator::intVal()->greaterThan(-1));
+        $nombreValidator = Validator::key('nombre',Validator::intVal()->greaterThan(0)->lessThan(31));
+        $page = 0;
+        $nombre = 10;
+        try{
+            $pageValidator->assert($params);
+            $page = $params['page'];
+            $nombreValidator->assert($params);
+            $nombre = $params['nombre'];
+        }catch(NestedValidationException $e){
+        }
+        $spectacles = $this->spectacleService->getSpectacles($page, $nombre);
+>>>>>>> 757f7ac7b7ebd9ffd73a44b6deeec095cd31ade7
         return JsonRenderer::render($rs, 200, $spectacles);
     }
 }
