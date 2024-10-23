@@ -12,7 +12,7 @@ services:
     ports:
       - '44010:80'
     volumes:
-      - ./backoffice:/var/php
+      - ./app:/var/php
       - ./sql:/var/sql
     working_dir: /var/php
     networks:
@@ -30,7 +30,7 @@ services:
     ports:
       - '44014:80'
     volumes:
-      - ./back:/var/php
+      - ./backoffice:/var/php
       - ./sql:/var/sql
     working_dir: /var/php
     networks:
