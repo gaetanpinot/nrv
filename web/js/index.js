@@ -5728,12 +5728,12 @@
   function afficheSpectacles() {
     fetch(URL_API + URI_SPECTACLES).then((resp) => resp.json()).then((data) => {
       data.forEach(function(val) {
-        document.querySelector("#liste-soiree").innerHTML += TEMPLATE_SPECTACLE(val);
+        document.querySelector("#liste-concert").innerHTML += TEMPLATE_SPECTACLE(val);
       });
     }).then(() => {
-      document.querySelectorAll(".concerts").forEach((e) => {
+      document.querySelectorAll(".footer-concert-button").forEach((e) => {
         e.addEventListener("click", () => {
-          afficheSoiree(e.querySelector("input").value);
+          afficheSoiree(e.dataset.id);
         });
       });
     });
@@ -5744,7 +5744,10 @@
     console.log(uri);
     fetch(uri).then((resp) => resp.json()).then((data) => {
       data.forEach((val) => {
-        let insertion = document.querySelector("#liste-soiree");
+        let insertion = document.querySelector("#liste-concert");
+        if (insertion) {
+          insertion.setAttribute("id", "template-soiree");
+        }
         insertion.innerHTML = "";
         insertion.innerHTML += TEMPLATE_SOIREE(val);
       });
