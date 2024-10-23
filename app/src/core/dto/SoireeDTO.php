@@ -11,7 +11,7 @@ class SoireeDTO extends DTO
 {
     public string $id;
     public string $nom;
-    public int $id_theme;
+    public ThemeDTO $theme;
     public DateTime $date;
     public DateTime $heure_debut;
     public DateTime $duree;
@@ -26,7 +26,7 @@ class SoireeDTO extends DTO
     {
         $this->id = $soiree->id;
         $this->nom = $soiree->nom;
-        $this->id_theme = $soiree->id_theme;
+        $this->theme = $soiree->theme->toDTO();
         $this->date = $soiree->date;
         $this->heure_debut = $soiree->heure_debut;
         $this->duree = $soiree->duree;

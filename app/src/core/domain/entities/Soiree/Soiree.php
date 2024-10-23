@@ -5,13 +5,14 @@ namespace nrv\core\domain\entities\Soiree;
 use DateTime;
 use nrv\core\domain\entities\Entity;
 use nrv\core\domain\entities\Lieu\Lieu;
+use nrv\core\domain\entities\Theme\Theme;
 use nrv\core\dto\SoireeDTO;
 
 class Soiree extends Entity
 {
     protected string $id;
     protected string $nom;
-    protected int $id_theme;
+    protected Theme $theme;
     protected DateTime $date;
     protected DateTime $heure_debut;
     protected DateTime $duree;
@@ -22,11 +23,11 @@ class Soiree extends Entity
     protected float $tarif_normal;
     protected float $tarif_reduit;
 
-    public function __construct($id, $nom, $id_theme, $date, $heure_debut, $duree, $lieu, $spectacles, $nb_places_assises_restantes, $nb_places_debout_restantes, $tarif_normal, $tarif_reduit)
+    public function __construct($id, $nom,Theme $theme, $date, $heure_debut, $duree, $lieu, $spectacles, $nb_places_assises_restantes, $nb_places_debout_restantes, $tarif_normal, $tarif_reduit)
     {
         $this->id = $id;
         $this->nom = $nom;
-        $this->id_theme = $id_theme;
+        $this->theme = $theme;
         $this->date = DateTime::createFromFormat('Y-m-d', $date);
         $this->heure_debut = DateTime::createFromFormat('H:i:s', $heure_debut);
         $this->duree = DateTime::createFromFormat('H:i:s', $duree);
