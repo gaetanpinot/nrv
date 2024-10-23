@@ -44,7 +44,8 @@
                         <img src="/img/panier.svg " alt="panier " onclick="window.location.href='panier.html'">
                     </li>
                     <li id="img-compte">
-                        <img src="https://i.pravatar.cc/300 " alt="compte " onclick="window.location.href='compte.html'">
+                        <img src="https://i.pravatar.cc/300 " alt="compte "
+                            onclick="window.location.href='compte.html'">
                     </li>
                 </ul>
             </nav>
@@ -52,10 +53,15 @@
     </header>
     <main>
         <div id="description">
-            <strong class="creme">Nancy Rock Vibration</strong> est un événement musical palpitant qui se déroule sur 12 soirées inoubliables, offrant une immersion totale dans l'univers du rock. Réparti dans 4 lieux emblématiques de la ville de Nancy,
-            chaque lieu accueille 3 représentations uniques, chacune mettant en avant des artistes locaux et internationaux. Cependant, chaque soirée se concentre sur un seul lieu, permettant aux spectateurs de profiter d'une atmosphère immersive et d'une
+            <strong class="creme">Nancy Rock Vibration</strong> est un événement musical palpitant qui se déroule sur 12
+            soirées inoubliables, offrant une immersion totale dans l'univers du rock. Réparti dans 4 lieux
+            emblématiques de la ville de Nancy,
+            chaque lieu accueille 3 représentations uniques, chacune mettant en avant des artistes locaux et
+            internationaux. Cependant, chaque soirée se concentre sur un seul lieu, permettant aux spectateurs de
+            profiter d'une atmosphère immersive et d'une
             programmation spécialement sélectionnée pour l'endroit.<br>
-            <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants, des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
+            <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants,
+            des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
         </div>
         <div id="edt">
             <div id="schedule">
@@ -95,7 +101,7 @@
                         <li id="date">{{this.date}}</li>
                         <li id="lieux">{{this.lieu.nom}}</li>
                         <li id="heures">{{this.heure_debut}}</li>
-                        <li id="style">{{this.theme_name}}</li>
+                        <li id="style">{{this.theme.label}}</li>
                     </ul>
                 </li>
                 <li class="tarif">
