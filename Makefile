@@ -3,6 +3,10 @@ webdocker = nrv-web-1
 install: 
 	sudo docker compose up -d
 	sudo docker exec -it $(phpdocker) composer install
+buildJs:
+	sudo docker exec -it $(webdocker) npm  run build
+buildJsNoSudo:
+	docker exec -it $(webdocker) npm --prefix ./web run build
 watchSassNoSudo:
 	docker exec -it $(webdocker) node-sass -w ./sass -o ./css
 watchSass:

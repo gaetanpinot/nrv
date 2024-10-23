@@ -1,13 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/index.css">
-    <script type="text/javascript" src="./js/script.js"></script>
-    <script type="text/javascript" src="./js/edt.js"></script>
-    <script type="text/javascript" src="./js/soiree.js"></script>
+    <script type="text/javascript" src="./js/index.js" defer></script>
     <title>NRV.net</title>
 </head>
 
@@ -23,16 +22,13 @@
                         Filtré les répresentations
                         <ul id="filtre">
                             <li id="lieu">
-                                <a href="index.html#liste-representation "
-                                    alt="liste représentation filtré par lieux ">par lieux</a>
+                                <a href="index.html#liste-representation ">par lieux</a>
                             </li>
                             <li id="styles">
-                                <a href="index.html#liste-representation "
-                                    alt="liste représentation filtré par styles ">par styles</a>
+                                <a href="index.html#liste-representation ">par styles</a>
                             </li>
                             <li id="date">
-                                <a href="index.html#liste-representation "
-                                    alt="liste représentation filtré par date ">par date</a>
+                                <a href="index.html#liste-representation ">par date</a>
                             </li>
 
                         </ul>
@@ -45,7 +41,7 @@
                 </ul>
                 <ul>
                     <li id="logo-panier">
-                        <img src="img/panier.svg " alt="panier " onclick="window.location.href='panier.html'">
+                        <img src="content/img/panier.svg " alt="panier " onclick="window.location.href='panier.html'">
                     </li>
                     <li id="img-compte">
                         <img src="https://i.pravatar.cc/300 " alt="compte "
@@ -88,260 +84,100 @@
 
         <div id="liste-soiree">
 
-            <div id="filtre">
-            </div>
-
-            <div id="soirees">
-
-                <article>
-                    <div class="image" style="background-image: url(https://picsum.photos/id/20/650/487);"></div>
-                    <div class="title ">Soirée Jazz</div>
-                    <div class="soiree-info">
-                        <ul>
-                            <li>
-                                <ul>
-                                    <li id="date">12 Novembre 2024</li>
-                                    <li id="lieux">Stade Pierre-Mauroy</li>
-                                    <li id="heures">De 20:00 à 23:00</li>
-                                    <li id="style">rock</li>
-                                </ul>
-                            </li>
-                            <li class="tarif">
-                                <ul>
-                                    <li>prix</li>
-                                    <li id="normal "> tarif normal: 10€</li>
-                                    <li id="reduit"> tarif reduit: 5€</li>
-                                    <!-- todo hover tooltips-->
-                                </ul>
-
-                            </li>
-                            <li class="places">
-                                <ul>
-                                    <li>Places restante</li>
-                                    <li id="assises">50 places assises</li>
-                                    <li id="debout">150 places debout</li>
-                                    <!-- todo barre place restante-->
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="concerts">
-                        <h3>concert: </h3>
-                        <ul>
-                            <li>
-                                <h4 class="title representation toggle">jameellle</h4>
-                                <div class="info-concert">
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-
-                            </li>
-                            <li>
-                                <h4 class="title representation toggle">jamaaaaeellle</h4>
-                                <div class="info-concert">
-
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <h4 class="title representation toggle">eeeee</h4>
-                                <div class="info-concert">
-
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                </article>
-                <article>
-                    <div class="image" style="background-image: url(https://picsum.photos/id/20/650/487);"></div>
-                    <div class="title ">Soirée Jazz</div>
-                    <div class="soiree-info">
-                        <ul>
-                            <li>
-                                <ul>
-                                    <li id="date">12 Novembre 2024</li>
-                                    <li id="lieux">Stade Pierre-Mauroy</li>
-                                    <li id="heures">De 20:00 à 23:00</li>
-                                    <li id="style">rock</li>
-                                </ul>
-                            </li>
-                            <li class="tarif">
-                                <ul>
-                                    <li>prix</li>
-                                    <li id="normal "> tarif normal: 10€</li>
-                                    <li id="reduit"> tarif reduit: 5€</li>
-                                    <!-- todo hover tooltips-->
-                                </ul>
-
-                            </li>
-                            <li class="places">
-                                <ul>
-                                    <li>Places restante</li>
-                                    <li id="assises">50 places assises</li>
-                                    <li id="debout">150 places debout</li>
-                                    <!-- todo barre place restante-->
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="concerts">
-                        <h3>concert: </h3>
-                        <ul>
-                            <li>
-                                <h4 class="title representation toggle">jameellle</h4>
-                                <div class="info-concert">
-                                    <div class="concert-image"></div>
-
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-
-                            </li>
-                            <li>
-                                <h4 class="title representation toggle">jamaaaaeellle</h4>
-                                <div class="info-concert">
-                                    <div class="concert-image"></div>
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <h4 class="title representation toggle">eeeee</h4>
-                                <div class="info-concert">
-                                    <div class="concert-image"></div>
-
-                                    <div class="description">
-                                        <p class="description-content"> mon texte de description caché mon texte de
-                                            description cachémon texte de description cachémon texte de description
-                                            caché</p>
-                                    </div>
-
-                                    <ul>
-                                        <li>
-                                            <ul class="artistes">
-                                                <li id="1 ">Artiste A</li>
-                                                <li id="2 ">Artiste B</li>
-                                                <li id="3 ">Artiste C</li>
-                                                <li id="4 ">Artiste C</li>
-                                                <li id="5 ">Artiste C</li>
-                                                <li id="6 ">Artiste C</li>
-
-                                            </ul>
-                                        </li>
-                                        <li> de 21h à 22h</li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                </article>
-
-
-
-            </div>
         </div>
 
 
 
     </main>
     <footer></footer>
+
+    <script id="templateSoiree">
+        <div>
+        <ul>
+            <li>
+                <ul>
+                    <li id="date">{{this.date}}</li>
+                    <li id="lieux">{{this.lieu.nom}}</li>
+                    <li id="heures">{{this.heure_debut}}</li>
+                    <li id="style">{{this.id_theme}}</li>
+                </ul>
+            </li>
+            <li class="tarif">
+                <ul>
+                    <li>prix</li>
+                    <li id="normal ">tarif norma : {{this.tarif_normal}}</li>
+                    <li id="reduit"> tarif reduit: {{this.tarif_reduit}}</li>
+                                    <!-- todo hover tooltips-->
+                </ul>
+
+            </li>
+            <li class="places">
+                <ul>
+                    <li>Places restante</li>
+                    <li id="assises">{{this.nb_places_assises_restantes}} places assises</li>
+                    <li id="debout">{{this.nb_places_debout_restantes}} places debout</li>
+                    <!-- todo barre place restante-->
+                </ul>
+            </li>
+        </ul>
+        {{#each this.spectacles}}
+        <div class="concerts">
+            <input value="{{this.id}}" type="hidden">
+                <h3>concert: </h3>
+                <ul>
+                    <li>
+                        <h4 class="title representation toggle">{{this.titre}}</h4>
+                        <div class="info-concert">
+                            <div class="concert-image">
+                                <img src="{{this.url_image}}" alt="image spectacle" style="width:30em;">
+                            </div>
+
+                            <div class="description">
+                                <p class="description-content">{{this.description}}</p>
+                            </div>
+
+                            <ul class="artistes">
+                                {{#each this.artistes}}
+                                <li>{{this.prenom}}</li>
+                                {{/ each}}
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+        </div>
+        {{/each}}
+        </div>
+    </script>
+
+    <script id="templateSpectacle">
+        <div class="concerts" >
+            <input value="{{this.id}}" type="hidden">
+                <h3>concert: </h3>
+                <ul>
+                    <li>
+                        <h4 class="title representation toggle">{{this.titre}}</h4>
+                        <div class="info-concert">
+                            <div class="concert-image">
+                                <img src="{{this.url_image}}" alt="image spectacle" style="width:30em;">
+                            </div>
+
+                            <div class="description">
+                                <p class="description-content">{{this.description}}</p>
+                            </div>
+
+                            <ul class="artistes">
+                                {{#each this.artistes}}
+                                <li>{{this.prenom}}</li>
+                                {{/ each}}
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+        </div>
+
+    </script>
+
+
 
 </body>
 

@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 # mise à jour de la liste des paquets et installation d'apache+php
 RUN apt-get update && \
     apt-get -y install \
-    vim nano less  \
+    vim nano less npm \
     node-node-sass \
     apache2 &&\
     apt-get clean && \

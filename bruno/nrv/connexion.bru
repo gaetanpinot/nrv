@@ -1,0 +1,18 @@
+meta {
+  name: connexion
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:44010/connexion
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email":"elise.guillon@robert.net",
+    "password":"1234"
+  }
+}

@@ -35,7 +35,6 @@ class SoireeDTO extends DTO
         $this->nb_places_debout_restantes = $soiree->nb_places_debout_restantes;
         $this->tarif_normal = $soiree->tarif_normal;
         $this->tarif_reduit = $soiree->tarif_reduit;
-
         $this->spectacles = [];
         foreach($soiree->spectacles as $spectacle){
             $this->spectacles[] = $spectacle->toDTO();

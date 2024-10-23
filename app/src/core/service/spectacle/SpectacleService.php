@@ -16,7 +16,7 @@ class SpectacleService implements SpectacleServiceInterface
         $this->spectacleRepository = $cont->get(SpectacleRepositoryInterface::class);
     }   
 
-    public function getSpectacles(): array
+    public function getSpectacles(int $page=0, int $nombre=10): array
     {
         $res = array();
         /* exemple de filtre
@@ -31,7 +31,10 @@ class SpectacleService implements SpectacleServiceInterface
             'date' => array('dateDebut' => '1966-06-05', 'dateFin' => '2006-08-02'), 'style' => array('label' => 'Rock'));
         */
         $filtre = null;
-        $spectacles = $this->spectacleRepository->getSpectacles($filtre);
+        $spectacles = $this->spectacleRepository->getSpectacles($page, $nombre, $filtre);
+        /*
+        $spectacles = $this->spectacleRepository->getSpectacles($page,$nombre);
+        */
         foreach ($spectacles as $spectacle) {
             $res[] = $spectacle->toDTO();
         }
