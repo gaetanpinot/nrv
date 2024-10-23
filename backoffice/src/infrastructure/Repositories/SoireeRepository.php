@@ -203,16 +203,31 @@ GROUP BY soiree.id, lieu_spectacle.id;
 //
     public function getNbPlacesVendues(): array{
 
-        $request = $this->pdo->prepare('SELECT soiree.* , ((lieu_spectacle.nb_places_assises + lieu_spectacle.nb_places_debout) - (soiree.nb_places_assises_restantes + soiree.nb_places_debout_restantes)) AS nb_places_vendues
-                                                FROM soiree
-                                                INNER JOIN lieu_spectacle ON soiree.id_lieu = lieu_spectacle.id
-                                                ');
+        $query = "
+SELECT 
+    soiree.*,
+    json_build_object(
+        'id', lieu_spectacle.id, 
+        'nom', lieu_spectacle.nom, 
+        'adresse', lieu_spectacle.adresse, 
+        'nb_places_assises', lieu_spectacle.nb_places_assises, 
+        'nb_places_debout', lieu_spectacle.nb_places_debout, 
+        'lien_image', lieu_spectacle.lien_image
+    ) as lieu
+FROM soiree, lieu_spectacle where soiree.id_lieu = lieu_spectacle.id;
+            ";
+        $request = $this->pdo->prepare($query);
         $request->execute();
-        $data = $request->fetchAll();
+        $data = $request->fetchAll(PDO::FETCH_ASSOC);
 
         $res = array();
         foreach ($data as $s){
-            $res[] = ['soiree' => new Soiree($s['id'], $s['nom'], $s['id_theme'], $s['date'], $s['heure_debut'], $s['duree'], null, array(), $s['nb_places_assises_restantes'], $s['nb_places_debout_restantes'], $s['tarif_normal'], $s['tarif_reduit']), 'nbPlacesVendues' => $s['nb_places_vendues']];
+            // var_dump($s);
+            $l = json_decode($s['lieu'],true);
+            // var_dump($l['lien_image']);
+    // public function __construct(string $id, string $nom, string $adresse, string $nb_places_assises, string $nb_places_debout, array $lien_image)
+            $lieu = new Lieu($l['id'],$l['nom'],$l['adresse'],$l['nb_places_assises'],$l['nb_places_debout'], (array)$l['lien_image']);
+            $res[] =  new Soiree($s['id'], $s['nom'], $s['id_theme'], $s['date'], $s['heure_debut'], $s['duree'], $lieu, [], $s['nb_places_assises_restantes'], $s['nb_places_debout_restantes'], $s['tarif_normal'], $s['tarif_reduit']) ;
         }
 
         return $res;

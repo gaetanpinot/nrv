@@ -37,8 +37,8 @@ class SoireeService implements SoireeServiceInterface
         //Affichage de la jauge des spectacles:nombre de places vendues pour chaque soirée
         $jauge = $this->soireeRepository->getNbPlacesVendues();
 
-        return array_map(function(array $s){
-            return ['soiree' => new SoireeDTO($s['soiree']), 'nbPlacesVendues' => $s['nbPlacesVendues']];
+        return array_map(function(Soiree $s){
+            return $s->toDTO();
         },$jauge);
     }
 }

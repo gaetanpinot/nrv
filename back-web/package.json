@@ -1,0 +1,16 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "site web nancy rock vibration",
+  "main": "index.js",
+  "dependencies": {
+    "esbuild": "^0.24.0",
+    "handlebars": "^4.7.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild index.js --bundle  --sourcemap --target=es2015 --outfile=js/index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
