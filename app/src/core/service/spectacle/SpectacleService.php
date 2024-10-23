@@ -25,4 +25,13 @@ class SpectacleService implements SpectacleServiceInterface
         }
         return $res;
     }
+
+    public function getSpectaclesByDate($dateDebut, $dateFin): array{
+        $res = array();
+        $spectacles = $this->spectacleRepository->getSpectaclesByDate($dateDebut, $dateFin);
+        foreach ($spectacles as $spectacle) {
+            $res[] = $spectacle->toDTO();
+        }
+        return $res;
+    }
 }
