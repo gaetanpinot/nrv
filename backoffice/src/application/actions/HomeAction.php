@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\application\actions;
+namespace nrv\back\application\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

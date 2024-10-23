@@ -1,8 +1,8 @@
 <?php
 
-namespace nrv\core\dto;
+namespace nrv\back\core\dto;
 
-use nrv\core\domain\entities\Panier\Panier;
+use nrv\back\core\domain\entities\Panier\Panier;
 
 class PanierDTO extends DTO
 {

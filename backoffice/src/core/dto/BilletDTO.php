@@ -1,9 +1,9 @@
 <?php
 
-namespace nrv\core\dto;
+namespace nrv\back\core\dto;
 
 
-use nrv\core\domain\entities\Billet\Billet;
+use nrv\back\core\domain\entities\Billet\Billet;
 
 class BilletDTO extends DTO
 {

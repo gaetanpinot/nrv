@@ -1,9 +1,9 @@
 <?php
-namespace nrv\infrastructure\Repositories;
+namespace nrv\back\infrastructure\Repositories;
 
 use DI\Container;
-use nrv\core\domain\entities\Utilisateur\Utilisateur;
-use nrv\core\repositoryInterfaces\UtilisateurRepositoryInterface;
+use nrv\back\core\domain\entities\Utilisateur\Utilisateur;
+use nrv\back\core\repositoryInterfaces\UtilisateurRepositoryInterface;
 use PDO;
 
 class UtilisateurRepository implements UtilisateurRepositoryInterface{

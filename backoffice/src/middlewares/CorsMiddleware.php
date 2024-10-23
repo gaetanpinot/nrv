@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\middlewares;
+namespace nrv\back\middlewares;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

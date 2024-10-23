@@ -1,10 +1,10 @@
 <?php
-namespace nrv\infrastructure\Repositories;
+namespace nrv\back\infrastructure\Repositories;
 
 use DI\Container;
-use nrv\core\domain\entities\Lieu\Lieu;
-use nrv\core\domain\entities\Soiree\Soiree;
-use nrv\core\repositoryInterfaces\LieuRepositoryInterface;
+use nrv\back\core\domain\entities\Lieu\Lieu;
+use nrv\back\core\domain\entities\Soiree\Soiree;
+use nrv\back\core\repositoryInterfaces\LieuRepositoryInterface;
 use PDO;
 use Respect\Validation\Rules\Contains;
 

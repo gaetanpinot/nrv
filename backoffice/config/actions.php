@@ -1,8 +1,8 @@
 <?php
 
 
-use nrv\application\actions\AfficherJaugeSpectacleAction;
-use nrv\application\actions\HomeAction;
+use nrv\back\application\actions\AfficherJaugeSpectacleAction;
+use nrv\back\application\actions\HomeAction;
 
 
 

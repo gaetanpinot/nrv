@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\application\middlewares;
+namespace nrv\back\application\middlewares;
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

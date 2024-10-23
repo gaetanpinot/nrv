@@ -1,11 +1,11 @@
 <?php
 
-namespace nrv\core\domain\entities\Soiree;
+namespace nrv\back\core\domain\entities\Soiree;
 
 use DateTime;
-use nrv\core\domain\entities\Entity;
-use nrv\core\domain\entities\Lieu\Lieu;
-use nrv\core\dto\SoireeDTO;
+use nrv\back\core\domain\entities\Entity;
+use nrv\back\core\domain\entities\Lieu\Lieu;
+use nrv\back\core\dto\SoireeDTO;
 
 class Soiree extends Entity
 {

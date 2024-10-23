@@ -1,7 +1,7 @@
 <?php
-namespace nrv\core\repositoryInterfaces;
+namespace nrv\back\core\repositoryInterfaces;
 
-use nrv\core\domain\entities\Spectacle\Spectacle;
+use nrv\back\core\domain\entities\Spectacle\Spectacle;
 
 interface SpectacleRepositoryInterface{
     public function getSpectacles(): array;

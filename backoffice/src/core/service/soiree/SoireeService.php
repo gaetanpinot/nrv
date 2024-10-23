@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\core\service\soiree;
+namespace nrv\back\core\service\soiree;
 
-use nrv\core\domain\entities\Soiree\Soiree;
-use nrv\core\dto\SoireeDTO;
-use nrv\infrastructure\Repositories\SoireeRepository;
+use nrv\back\core\domain\entities\Soiree\Soiree;
+use nrv\back\core\dto\SoireeDTO;
+use nrv\back\infrastructure\Repositories\SoireeRepository;
 
 class SoireeService implements SoireeServiceInterface
 {

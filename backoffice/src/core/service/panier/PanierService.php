@@ -1,12 +1,12 @@
 <?php
 
-namespace nrv\core\service\panier;
+namespace nrv\back\core\service\panier;
 
 use DI\Container;
-use nrv\core\dto\PanierDTO;
-use nrv\infrastructure\Repositories\PanierRepository;
+use nrv\back\core\dto\PanierDTO;
+use nrv\back\infrastructure\Repositories\PanierRepository;
 use PDO;
-use nrv\core\domain\entities\Panier\Panier;
+use nrv\back\core\domain\entities\Panier\Panier;
 
 class PanierService
 {

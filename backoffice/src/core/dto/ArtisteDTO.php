@@ -1,8 +1,8 @@
 <?php
 
-namespace nrv\core\dto;
+namespace nrv\back\core\dto;
 
-use nrv\core\domain\entities\Artiste\Artiste;
+use nrv\back\core\domain\entities\Artiste\Artiste;
 
 class ArtisteDTO extends DTO
 {

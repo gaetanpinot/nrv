@@ -1,8 +1,8 @@
 <?php
 
-namespace nrv\core\repositoryInterfaces;
+namespace nrv\back\core\repositoryInterfaces;
 
-use nrv\core\domain\entities\Billet\Billet;
+use nrv\back\core\domain\entities\Billet\Billet;
 
 interface BilletRepositoryInterface
 {

@@ -2,7 +2,7 @@
 
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
-use nrv\middlewares\CorsMiddleware;
+use nrv\back\middlewares\CorsMiddleware;
 
 
 

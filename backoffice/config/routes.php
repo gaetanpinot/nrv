@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-use nrv\application\actions\AfficherJaugeSpectacleAction;
-use nrv\application\actions\AfficheListeSpectaclesAction;
-use nrv\application\actions\ConnexionAction;
-use nrv\application\actions\GetPanierByIdAction;
-use nrv\application\actions\GetUserBilletsAction;
-use nrv\application\actions\InscriptionAction;
+use nrv\back\application\actions\AfficherJaugeSpectacleAction;
+use nrv\back\application\actions\AfficheListeSpectaclesAction;
+use nrv\back\application\actions\ConnexionAction;
+use nrv\back\application\actions\GetPanierByIdAction;
+use nrv\back\application\actions\GetUserBilletsAction;
+use nrv\back\application\actions\InscriptionAction;
 use Slim\Exception\HttpNotFoundException;
-use nrv\application\actions\HomeAction;
-use nrv\application\actions\GetSoireesSpectaclesAction;
-use \nrv\application\actions\AfficheDetailSoireeAction;
+use nrv\back\application\actions\HomeAction;
+use nrv\back\application\actions\GetSoireesSpectaclesAction;
+use \nrv\back\application\actions\AfficheDetailSoireeAction;
 
 return function (\Slim\App $app): \Slim\App {
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\application\actions;
+namespace nrv\back\application\actions;
 
 use DI\Container;
-use nrv\application\renderer\JsonRenderer;
-use nrv\core\service\soiree\SoireeService;
+use nrv\back\application\renderer\JsonRenderer;
+use nrv\back\core\service\soiree\SoireeService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

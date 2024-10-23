@@ -1,10 +1,10 @@
 <?php
 
-namespace nrv\application\actions;
+namespace nrv\back\application\actions;
 
 use DI\Container;
-use nrv\application\renderer\JsonRenderer;
-use nrv\core\service\spectacle\SpectacleService;
+use nrv\back\application\renderer\JsonRenderer;
+use nrv\back\core\service\spectacle\SpectacleService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 

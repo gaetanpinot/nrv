@@ -1,6 +1,6 @@
 <?php
 
-namespace nrv\core\dto;
+namespace nrv\back\core\dto;
 
 use Respect\Validation\Validatable;
 use Respect\Validation\Validator;

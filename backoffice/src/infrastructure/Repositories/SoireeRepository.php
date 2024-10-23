@@ -1,12 +1,12 @@
 <?php
-namespace nrv\infrastructure\Repositories;
+namespace nrv\back\infrastructure\Repositories;
 
-use nrv\core\domain\entities\Artiste\Artiste;
-use nrv\core\domain\entities\Lieu\Lieu;
-use nrv\core\domain\entities\Spectacle\Spectacle;
-use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
+use nrv\back\core\domain\entities\Artiste\Artiste;
+use nrv\back\core\domain\entities\Lieu\Lieu;
+use nrv\back\core\domain\entities\Spectacle\Spectacle;
+use nrv\back\core\repositoryInterfaces\SoireeRepositoryInterface;
 use DI\Container;
-use nrv\core\domain\entities\Soiree\Soiree;
+use nrv\back\core\domain\entities\Soiree\Soiree;
 use PDO;
 
 class SoireeRepository implements SoireeRepositoryInterface{
