@@ -51,10 +51,10 @@ class SoireeRepository implements SoireeRepositoryInterface{
                                                 spectacle.id = spectacles_soiree.id_spectacle and
                                                 spectacle.id = spectacle_artistes.id_spectacle and
                                                 artiste.id = spectacle_artistes.id_artiste and
-                                                
-                                                soiree.id = :id
-                                                
-                                                GROUP BY soiree.id, spectacle.id, lieu_spectacle.id;");
+                                                soiree.id_lieu = lieu_spectacle.id
+                                                                                                
+                                                GROUP BY soiree.id, spectacle.id, lieu_spectacle.id
+                                                HAVING soiree.id = :id;");
 
         $request->execute(['id' => $id]);
         $soiree = $request->fetch();

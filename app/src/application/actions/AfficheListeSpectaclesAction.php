@@ -20,8 +20,6 @@ class AfficheListeSpectaclesAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        //Affichage de la liste des spectacles : pour chaque spectacle, on affiche le titre, la date et
-        //l’horaire, une image.
         $spectacles = $this->spectacleService->getSpectacles();
         return JsonRenderer::render($rs, 200, $spectacles);
     }
