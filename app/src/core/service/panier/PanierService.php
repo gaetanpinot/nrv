@@ -3,6 +3,7 @@
 namespace nrv\core\service\panier;
 
 use DI\Container;
+use nrv\core\domain\entities\Billet\Billet;
 use nrv\core\dto\PanierDTO;
 use nrv\infrastructure\Repositories\PanierRepository;
 use PDO;
@@ -30,6 +31,24 @@ class PanierService
         }
 
         return new PanierDTO(new Panier ($result['id'], $result['id_utilisateur'], $result['is_valide']));
+    }
+
+    public function addBilletToPanier(string $id_utilisateur, Billet $billet): void
+    {
+        $panier = $this->getOrCreatePanierForUser($id_utilisateur);
+
+        $panier->setIdBillet($billet->getId());
+
+        $this->panierRepository->save($panier);
+    }
+
+    public function getOrCreatePanierForUser(string $id_utilisateur): Panier
+    {
+        try {
+            return $this->panierRepository->getPanierByUserId($id_utilisateur);
+        } catch (\Exception $e) {
+            return new Panier(uniqid(), $id_utilisateur, null, false);
+        }
     }
 
 

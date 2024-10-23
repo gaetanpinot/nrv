@@ -23,7 +23,9 @@ class ArtisteRepository implements ArtisteRepositoryInterface
 
     public function getArtisteById(string $id): Artiste
     {
-        $result = $this->pdo->query('SELECT * FROM artiste WHERE id = ' . $id)->fetch();
+        $result = $this->pdo->query('SELECT * FROM artiste WHERE id = :id');
+        $result->execute(['id' => $id]);
+        $result = $result->fetch();
         return new Artiste($result['id'], $result['prenom']);
 
     }

@@ -33,4 +33,13 @@ class BilletService
 
         return $userBillets;
     }
+
+    public function getBilletById(string $id_billet): Billet
+    {
+        $billet = $this->billetRepository->getBilletById($id_billet);
+        if (!$billet) {
+            throw new \Exception("Billet non trouvé : $id_billet");
+        }
+        return $billet;
+    }
 }

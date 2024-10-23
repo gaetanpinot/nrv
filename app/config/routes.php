@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use nrv\application\actions\AfficheListeSpectaclesAction;
+use nrv\application\actions\AjouterBilletDansPanierAction;
 use nrv\application\actions\ConnexionAction;
 use nrv\application\actions\GetPanierByIdAction;
 use nrv\application\actions\GetUserBilletsAction;
@@ -31,6 +32,9 @@ return function (\Slim\App $app): \Slim\App {
 
 
     $app->get('/spectacles/{dateDeb}/{dateFin}', \nrv\application\actions\AfficheDateSpectacleAction::class);
+
+
+    $app->post('/panier/ajouter-billet', AjouterBilletDansPanierAction::class);
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;

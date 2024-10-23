@@ -21,7 +21,9 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function getBilletById(string $id): Billet
     {
-        $result = $this->pdo->query('SELECT * FROM billet WHERE id = ' . $id)->fetch();
+        $result = $this->pdo->query('SELECT * FROM billet WHERE id = :id');
+        $result->execute(['id' => $id]);
+        $result = $result->fetch();
         return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
 
     }
