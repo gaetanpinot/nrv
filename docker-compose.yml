@@ -12,6 +12,24 @@ services:
     ports:
       - '44010:80'
     volumes:
+      - ./app:/var/php
+      - ./sql:/var/sql
+    working_dir: /var/php
+    networks:
+      - nrv.net
+    depends_on:
+      - nrv.db
+    command: php -S 0.0.0.0:80 -t /var/php/public
+    restart: unless-stopped
+
+  backoffice.nrv:
+    build:
+      context: build
+      dockerfile: 8.3-cli.Dockerfile
+    env_file: ./nrv.env
+    ports:
+      - '44014:80'
+    volumes:
       - ./backoffice:/var/php
       - ./sql:/var/sql
     working_dir: /var/php
@@ -21,7 +39,19 @@ services:
       - nrv.db
     command: php -S 0.0.0.0:80 -t /var/php/public
     restart: unless-stopped
-    
+
+  web-back:
+    build: 
+      context: build
+      dockerfile: web.Dockerfile
+    volumes :
+      - ./back-web:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - '44015:80'
+    networks:
+      - nrv.net
+
   nrv.db:
     image: 'postgres:latest'
     env_file: ./nrvdb.env
