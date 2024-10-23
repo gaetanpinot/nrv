@@ -12,8 +12,6 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/spectacles', \nrv\application\actions\AfficheListeSpectaclesAction::class);
 
-    $app->get('/spectacles/{dateDeb}/{dateFin}', \nrv\application\actions\AfficheDateSpectacleAction::class);
-
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
     });

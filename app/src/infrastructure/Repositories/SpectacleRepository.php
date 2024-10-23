@@ -16,35 +16,66 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $this->pdo = $cont->get('pdo.commun');
     }
 
-    public function getSpectacles(): array{
+    public function getSpectacles(array $filtre = null): array{
         //on veut un spectacle et tous ses artistes en une seul requete
         //on ne veut pas à avoir plusieurs lignes avec le meme id de spectacle pour les differents artistes
         //on fait le select avec un group by sur la table principale
         //dans le select on construit un object json avec les elements de la table secondaire
         //puis les concatennes tous avec json_agg
-        $query = "
-        select
-        spectacle.*,
-        json_agg(json_build_object('id', artiste.id, 'prenom', artiste.prenom)) as artistes
-        from spectacle,
-        spectacle_artistes,
-        artiste
-        where
-        spectacle.id = spectacle_artistes.id_spectacle and
-        artiste.id = spectacle_artistes.id_artiste
-        group by spectacle.id
-        ;";
+        $tables = '';
+        $where = '';
+        $execute = array();
+
+        if($filtre != null){
+            if(isset($filtre['date'])){
+                $where .= ' soiree.date between :dateDebut and :dateFin and ';
+                $execute = array_merge(array('dateDebut' => $filtre['date']['dateDebut'], 'dateFin' => $filtre['date']['dateFin']), $execute);
+            }
+            if(isset($filtre['style'])){
+                $tables .= 'theme,';
+                $where .= ' soiree.id_theme = theme.id and
+                    theme.label = :style and ';
+                $execute = array_merge(array('style' => $filtre['style']['label']), $execute);
+            }
+            if(isset($filtre['lieu'])){
+                $tables .= 'lieu_spectacle,';
+                $where .= ' soiree.id_lieu = lieu_spectacle.id and
+                    lieu_spectacle.id = :lieu and ';
+                $execute = array_merge(array('lieu' => $filtre['lieu']['id']), $execute);
+            }
+            $query = "
+            select
+            spectacle.*
+            from spectacle,".$tables.
+            "spectacles_soiree,
+            soiree
+            where".$where.
+            "spectacle.id = spectacles_soiree.id_spectacle and
+            spectacles_soiree.id_soiree = soiree.id
+            group by spectacle.id
+            ;";
+        }else{
+            $query = "
+            select
+            spectacle.*
+            from spectacle
+            ;";
+        }
 
         $request = $this->pdo->prepare($query);
-        $request->execute([]);
+        $request->execute($execute);
         $spectacles = $request->fetchAll();
         $retour = [];
 
         //on a plusieur spectacle
         foreach($spectacles as $spectacle){
 
-            //on decodes les multiples artistes des spectacles
-            $artistes = json_decode($spectacle['artistes'],true);
+            //on récupère les multiples artistes des spectacles
+            $query = "select artiste.id, artiste.prenom from spectacle_artistes, artiste 
+                where spectacle_artistes.id_spectacle = :id and artiste.id = spectacle_artistes.id_artiste";
+            $request = $this->pdo->prepare($query);
+            $request->execute(['id' => $spectacle['id']]);
+            $artistes = $request->fetchAll();
             $artistes_decodee=[];
 
             //on créer une entité pour chaque artiste du spectacle
@@ -106,6 +137,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         return $retour;
     }
 
+    /*
     public function getSpectaclesByDate($dateDebut, $dateFin): array{
         //on veut les spectacles compris entre deux dates et tous ses artistes en une seul requete
         //on ne veut pas à avoir plusieurs lignes avec le meme id de spectacle pour les differents artistes
@@ -163,6 +195,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         }
         return $retour;
     }
+    */
 
     public function save(Spectacle $spectacle): void{
         $request = $this->pdo->prepare('INSERT INTO spectacle (id, titre, description, url_video, url_image, date) VALUES (:id, :titre, :description, :url_video, :url_image) ON CONFLICT (id) DO UPDATE SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image');
