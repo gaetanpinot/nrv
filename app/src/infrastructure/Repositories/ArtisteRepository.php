@@ -13,9 +13,11 @@ class ArtisteRepository implements ArtisteRepositoryInterface
 {
     protected PDO $pdo;
 
-    public function __construct(Container $cont){
+    public function __construct(Container $cont)
+    {
         $this->pdo = $cont->get('pdo.commun');
     }
+
     public function getArtiste(): array
     {
         return $this->pdo->query('SELECT * FROM artiste')->fetchAll();

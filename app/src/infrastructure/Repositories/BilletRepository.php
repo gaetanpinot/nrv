@@ -11,9 +11,11 @@ class BilletRepository implements BilletRepositoryInterface
 {
     protected PDO $pdo;
 
-    public function __construct(Container $cont){
+    public function __construct(Container $cont)
+    {
         $this->pdo = $cont->get('pdo.commun');
     }
+
     public function getBillet(): array
     {
         return $this->pdo->query('SELECT * FROM billet')->fetchAll();

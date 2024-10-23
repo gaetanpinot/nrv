@@ -5,7 +5,12 @@ meta {
 }
 
 get {
-  url: http://localhost:44010/spectacles
-  body: none
+  url: http://localhost:44010/spectacles?page=0&nombre=10
+  body: json
   auth: none
+}
+
+params:query {
+  page: 0
+  nombre: 10
 }

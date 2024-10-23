@@ -19,5 +19,4 @@ class PanierDTO extends DTO
         $this->is_valide = $panier->is_valide;
     }
 
-
 }

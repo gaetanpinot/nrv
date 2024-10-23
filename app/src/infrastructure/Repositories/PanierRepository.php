@@ -70,4 +70,5 @@ class PanierRepository implements PanierRepositoryInterface
 
         return new Panier($result['id'], $result['id_utilisateur'], $result['id_billet'], $result['is_valide']);
     }
+
 }

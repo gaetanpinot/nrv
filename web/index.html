@@ -41,11 +41,10 @@
                 </ul>
                 <ul>
                     <li id="logo-panier">
-                        <img src="content/img/panier.svg " alt="panier " onclick="window.location.href='panier.html'">
+                        <img src="/img/panier.svg " alt="panier " onclick="window.location.href='panier.html'">
                     </li>
                     <li id="img-compte">
-                        <img src="https://i.pravatar.cc/300 " alt="compte "
-                            onclick="window.location.href='compte.html'">
+                        <img src="https://i.pravatar.cc/300 " alt="compte " onclick="window.location.href='compte.html'">
                     </li>
                 </ul>
             </nav>
@@ -53,15 +52,10 @@
     </header>
     <main>
         <div id="description">
-            <strong class="creme">Nancy Rock Vibration</strong> est un événement musical palpitant qui se déroule sur 12
-            soirées inoubliables, offrant une immersion totale dans l'univers du rock. Réparti dans 4 lieux
-            emblématiques de la ville de Nancy,
-            chaque lieu accueille 3 représentations uniques, chacune mettant en avant des artistes locaux et
-            internationaux. Cependant, chaque soirée se concentre sur un seul lieu, permettant aux spectateurs de
-            profiter d'une atmosphère immersive et d'une
+            <strong class="creme">Nancy Rock Vibration</strong> est un événement musical palpitant qui se déroule sur 12 soirées inoubliables, offrant une immersion totale dans l'univers du rock. Réparti dans 4 lieux emblématiques de la ville de Nancy,
+            chaque lieu accueille 3 représentations uniques, chacune mettant en avant des artistes locaux et internationaux. Cependant, chaque soirée se concentre sur un seul lieu, permettant aux spectateurs de profiter d'une atmosphère immersive et d'une
             programmation spécialement sélectionnée pour l'endroit.<br>
-            <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants,
-            des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
+            <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants, des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
         </div>
         <div id="edt">
             <div id="schedule">
@@ -82,7 +76,7 @@
         </div>
 
 
-        <div id="liste-soiree">
+        <div id="liste-concert">
 
         </div>
 
@@ -91,91 +85,83 @@
     </main>
     <footer></footer>
 
-    <script id="templateSoiree">
-        <div>
-        <ul>
-            <li>
-                <ul>
-                    <li id="date">{{this.date}}</li>
-                    <li id="lieux">{{this.lieu.nom}}</li>
-                    <li id="heures">{{this.heure_debut}}</li>
-                    <li id="style">{{this.id_theme}}</li>
-                </ul>
-            </li>
-            <li class="tarif">
-                <ul>
-                    <li>prix</li>
-                    <li id="normal ">tarif norma : {{this.tarif_normal}}</li>
-                    <li id="reduit"> tarif reduit: {{this.tarif_reduit}}</li>
-                                    <!-- todo hover tooltips-->
-                </ul>
+    <script id="templateSoiree" type="text/x-handlebars-template">
+        <article>
+            <h3>Répresentation de la soirée</h3>
 
-            </li>
-            <li class="places">
-                <ul>
-                    <li>Places restante</li>
-                    <li id="assises">{{this.nb_places_assises_restantes}} places assises</li>
-                    <li id="debout">{{this.nb_places_debout_restantes}} places debout</li>
-                    <!-- todo barre place restante-->
-                </ul>
-            </li>
-        </ul>
-        {{#each this.spectacles}}
-        <div class="concerts">
-            <input value="{{this.id}}" type="hidden">
-                <h3>concert: </h3>
-                <ul>
-                    <li>
-                        <h4 class="title representation toggle">{{this.titre}}</h4>
-                        <div class="info-concert">
-                            <div class="concert-image">
-                                <img src="{{this.url_image}}" alt="image spectacle" style="width:30em;">
-                            </div>
+            <ul>
+                <li>
+                    <ul>
+                        <li id="date">{{this.date}}</li>
+                        <li id="lieux">{{this.lieu.nom}}</li>
+                        <li id="heures">{{this.heure_debut}}</li>
+                        <li id="style">{{this.theme_name}}</li>
+                    </ul>
+                </li>
+                <li class="tarif">
+                    <ul>
+                        <li>Prix</li>
+                        <li id="normal">Tarif normal: {{this.tarif_normal}}</li>
+                        <li id="reduit">Tarif réduit: {{this.tarif_reduit}}</li>
+                    </ul>
+                </li>
+                <li class="places">
+                    <ul>
+                        <li>Places restantes</li>
+                        <li id="assises">{{this.nb_places_assises_restantes}} places assises</li>
+                        <li id="debout">{{this.nb_places_debout_restantes}} places debout</li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="grid-concerts">
+                {{#each this.spectacles}}
+                <div class="concerts" data-id="{{this.id}}">
 
-                            <div class="description">
-                                <p class="description-content">{{this.description}}</p>
-                            </div>
+                    <h4 class="title representation toggle">{{this.titre}}</h4>
+                    <div class="info-concert">
 
+                        <div class="description">
                             <ul class="artistes">
+                                <h5>Avec :</h5>
                                 {{#each this.artistes}}
                                 <li>{{this.prenom}}</li>
-                                {{/ each}}
+                                {{/each}}
                             </ul>
                         </div>
-                    </li>
-                </ul>
-        </div>
-        {{/each}}
-        </div>
+
+                    </div>
+
+                </div>
+                {{/each}}
+            </div>
+
+        </article>
     </script>
 
-    <script id="templateSpectacle">
-        <div class="concerts" >
-            <input value="{{this.id}}" type="hidden">
-                <h3>concert: </h3>
-                <ul>
-                    <li>
-                        <h4 class="title representation toggle">{{this.titre}}</h4>
-                        <div class="info-concert">
-                            <div class="concert-image">
-                                <img src="{{this.url_image}}" alt="image spectacle" style="width:30em;">
-                            </div>
 
-                            <div class="description">
-                                <p class="description-content">{{this.description}}</p>
-                            </div>
+    <script id="templateSpectacle" type="text/x-handlebars-template">
+        <article>
+            <div class="info-concert">
+                <div class="concert-image">
+                    <img src="{{this.url_image}} " alt="image concert ">
+                </div>
+                <h4 class="title representation toggle ">{{this.titre}}</h4>
 
-                            <ul class="artistes">
-                                {{#each this.artistes}}
-                                <li>{{this.prenom}}</li>
-                                {{/ each}}
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-        </div>
+                <div class="description ">
+                    <p class="description-content ">{{this.description}}</p>
+                    <ul class="artistes ">
+                        <label>Avec :</label> {{#each this.artistes}}
+                        <li>{{this.prenom}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
 
+            </div>
+            <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
+
+        </article>
     </script>
+
 
 
 

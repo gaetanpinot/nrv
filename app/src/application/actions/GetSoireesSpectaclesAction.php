@@ -2,7 +2,7 @@
 namespace nrv\application\actions;
 
 use DI\Container;
-use Psr\Container\ContainerInterface;
+
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
@@ -10,10 +10,10 @@ use nrv\application\renderer\JsonRenderer;
 use nrv\application\actions\AbstractAction;
 use nrv\core\service\soiree\SoireeService;
 
-class GetSoireesSpectacles extends AbstractAction{
+class GetSoireesSpectaclesAction extends AbstractAction{
     
     private SoireeService $soireeService;
-    public function __construct(ContainerInterface $cont)
+    public function __construct(Container $cont)
     {
         parent::__construct($cont);
         $this->soireeService = $cont->get(SoireeService::class);
