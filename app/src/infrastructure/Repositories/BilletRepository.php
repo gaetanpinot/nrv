@@ -11,9 +11,11 @@ class BilletRepository implements BilletRepositoryInterface
 {
     protected PDO $pdo;
 
-    public function __construct(Container $cont){
+    public function __construct(Container $cont)
+    {
         $this->pdo = $cont->get('pdo.commun');
     }
+
     public function getBillet(): array
     {
         return $this->pdo->query('SELECT * FROM billet')->fetchAll();
@@ -21,7 +23,9 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function getBilletById(string $id): Billet
     {
-        $result = $this->pdo->query('SELECT * FROM billet WHERE id = ' . $id)->fetch();
+        $result = $this->pdo->query('SELECT * FROM billet WHERE id = :id');
+        $result->execute(['id' => $id]);
+        $result = $result->fetch();
         return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
 
     }
