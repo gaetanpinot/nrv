@@ -165,8 +165,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     }
 
     public function save(Spectacle $spectacle): void{
-        var_dump($spectacle->artistes);
-        $request = $this->pdo->prepare('INSERT INTO spectacle (id, titre, description, url_video, url_image) VALUES (:id, :titre, :description, :url_video, :url_image) ON CONFLICT (id) DO UPDATE SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image');
+        $request = $this->pdo->prepare('INSERT INTO spectacle (id, titre, description, url_video, url_image ) VALUES (:id, :titre, :description, :url_video, :url_image) ON CONFLICT (id) DO UPDATE SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image');
         $request->execute([
             'id' => $spectacle->id,
             'titre' => $spectacle->titre,

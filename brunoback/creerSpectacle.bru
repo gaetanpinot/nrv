@@ -1,0 +1,21 @@
+meta {
+  name: creerSpectacle
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:44014/spectacles
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "titre":"bonjooour",
+    "description":"super description de la mort qui teu",
+    "url_image": "https://www.radioscoop.com/imgs/427024_2048_1631.jpg",
+    "url_video": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "artistes": []
+  }
+}

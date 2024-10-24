@@ -1,5 +1,5 @@
 <?php
-namespace nrv\core\domain\entities\Spectacle;
+namespace nrv\back\core\domain\entities\Spectacle;
 
 use nrv\core\dto\SpectacleDTO;
 use nrv\core\domain\entities\Entity;
