@@ -23,23 +23,4 @@ class Panier extends Entity
     {
         return new PanierDTO($this);
     }
-
-<<<<<<< HEAD
-=======
-    public function getIdBillet(): ?string
-    {
-        return $this->id_billet;
-    }
-
-    public function setIdBillet(string $id_billet): void
-    {
-        $this->id_billet = $id_billet;
-    }
-
-    public function setValide(bool $is_valide): void
-    {
-        $this->is_valide = $is_valide;
-    }
-
->>>>>>> 7ad73aff5eecad61c025105c201e11e6ec29a36d
 }

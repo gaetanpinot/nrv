@@ -55,4 +55,21 @@ class PanierRepository implements PanierRepositoryInterface
         $request = $this->pdo->prepare('DELETE FROM panier WHERE id = :id');
         $request->execute(['id' => $id]);
     }
+
+    public function findByUserIdAndNotValidated(string $id_utilisateur): ?Panier
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM panier WHERE id_utilisateur = :id_utilisateur AND is_valide = false');
+        $stmt->execute(['id_utilisateur' => $id_utilisateur]);
+
+        $result = $stmt->fetch();
+
+        if (!$result) {
+            return null;
+        }
+
+        return new Panier($result['id'], $result['id_utilisateur'], $result['is_valide']);
+    }
+
+
+
 }

@@ -63,4 +63,19 @@ class BilletRepository implements BilletRepositoryInterface
         $request = $this->pdo->prepare('DELETE FROM billet WHERE id = :id');
         $request->execute(['id' => $id]);
     }
+
+    public function findByUserIdAndSoiree(string $id_utilisateur, string $id_soiree): ?Billet
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM billet WHERE id_user = :id_utilisateur AND id_soiree = :id_soiree');
+        $stmt->execute(['id_utilisateur' => $id_utilisateur, 'id_soiree' => $id_soiree]);
+
+        $result = $stmt->fetch();
+
+        if (!$result) {
+            return null;
+        }
+
+        return new Billet($result['id'], $result['id_user'], $result['id_soiree'], $result['tarif']);
+    }
+
 }
