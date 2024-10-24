@@ -32,5 +32,35 @@ class PanierService
         return new PanierDTO(new Panier ($result['id'], $result['id_utilisateur'], $result['is_valide']));
     }
 
+<<<<<<< HEAD
+=======
+    public function addBilletToPanier(string $id_utilisateur, Billet $billet): void
+    {
+        $panier = $this->getOrCreatePanierForUser($id_utilisateur);
+
+        $panier->setIdBillet($billet->getId());
+
+        $this->panierRepository->save($panier);
+    }
+
+    public function validatePanier(string $id_utilisateur): void
+    {
+        $panier = $this->getOrCreatePanierForUser($id_utilisateur);
+
+        $panier->setValide(true);
+
+        $this->panierRepository->save($panier);
+    }
+
+    public function getOrCreatePanierForUser(string $id_utilisateur): Panier
+    {
+        try {
+            return $this->panierRepository->getPanierByUserId($id_utilisateur);
+        } catch (\Exception $e) {
+            return new Panier(uniqid(), $id_utilisateur, null, false);
+        }
+    }
+
+>>>>>>> 7ad73aff5eecad61c025105c201e11e6ec29a36d
 
 }

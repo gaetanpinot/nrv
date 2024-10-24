@@ -2,25 +2,28 @@
   width: 100%;
   border-radius: 100%; }
 
-main #template-soiree article, main #liste-concert article, body {
+main #template-soiree article, main #liste-concert article, main #filtres ul li > *, main #filtres ul li, body {
   background-color: #F9F7F4;
   color: #FFF;
   font-family: sans-serif;
   font-weight: 400; }
 
-main #template-soiree #filtre, main #liste-concert #filtre, header {
+main #template-soiree #filtre, main #filtres, header {
   background-color: #11074D; }
 
-main > *, #top nav ul li {
+main #filtres ul li:hover, main > *, #top nav ul li {
   background-color: #3ADDE2;
   font-family: sans-serif;
   font-weight: bold;
   color: #000; }
 
-main #description {
+main #filtres {
+  color: #3ADDE2; }
+
+main #filtres ul li > *, main #filtres ul li, main #description {
   color: #11074D; }
 
-main #description .creme {
+main #filtres ul li:hover, main #description .creme {
   color: #F9F7F4; }
 
 body {
@@ -97,7 +100,7 @@ main {
   width: 100%; }
 
 main > * {
-  max-width: 1100px;
+  max-width: 1200px;
   padding: 2em;
   margin: 20px auto; }
 
@@ -137,6 +140,29 @@ main #edt .slot {
   padding: 10px;
   font-size: 0.8em; }
 
+main #filtres {
+  height: 100px;
+  width: 70%;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px; }
+  main #filtres ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 20px; }
+    main #filtres ul li {
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease; }
+
 main #liste-concert {
   width: 100%;
   box-sizing: content-box;
@@ -147,10 +173,6 @@ main #liste-concert {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 600px auto;
   gap: 20px; }
-  main #liste-concert #filtre {
-    height: 80px;
-    max-width: 1000px;
-    margin: auto; }
   main #liste-concert article {
     text-align: center;
     color: #11074D;
@@ -190,7 +212,7 @@ main #template-soiree {
   text-wrap: wrap;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: 1100px auto;
+  grid-template-rows: minmax(800px, 1100px) auto;
   gap: 20px; }
   main #template-soiree #filtre {
     height: 80px;
@@ -207,62 +229,66 @@ main #template-soiree {
     main #template-soiree article h3 {
       font-size: 2em;
       margin-bottom: 20px; }
-    main #template-soiree article ul {
+    main #template-soiree article > ul {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: minmax(160px, 1fr);
+      gap: 20px;
       padding: 0;
       list-style: none;
       margin: 0 0 20px; }
-      main #template-soiree article ul li {
+      main #template-soiree article > ul li {
         margin-bottom: 10px; }
-        main #template-soiree article ul li > ul {
-          padding: 0;
-          list-style: none; }
-          main #template-soiree article ul li > ul li {
-            padding: 5px 0; }
-      main #template-soiree article ul .tarif ul {
-        background-color: #f2f2f2;
-        padding: 10px;
-        border-radius: 10px;
-        margin: 0; }
-        main #template-soiree article ul .tarif ul li {
-          font-weight: bold; }
-          main #template-soiree article ul .tarif ul li:first-child {
-            font-size: 1.2em; }
-          main #template-soiree article ul .tarif ul li #normal,
-          main #template-soiree article ul .tarif ul li #reduit {
-            font-weight: normal;
-            margin-left: 10px; }
-      main #template-soiree article ul .places ul {
-        background-color: #f9f9f9;
-        padding: 10px;
-        border-radius: 10px; }
-        main #template-soiree article ul .places ul li {
-          font-weight: bold; }
-          main #template-soiree article ul .places ul li:nth-child(2), main #template-soiree article ul .places ul li:nth-child(3) {
-            font-weight: normal;
-            margin-left: 10px; }
-    main #template-soiree article #grid-concerts > .concerts {
-      margin-bottom: 20px;
-      padding: 15px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); }
-      main #template-soiree article #grid-concerts > .concerts .title {
-        font-size: 1.8em;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #333; }
-      main #template-soiree article #grid-concerts > .concerts .info-concert {
-        margin-top: 10px;
-        padding: 10px;
-        background-color: #f4f4f4;
-        border-radius: 10px; }
-        main #template-soiree article #grid-concerts > .concerts .info-concert .description {
+        main #template-soiree article > ul li > ul {
+          height: 160px;
           padding: 10px;
-          background-color: #eaeaea;
-          border-radius: 5px; }
-          main #template-soiree article #grid-concerts > .concerts .info-concert .description ul {
-            list-style: none;
-            padding: 0; }
-            main #template-soiree article #grid-concerts > .concerts .info-concert .description ul li {
+          list-style: none;
+          background-color: #11074D;
+          color: #F9F7F4;
+          border-radius: 10px;
+          margin: 0; }
+          main #template-soiree article > ul li > ul li {
+            padding: 5px 0; }
+          main #template-soiree article > ul li > ul li {
+            font-weight: bold; }
+            main #template-soiree article > ul li > ul li:first-child {
+              font-size: 1.2em; }
+            main #template-soiree article > ul li > ul li :first-child {
               font-weight: normal;
-              padding: 5px 0; }
+              margin-left: 16px; }
+            main #template-soiree article > ul li > ul li :not(:first-child) {
+              font-weight: normal;
+              margin-left: 10px; }
+    main #template-soiree article > #grid-concerts {
+      display: grid;
+      grid-template-rows: 400px auto;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px; }
+      main #template-soiree article > #grid-concerts > .concerts {
+        overflow: auto;
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #3ADDE2;
+        color: #000;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); }
+        main #template-soiree article > #grid-concerts > .concerts .title {
+          font-size: 1.8em;
+          font-weight: bold;
+          margin-bottom: 10px;
+          color: #333; }
+        main #template-soiree article > #grid-concerts > .concerts .info-concert {
+          margin-top: 10px;
+          padding: 10px;
+          background-color: #f4f4f4;
+          border-radius: 10px; }
+          main #template-soiree article > #grid-concerts > .concerts .info-concert .description {
+            padding: 10px;
+            background-color: #eaeaea;
+            border-radius: 5px; }
+            main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul {
+              list-style: none;
+              padding: 0; }
+              main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
+                font-weight: normal;
+                padding: 5px 0; }

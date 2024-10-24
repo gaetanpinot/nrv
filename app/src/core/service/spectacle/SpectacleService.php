@@ -32,9 +32,7 @@ class SpectacleService implements SpectacleServiceInterface
         */
         $filtre = null;
         $spectacles = $this->spectacleRepository->getSpectacles($page, $nombre, $filtre);
-        /*
-        $spectacles = $this->spectacleRepository->getSpectacles($page,$nombre);
-        */
+        
         foreach ($spectacles as $spectacle) {
             $res[] = $spectacle->toDTO();
         }

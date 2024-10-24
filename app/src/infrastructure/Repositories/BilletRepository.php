@@ -38,7 +38,7 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function save(Billet $billet): void
     {
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, id_user, id_spectacle, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif');
+        $request = $this->pdo->prepare('INSERT INTO billet (id, id_user, id_soiree, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_utilisateur, id_soiree = :id_soiree, tarif = :tarif');
         $request->execute([
             'id' => $billet->id,
             'id_utilisateur' => $billet->id_user,

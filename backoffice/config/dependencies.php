@@ -6,10 +6,14 @@ use Monolog\Level;
 use Monolog\Logger;
 use nrv\back\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\back\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\back\core\service\lieu\LieuService;
+use nrv\back\core\service\lieu\LieuServiceInterface;
 use nrv\back\core\service\spectacle\SpectacleService;
 use nrv\back\core\service\spectacle\SpectacleServiceInterface;
+use nrv\back\infrastructure\Repositories\LieuRepository;
 use nrv\back\infrastructure\Repositories\SoireeRepository;
 use nrv\back\infrastructure\Repositories\SpectacleRepository;
+use nrv\core\repositoryInterfaces\LieuRepositoryInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use nrv\back\middlewares\CorsMiddleware;
@@ -22,7 +26,9 @@ return [
     //Repository interface
     SpectacleRepositoryInterface::class => DI\autowire(SpectacleRepository::class),
     SoireeRepositoryInterface::class => DI\autowire(SoireeRepository::class),
+    LieuRepositoryInterface::class=>DI\autowire(LieuRepository::class),
     //Services
+    LieuServiceInterface::class=>DI\autowire(LieuService::class),
     SpectacleServiceInterface::class => DI\create(SpectacleService::class)->constructor(DI\get(ContainerInterface::class)),
     //PDO
     'pdo.commun' => function(ContainerInterface $c){

@@ -174,6 +174,17 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             'url_image' => $spectacle->url_image
         ]);
         $request = $request->fetch();
+
+        if(isset($spectacle->artistes)){
+            foreach($spectacle->artistes as $artiste){
+                $request = $this->pdo->prepare('INSERT INTO spectacle_artistes (id_spectacle, id_artiste) VALUES (:id_spectacle, :id_artiste) ON CONFLICT (id_spectacle, id_artiste) DO NOTHING');
+                $request->execute([
+                    'id_spectacle' => $spectacle->id,
+                    'id_artiste' => $artiste->id
+                ]);
+                $request = $request->fetch();
+            }
+        }
     }
 
     public function updateSpectacle(Spectacle $spectacle): void{

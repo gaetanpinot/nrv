@@ -133,7 +133,7 @@ main {
 }
 
 main>* {
-    max-width: 1100px;
+    max-width: 1200px;
     padding: 2em;
     @extend %thertiry-background;
     margin: 20px auto;
@@ -185,13 +185,45 @@ main #edt .slot {
     font-size: 0.8em;
 }
 
-main #liste-concert {
-    #filtre {
-        @extend %second-background;
-        height: 80px;
-        max-width: 1000px;
-        margin: auto;
+main #filtres {
+    @extend %second-background;
+    @extend %light-blue;
+    height: 100px;
+    width: 70%;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    ul {
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        li {
+            padding: 10px;
+            @extend %primaire-background;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            @extend %dark-blue;
+            transition: background-color 0.3s ease;
+            &:hover {
+                @extend %thertiry-background;
+                @extend %creme;
+            }
+            &>* {
+                @extend %dark-blue;
+                @extend %primaire-background;
+            }
+        }
     }
+}
+
+main #liste-concert {
     width: 100%;
     box-sizing: content-box;
     padding-top: 20px;
@@ -257,7 +289,7 @@ main #template-soiree {
     text-wrap: wrap;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 1100px auto;
+    grid-template-rows: minmax(800px, 1100px) auto;
     gap: 20px;
     article {
         @extend %primaire-background;
@@ -272,25 +304,25 @@ main #template-soiree {
             font-size: 2em;
             margin-bottom: 20px;
         }
-        ul {
+        &>ul {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: minmax(160px, 1fr);
+            gap: 20px;
             padding: 0;
             list-style: none;
             margin: 0 0 20px;
             li {
                 margin-bottom: 10px;
                 &>ul {
-                    padding: 0;
+                    height: 160px;
+                    padding: 10px;
                     list-style: none;
                     li {
                         padding: 5px 0;
                     }
-                }
-            }
-            // Style spécifique pour les tarifs
-            .tarif {
-                ul {
-                    background-color: #f2f2f2;
-                    padding: 10px;
+                    background-color: #11074D;
+                    color: #F9F7F4;
                     border-radius: 10px;
                     margin: 0;
                     li {
@@ -298,24 +330,11 @@ main #template-soiree {
                         &:first-child {
                             font-size: 1.2em;
                         }
-                        #normal,
-                        #reduit {
+                         :first-child {
                             font-weight: normal;
-                            margin-left: 10px;
+                            margin-left: 16px;
                         }
-                    }
-                }
-            }
-            // Style pour les places restantes
-            .places {
-                ul {
-                    background-color: #f9f9f9;
-                    padding: 10px;
-                    border-radius: 10px;
-                    li {
-                        font-weight: bold;
-                        &:nth-child(2),
-                        &:nth-child(3) {
+                         :not(:first-child) {
                             font-weight: normal;
                             margin-left: 10px;
                         }
@@ -323,11 +342,17 @@ main #template-soiree {
                 }
             }
         }
-        #grid-concerts {
+        &>#grid-concerts {
+            display: grid;
+            grid-template-rows: 400px auto;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             &>.concerts {
+                overflow: auto;
                 margin-bottom: 20px;
                 padding: 15px;
-                background-color: #fff;
+                background-color: #3ADDE2;
+                color: #000;
                 border-radius: 10px;
                 box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
                 .title {
