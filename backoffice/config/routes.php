@@ -2,15 +2,12 @@
 declare(strict_types=1);
 
 use nrv\back\application\actions\AfficherJaugeSpectacleAction;
-use nrv\back\application\actions\AfficheListeSpectaclesAction;
-use nrv\back\application\actions\ConnexionAction;
-use nrv\back\application\actions\GetPanierByIdAction;
-use nrv\back\application\actions\GetUserBilletsAction;
-use nrv\back\application\actions\InscriptionAction;
+use nrv\back\application\actions\AjouterModifierLieuAction;
+use nrv\back\application\actions\AjouterSoireeAction;
+use nrv\back\application\actions\AjouterSpectacleAction;
+use nrv\back\application\actions\SupprimerLieuAction;
 use Slim\Exception\HttpNotFoundException;
 use nrv\back\application\actions\HomeAction;
-use nrv\back\application\actions\GetSoireesSpectaclesAction;
-use \nrv\back\application\actions\AfficheDetailSoireeAction;
 
 return function (\Slim\App $app): \Slim\App {
 
@@ -18,7 +15,13 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/jauge[/]', AfficherJaugeSpectacleAction::class);
 
+    $app->post('/spectacles[/]', AjouterSpectacleAction::class);
 
+    $app->post('/soirees[/]', AjouterSoireeAction::class);
+
+    $app->delete('/lieu[/]', SupprimerLieuAction::class);
+
+    $app->put('/lieu[/]', AjouterModifierLieuAction::class);
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;

@@ -2,9 +2,11 @@
 
 namespace nrv\back\core\service\soiree;
 
+use nrv\back\core\domain\entities\Lieu\Lieu;
 use nrv\back\core\domain\entities\Soiree\Soiree;
 use nrv\back\core\dto\SoireeDTO;
 use nrv\back\infrastructure\Repositories\SoireeRepository;
+use Ramsey\Uuid\Uuid;
 
 class SoireeService implements SoireeServiceInterface
 {
@@ -40,5 +42,13 @@ class SoireeService implements SoireeServiceInterface
         return array_map(function(Soiree $s){
             return $s->toDTO();
         },$jauge);
+    }
+
+
+    public function addSoiree($soiree_data){
+        $lieu = new Lieu($soiree_data['lieu']['id'], null, null, null, null, null);
+
+        $soiree = new Soiree(Uuid::uuid4()->toString(), $soiree_data['nom'],$soiree_data['id_theme'], $soiree_data['date'], $soiree_data['heure_debut'], $soiree_data['duree'], $lieu, array(), $soiree_data['nb_places_assises_restantes'], $soiree_data['nb_places_debout_restantes'], $soiree_data['tarif_normal'], $soiree_data['tarif_reduit']);
+        $this->soireeRepository->save($soiree, $soiree_data['spectacles']);
     }
 }

@@ -165,7 +165,8 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
     }
 
     public function save(Spectacle $spectacle): void{
-        $request = $this->pdo->prepare('INSERT INTO spectacle (id, titre, description, url_video, url_image, date) VALUES (:id, :titre, :description, :url_video, :url_image) ON CONFLICT (id) DO UPDATE SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image');
+        var_dump($spectacle->artistes);
+        $request = $this->pdo->prepare('INSERT INTO spectacle (id, titre, description, url_video, url_image) VALUES (:id, :titre, :description, :url_video, :url_image) ON CONFLICT (id) DO UPDATE SET titre = :titre, description = :description, url_video = :url_video, url_image = :url_image');
         $request->execute([
             'id' => $spectacle->id,
             'titre' => $spectacle->titre,
@@ -174,6 +175,18 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             'url_image' => $spectacle->url_image
         ]);
         $request = $request->fetch();
+
+
+
+//        echo "OKKKKKKKKKKKKKKKKK";
+        foreach($spectacle->artistes as $artiste){
+            $request = $this->pdo->prepare('INSERT INTO spectacle_artistes (id_spectacle, id_artiste) VALUES (:id_spectacle, :id_artiste) ON CONFLICT (id_spectacle, id_artiste) DO NOTHING');
+            $request->execute([
+                'id_spectacle' => $spectacle->id,
+                'id_artiste' => $artiste
+            ]);
+            $request = $request->fetch();
+        }
     }
 
     public function updateSpectacle(Spectacle $spectacle): void{

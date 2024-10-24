@@ -7,13 +7,13 @@ use nrv\back\core\domain\entities\Entity;
 class Lieu extends Entity{
 
     protected string $id;
-    protected string $nom;
-    protected string $adresse;
-    protected string $nb_places_assises;
-    protected string $nb_places_debout;
-    protected array $lien_image;
+    protected string|null $nom;
+    protected string|null $adresse;
+    protected string|null $nb_places_assises;
+    protected string|null $nb_places_debout;
+    protected string|null $lien_image;
 
-    public function __construct(string $id, string $nom, string $adresse, string $nb_places_assises, string $nb_places_debout, array $lien_image){
+    public function __construct(string $id, string|null $nom, string|null $adresse, string|null $nb_places_assises, string|null $nb_places_debout, string|null $lien_image){
         $this->id = $id;
         $this->nom = $nom;
         $this->adresse = $adresse;

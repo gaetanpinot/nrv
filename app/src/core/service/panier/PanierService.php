@@ -42,6 +42,15 @@ class PanierService
         $this->panierRepository->save($panier);
     }
 
+    public function validatePanier(string $id_utilisateur): void
+    {
+        $panier = $this->getOrCreatePanierForUser($id_utilisateur);
+
+        $panier->setValide(true);
+
+        $this->panierRepository->save($panier);
+    }
+
     public function getOrCreatePanierForUser(string $id_utilisateur): Panier
     {
         try {

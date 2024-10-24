@@ -6,7 +6,9 @@ namespace nrv\back\core\service\spectacle;
 use DI\Container;
 use nrv\back\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use nrv\back\infrastructure\Repositories\SpectacleRepository;
+use nrv\back\core\domain\entities\Spectacle\Spectacle;
 use Psr\Container\ContainerInterface;
+use Ramsey\Uuid\Uuid;
 
 class SpectacleService implements SpectacleServiceInterface
 {
@@ -35,8 +37,10 @@ class SpectacleService implements SpectacleServiceInterface
         return $res;
     }
 
-    public function addSpectacle($spec_params){
-        $this->spectacleRepository->addSpectacle($spec_params);
+    public function addSpectacle($spectacle_data){
+        $spectacle = new Spectacle(Uuid::uuid4()->toString(), $spectacle_data['titre'], $spectacle_data['description'], $spectacle_data['url_video'], $spectacle_data['url_image'], $spectacle_data['artistes']);
+//        var_dump($spectacle);
+        $this->spectacleRepository->save($spectacle);
     }
 
 }

@@ -36,4 +36,9 @@ class Panier extends Entity
         $this->id_billet = $id_billet;
     }
 
+    public function setValide(bool $is_valide): void
+    {
+        $this->is_valide = $is_valide;
+    }
+
 }

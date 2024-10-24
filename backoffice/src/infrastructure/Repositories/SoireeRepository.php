@@ -150,22 +150,32 @@ GROUP BY soiree.id, lieu_spectacle.id;
         return $retour;
     }
 
-    public function save(Soiree $soiree): void{
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heure_debut, duree, id_lieu, nb_places_assises_restante, nb_places_debout_restantes, tarif_normal, tarif_reduit) VALUES (:id, :nom, :id_theme, :date, :heure_debut, :duree, :id_lieu, :nb_places, :nb_places_assises_restantes, :nb_places_debout_restantes, :tarif_normal, :tarif_reduit) ON CONFLICT (id) DO UPDATE SET nom = :nom, id_theme = :id_theme, date = :date, heure_debut = :heure_debut, duree = :duree, id_lieu = :id_lieu, nb_places_assises_restantes = :nb_places_assises_restantes, nb_places_debout_restantes = :nb_places_debout_restantes, tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit');
+    public function save(Soiree $soiree, array $spectacles = array()): void{
+        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heure_debut, duree, id_lieu, nb_places_assises_restantes, nb_places_debout_restantes, tarif_normal, tarif_reduit) VALUES (:id, :nom, :id_theme, :date, :heure_debut, :duree, :id_lieu, :nb_places_assises_restantes, :nb_places_debout_restantes, :tarif_normal, :tarif_reduit) ON CONFLICT (id) DO UPDATE SET nom = :nom, id_theme = :id_theme, date = :date, heure_debut = :heure_debut, duree = :duree, id_lieu = :id_lieu, nb_places_assises_restantes = :nb_places_assises_restantes, nb_places_debout_restantes = :nb_places_debout_restantes, tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit');
         $request->execute([
             'id' => $soiree->id,
             'nom' => $soiree->nom,
             'id_theme' => $soiree->id_theme,
-            'date' => $soiree->date,
-            'heure_debut' => $soiree->heure_debut,
-            'duree' => $soiree->duree,
-            'id_lieu' => $soiree->id_lieu,
-            'nb_places_assises_restantes' => $soiree->nb_places_assises_restantes,
+            'date' => $soiree->date->format('Y-m-d'),
+            'heure_debut' => $soiree->heure_debut->format('H:i:s'),
+            'duree' => $soiree->duree->format('H:i:s'),
+            'id_lieu' => $soiree->lieu->id,
+                'nb_places_assises_restantes' => $soiree->nb_places_assises_restantes,
             'nb_places_debout_restantes' => $soiree->nb_places_debout_restantes,
             'tarif_normal' => $soiree->tarif_normal,
             'tarif_reduit' => $soiree->tarif_reduit
         ]);
         $request = $request->fetch();
+
+        foreach ($spectacles as $spectacle){
+            $request = $this->pdo->prepare('INSERT INTO spectacles_soiree (id_soiree, id_spectacle) VALUES (:id_soiree, :id_spectacle) ON CONFLICT (id_soiree, id_spectacle) DO NOTHING');
+            $request->execute([
+                'id_soiree' => $soiree->id,
+                'id_spectacle' => $spectacle
+            ]);
+            $request = $request->fetch();
+        }
+
     }
 
     public function updateSoiree(Soiree $soiree): void{
@@ -191,16 +201,6 @@ GROUP BY soiree.id, lieu_spectacle.id;
         $request->execute(['id' => $id]);
         $request = $request->fetch();
     }
-
-//    public function getSoireesIds(){
-//        $request = $this->pdo->prepare('SELECT id FROM soiree');
-//        $request->execute();
-//        $result = $request->fetchAll();
-//        return array_map(function($r){
-//            return $r['id'];
-//        }, $result);
-//    }
-//
     public function getNbPlacesVendues(): array{
 
         $query = "
