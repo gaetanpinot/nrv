@@ -44,6 +44,7 @@
             programmation spécialement sélectionnée pour l'endroit.<br>
             <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants, des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
         </div>
+        <!--
         <div id="edt">
             <div id="schedule">
                 <div class="entete">
@@ -58,35 +59,53 @@
                 </div>
 
 
-                <!-- Les créneaux horaires seront ajoutés ici en JavaScript -->
-            </div>
+                // Les créneaux horaires seront ajoutés ici en JavaScript
         </div>
+        </div>
+        -->
         <div id="primary-content">
             <div id="filtres">
                 <ul>
-                    <li id="retour-concert">Retour a liste des concerts
-                    </li>
+                    <li id="retour-concert">Retour à la liste des concerts</li>
                     <li>Filtres :</li>
-                    <li id="filtre-all dropdown">all
-                        <ul>
-                            <li>Metal</li>
-                            <li>Pop</li>
-                            <li>Rock</li>
-                            <li>Reggae</li>
-                            <li>Classique</li>
-                            <li>Jazz</li>
-
-                        </ul>
+                    <li>
+                        <select id="filtre-style">
+                <option value="all">Style</option>
+                <option value="all">Tous</option>
+                <option value="metal">Metal</option>
+                <option value="pop">Pop</option>
+                <option value="rock">Rock</option>
+                <option value="reggae">Reggae</option>
+                <option value="classique">Classique</option>
+                <option value="jazz">Jazz</option>
+            </select>
                     </li>
-                    <li id="filtre-style">Style</li>
-                    <li id="filtre-lieux">lieux</li>
-
-
+                    <li>
+                        <select id="filtre-lieu">
+                <option value="all">Aléatoire</option>
+            </select>
+                    </li>
+                    <li>
+                        <select id="filtre-date">
+                <option value="recent">Récent</option>
+                <option value="ancient">Ancien</option>
+            </select>
+                    </li>
                 </ul>
             </div>
+
             <div id="liste-concert">
 
 
+
+            </div>
+            <div id="pagination">
+                <ul>
+                    <li id="Pre">Précédent</li>
+                    <li id="actuelle">0</li>
+
+                    <li id="Suiv">Suivant</li>
+                </ul>
             </div>
         </div>
 
@@ -94,7 +113,49 @@
 
 
     </main>
-    <footer></footer>
+    <footer>
+        <div class="footer-content">
+            <div class="about-festival">
+                <h4>Nancy Rock Vibration</h4>
+                <p>12 soirées de rock intense dans 4 lieux emblématiques de Nancy. Venez vibrer au rythme des guitares, des voix et des performances en live !</p>
+            </div>
+
+            <div class="contact-info">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li>Email : <a href="mailto:contact@nrv-festival.com">contact@nrv-festival.com</a></li>
+                    <li>Téléphone : <a href="tel:+33383000000">+33 3 83 00 00 00</a></li>
+                    <li>Adresse : 123 Rue du Rock, 54000 Nancy, France</li>
+                </ul>
+            </div>
+
+            <div class="social-media">
+                <h4>Suivez-nous</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+
+            <div class="useful-links">
+                <h4>Informations pratiques</h4>
+                <ul>
+                    <li><a href="#">Billetterie en ligne</a></li>
+                    <li><a href="#">Plan des lieux</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Conditions générales</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Nancy Rock Vibration. Tous droits réservés.</p>
+            <p>Site web conçu par <a href="#">Nom de l'agence ou designer</a>.</p>
+        </div>
+    </footer>
+
 
     <script id="templateSoiree" type="text/x-handlebars-template">
 
@@ -145,33 +206,41 @@
                 </div>
                 {{/each}}
             </div>
+            <button data-user="" data-soiree="{{this.id}}">Prendre un billet</button>
 
         </article>
     </script>
 
 
-    <script id="templateSpectacle" type="text/x-handlebars-template">
+    <script id="templateSpectacle" type="text/x-handlebars-template ">
         <article>
             <div class="info-concert">
                 <div class="concert-image">
-                    <img src="{{this.url_image}}" alt="image concert ">
+                    <img src="{{this.url_image}}" alt="image concert">
                 </div>
-                <h4 class="title representation toggle ">{{this.titre}}</h4>
+                <h4 class="title representation toggle">{{this.titre}}</h4>
 
-                <div class="description ">
-                    <p class="description-content ">{{this.description}}</p>
-                    <ul class="artistes ">
+                <div class="description">
+                    <ul class="artistes">
                         <label>Avec :</label> {{#each this.artistes}}
                         <li>{{this.prenom}}</li>
                         {{/each}}
                     </ul>
                 </div>
-                <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
             </div>
+            <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
         </article>
     </script>
 
 
+    <script id="event-template" type="text/x-handlebars-template">
+        <select>
+            <option value="{{theme.label}}">{{theme.label}}</option>
+        </select>
+        <select>
+            <option value="{{date}}">{{date}}</option>
+        </select>
+    </script>
 
 
 </body>
