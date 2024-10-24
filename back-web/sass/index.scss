@@ -1,0 +1,26 @@
+main {
+  display: flex;
+  flex-direction: column;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+}
+
+#description {
+  height: 10em;
+}
+
+#inputsArtists {
+  display: flex;
+  flex-direction: column;
+
+  .inputArtist {
+    input {
+      height: 1.5em;
+      width: 1.5em;
+    }
+  }
+}

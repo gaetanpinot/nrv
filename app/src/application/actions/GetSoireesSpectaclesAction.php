@@ -8,15 +8,15 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 use nrv\application\renderer\JsonRenderer;
 use nrv\application\actions\AbstractAction;
-use nrv\core\service\soiree\SoireeService;
+use nrv\core\service\soiree\SoireeServiceInterface;
 
 class GetSoireesSpectaclesAction extends AbstractAction{
     
-    private SoireeService $soireeService;
+    private SoireeServiceInterface $soireeService;
     public function __construct(Container $cont)
     {
         parent::__construct($cont);
-        $this->soireeService = $cont->get(SoireeService::class);
+        $this->soireeService = $cont->get(SoireeServiceInterface::class);
     }
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {

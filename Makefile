@@ -27,6 +27,8 @@ watchSassNoSudo:
 	docker exec -it $(webdocker) node-sass -w ./sass -o ./css
 watchSass:
 	sudo docker exec -it $(webdocker) node-sass -w ./sass -o ./css
+watchSassBack:
+	sudo docker exec -it $(web-backdocker) node-sass -w ./sass -o ./css
 
 watchLogs:
 	watch -n 2 tail app/var/logs

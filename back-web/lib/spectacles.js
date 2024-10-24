@@ -30,7 +30,6 @@ event.preventDefault();
         alert("Vous n'avez pas sellectioné d'artiste");
     }else{
     submitData.artistes= checkedArtisteId;
-    console.log(submitData);
     fetch(URL_API + URI_SPECTACLES, {
     body: JSON.stringify(submitData),
     headers: {

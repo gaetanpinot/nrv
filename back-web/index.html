@@ -67,10 +67,14 @@
     <input type = "url" id = "url_image" name = "url_image">
     <label for ="url_video"> Url de la vidéo </label>
     <input type = "url" id = "url_video" name = "url_video">
+    <div id = "inputsArtists">
     {{#each this}}
-        <label for = "artiste{{@index}}">Artiste {{this.prenom}}</label>
+    <div class = "inputArtist">
         <input type = "checkbox" id = "artiste{{@index}}" name = "artiste{{@index}}" value = "{{this.id}}" class="artistes">
+        <label for = "artiste{{@index}}">Artiste {{this.prenom}}</label>
+    </div>
     {{/each}}
+    </div>
     <button id = "submitSpectacle" type="submit">Créer le spectacle</button>
     </form>
 </script>

@@ -32,7 +32,6 @@ class AjouterSpectacleAction extends AbstractAction
             ->key('url_video', Validator::url())
             ->key('artistes',Validator::arrayType());
         try{
-            var_dump($spectacle);
             $validatorSpectacle->assert($spectacle);
             $this->spectacleService->addSpectacle($spectacle);
         }catch(NestedValidationException $e){

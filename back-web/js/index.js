@@ -5755,7 +5755,6 @@
       alert("Vous n'avez pas sellection\xE9 d'artiste");
     } else {
       submitData.artistes = checkedArtisteId;
-      console.log(submitData);
       fetch(URL_API + URI_SPECTACLES, {
         body: JSON.stringify(submitData),
         headers: {

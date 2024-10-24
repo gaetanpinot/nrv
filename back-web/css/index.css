@@ -1,0 +1,17 @@
+main {
+  display: flex;
+  flex-direction: column; }
+  main form {
+    display: flex;
+    flex-direction: column;
+    width: 50%; }
+
+#description {
+  height: 10em; }
+
+#inputsArtists {
+  display: flex;
+  flex-direction: column; }
+  #inputsArtists .inputArtist input {
+    height: 1.5em;
+    width: 1.5em; }
