@@ -74,11 +74,23 @@
                 <!-- Les créneaux horaires seront ajoutés ici en JavaScript -->
             </div>
         </div>
+        <div>
+            <div id="filtres">
+                <ul>
+                    <li id="retour-concert">Retour a liste des concerts
+                    </li>
+                    <li>Filtres</li>
+                    <li id="filtre-all">all</li>
+                    <li id="filtre-style">Style</li>
+                    <li id="filtre-lieux">lieux</li>
+                </ul>
+            </div>
+            <div id="liste-concert">
 
 
-        <div id="liste-concert">
-
+            </div>
         </div>
+
 
 
 
@@ -86,16 +98,16 @@
     <footer></footer>
 
     <script id="templateSoiree" type="text/x-handlebars-template">
+
         <article>
             <h3>Répresentation de la soirée</h3>
 
             <ul>
-                <li>
+                <li class="info">
                     <ul>
-                        <li id="date">{{this.date}}</li>
-                        <li id="lieux">{{this.lieu.nom}}</li>
-                        <li id="heures">{{this.heure_debut}}</li>
-                        <li id="style">{{this.theme_name}}</li>
+                        <li id="date">Le {{this.date}}, <br>à {{this.lieu.nom}}</li>
+                        <li id="heures">Commence à {{this.heure_debut}}, Durée: {{this.duree}}</li>
+                        <li id="style">Style: {{this.theme.label}}</li>
                     </ul>
                 </li>
                 <li class="tarif">
@@ -143,7 +155,7 @@
         <article>
             <div class="info-concert">
                 <div class="concert-image">
-                    <img src="{{this.url_image}} " alt="image concert ">
+                    <img src="{{this.url_image}}" alt="image concert ">
                 </div>
                 <h4 class="title representation toggle ">{{this.titre}}</h4>
 
@@ -155,10 +167,8 @@
                         {{/each}}
                     </ul>
                 </div>
-
+                <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
             </div>
-            <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
-
         </article>
     </script>
 

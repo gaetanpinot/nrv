@@ -61,8 +61,6 @@ function addEventsToSchedule() {
 
 
 window.onload = function() {
-
-
     const schedule = document.getElementById('schedule'); // Le conteneur des créneaux
 
     if (schedule) {

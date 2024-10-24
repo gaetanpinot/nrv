@@ -5725,6 +5725,26 @@
   var TEMPLATE_SOIREE = import_handlebars.default.compile(
     document.querySelector("#templateSoiree").innerHTML
   );
+  document.querySelector("#retour-concert").addEventListener("click", function() {
+    let insertion = document.querySelector("#template-soiree");
+    if (insertion) {
+      insertion.setAttribute("id", "liste-concert");
+      insertion.innerHTML = "";
+    } else {
+      return;
+    }
+    fetch(URL_API + URI_SPECTACLES).then((resp) => resp.json()).then((data) => {
+      data.forEach(function(val) {
+        document.querySelector("#liste-concert").innerHTML += TEMPLATE_SPECTACLE(val);
+      });
+    }).then(() => {
+      document.querySelectorAll(".footer-concert-button").forEach((e) => {
+        e.addEventListener("click", () => {
+          afficheSoiree(e.dataset.id);
+        });
+      });
+    }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration des spectacles :", err));
+  });
   function afficheSpectacles() {
     fetch(URL_API + URI_SPECTACLES).then((resp) => resp.json()).then((data) => {
       data.forEach(function(val) {
@@ -5739,9 +5759,7 @@
     });
   }
   function afficheSoiree(idSpectacles) {
-    console.log("affiche soiree " + idSpectacles);
     let uri = URL_API + "/spectacles/" + idSpectacles + "/soirees";
-    console.log(uri);
     fetch(uri).then((resp) => resp.json()).then((data) => {
       data.forEach((val) => {
         let insertion = document.querySelector("#liste-concert");
