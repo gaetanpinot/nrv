@@ -29,6 +29,20 @@ class AfficheListeSpectaclesAction extends AbstractAction
         $nombreValidator = Validator::key('nombre',Validator::intVal()->greaterThan(0)->lessThan(31));
         $page = 0;
         $nombre = 10;
+        $filtre = array();
+        
+        if(isset($params['style'])){
+            $style = $params['style'];
+            $filtre = array('style' => array('label' => $style));
+        }
+        if(isset($params['lieu'])){
+            $lieu = $params['lieu'];
+            $filtre = array_merge($filtre ,array('lieu' => array('nom' => $lieu)));
+        }
+        if(isset($params['date'])){
+            $sens = $params['date'];
+            $filtre = array_merge($filtre ,array('date' => array('sens' => $sens)));
+        }
         try{
             $pageValidator->assert($params);
             $page = $params['page'];
@@ -36,7 +50,7 @@ class AfficheListeSpectaclesAction extends AbstractAction
             $nombre = $params['nombre'];
         }catch(NestedValidationException $e){
         }
-        $spectacles = $this->spectacleService->getSpectacles($page, $nombre);
+        $spectacles = $this->spectacleService->getSpectacles($page, $nombre, $filtre);
         return JsonRenderer::render($rs, 200, $spectacles);
     }
 }
