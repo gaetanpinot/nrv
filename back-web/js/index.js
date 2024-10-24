@@ -5695,22 +5695,36 @@
     }
   });
 
-  // index.js
+  // lib/jauge.js
   var import_handlebars = __toESM(require_handlebars());
+
+  // lib/settings.js
   var URL_API = "http://localhost:44014";
   var URI_JAUGE = "/jauge";
+
+  // lib/jauge.js
   var TEMPLATE_SOIREES = import_handlebars.default.compile(
     document.querySelector("#templateSoirees").innerHTML
   );
   import_handlebars.default.registerHelper("subtract", function(value1, value2) {
-    return value1 - value2;
+    return Number(value1) - Number(value2);
   });
-  function getSoireeJauge() {
+  import_handlebars.default.registerHelper("totalPlaces", function(value1, value2, value3, value4) {
+    return Number(value1) + Number(value2) - (Number(value3) + Number(value4));
+  });
+  import_handlebars.default.registerHelper("add", function(value1, value2) {
+    return Number(value1) + Number(value2);
+  });
+  var getSoireeJauge = function() {
     fetch(URL_API + URI_JAUGE).then((resp) => resp.json()).then((data) => {
-      console.log(data);
-      document.querySelector("#soirees").innerHTML = TEMPLATE_SOIREES(data);
+      document.querySelector("main").innerHTML = TEMPLATE_SOIREES(data);
     });
+  };
+  function listenerJauge() {
+    document.querySelector("#afficherSoiree").addEventListener("click", getSoireeJauge);
   }
-  getSoireeJauge();
+
+  // index.js
+  listenerJauge();
 })();
 //# sourceMappingURL=index.js.map

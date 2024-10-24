@@ -11,10 +11,18 @@
 </head>
 
 <body>
+    <nav>
+        <button id="afficherSoiree">
+            Afficher jauge soirees
+        </button>
+        <button id="ajouterSpectacle">
+            Ajouter spectacle
+        </button>
 
-    <div id="soirees">
+    </nav>
+    <main>
 
-    </div>
+    </main>
 
     <script id="templateLieu" type="text/x-handlebars-template">
 </script>
@@ -41,8 +49,10 @@
         Lieu de la soiree : {{this.lieu.nom}}
         </div>
         <div class = "infoPlacesSoiree">
-    <p>Nombre de places assises vendu : {{subtract this.lieu.nb_places_assises  this.nb_places_assises_restantes}} sur {{this.lieu.nb_places_assises}} disponible</p>
+    <p>Nombre de places assises vendu : {{subtract this.lieu.nb_places_assises  this.nb_places_assises_restantes }} sur {{this.lieu.nb_places_assises}} disponible</p>
     <p>Nombre de places debout vendu : {{subtract this.lieu.nb_places_debout  this.nb_places_debout_restantes}} sur {{this.lieu.nb_places_debout}} disponible</p>
+    <p>Nombre de places total : {{ totalPlaces this.lieu.nb_places_debout  
+    this.lieu.nb_places_assises this.nb_places_debout_restantes this.nb_places_assises_restantes}} sur {{add this.lieu.nb_places_debout this.lieu.nb_places_assises }} disponible</p>
         </div>
         </div>
         {{/each}}
