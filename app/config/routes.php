@@ -22,7 +22,7 @@ return function (\Slim\App $app): \Slim\App {
     
     $app->get('/spectacles[/]', AfficheListeSpectaclesAction::class);
 
-    $app->post('/inscription[/]', [InscriptionAction::class, 'inscription']);
+    $app->post('/inscription[/]', InscriptionAction::class);
 
     $app->post('/connexion[/]', ConnexionAction::class);
 

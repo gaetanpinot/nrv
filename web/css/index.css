@@ -1,46 +1,57 @@
 #top nav #img-compte img, #top nav #logo-panier img {
   width: 100%;
-  border-radius: 100%; }
+  border-radius: 100%;
+}
 
 main #template-soiree article, main #liste-concert article, main #filtres ul li > *, main #filtres ul li, body {
   background-color: #F9F7F4;
   color: #FFF;
   font-family: sans-serif;
-  font-weight: 400; }
+  font-weight: 400;
+}
 
 main #template-soiree #filtre, main #filtres, header {
-  background-color: #11074D; }
+  background-color: #11074D;
+}
 
 main #filtres ul li:hover, main > *, #top nav ul li {
   background-color: #3ADDE2;
   font-family: sans-serif;
   font-weight: bold;
-  color: #000; }
+  color: #000;
+}
 
 main #filtres {
-  color: #3ADDE2; }
+  color: #3ADDE2;
+}
 
 main #filtres ul li > *, main #filtres ul li, main #description {
-  color: #11074D; }
+  color: #11074D;
+}
 
 main #filtres ul li:hover, main #description .creme {
-  color: #F9F7F4; }
+  color: #F9F7F4;
+}
 
 body {
-  margin: 0px; }
+  margin: 0px;
+}
 
 header {
   width: 100%;
-  height: 100px; }
+  height: 100px;
+}
 
 #top {
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+}
 
 #top h1 {
   width: 50%;
   font-size: 3em;
-  margin: 20px; }
+  margin: 20px;
+}
 
 #top nav {
   margin: 10px;
@@ -48,81 +59,101 @@ header {
   flex-direction: row;
   width: 50%;
   gap: 10px;
-  justify-content: flex-end; }
+  justify-content: flex-end;
+}
 
 #top nav .active {
   background-color: #F9F7F4;
-  color: #11074D; }
+  color: #11074D;
+}
 
 #top nav ul {
   padding-left: 0px;
   display: flex;
   flex-direction: row;
   height: 40px;
-  gap: 0 10px; }
-  #top nav ul #dropdown ul li {
-    display: none;
-    width: 50%;
-    z-index: 1; }
-  #top nav ul #dropdown:hover ul li {
-    display: block; }
-  #top nav ul #dropdown:hover ul {
-    margin-left: -10px;
-    padding-left: 0px;
-    margin-top: 5px;
-    flex-direction: column; }
+  gap: 0 10px;
+}
+#top nav ul #dropdown ul li {
+  display: none;
+  width: 50%;
+  z-index: 1;
+}
+#top nav ul #dropdown:hover ul li {
+  display: block;
+}
+#top nav ul #dropdown:hover ul {
+  margin-left: -10px;
+  padding-left: 0px;
+  margin-top: 5px;
+  flex-direction: column;
+}
 
 #top nav ul li {
   padding: 10px;
   list-style: none;
   text-decoration: none;
   cursor: pointer;
-  font-size: 20px; }
+  font-size: 20px;
+}
 
 #top nav #logo-panier {
-  width: 20px; }
+  width: 20px;
+}
 
 #top nav #logo-panier img {
-  background-color: none; }
+  background-color: none;
+}
 
 #top nav #img-compte {
   padding: 0px;
-  background-color: unset; }
+  background-color: unset;
+}
 
 #top nav #img-compte img {
-  width: 40px; }
+  width: 40px;
+}
 
 #top nav a {
   text-decoration: none;
-  color: black; }
+  color: black;
+}
 
 main {
-  width: 100%; }
+  width: 100%;
+}
 
 main > * {
   max-width: 1200px;
   padding: 2em;
-  margin: 20px auto; }
+  margin: 20px auto;
+}
 
 main #description {
-  font-size: 1.2em; }
+  font-size: 1.2em;
+}
 
 main #description .creme {
-  font-size: 2em; }
+  font-size: 2em;
+}
 
 main #edt #schedule {
   display: grid;
   grid-template-columns: 1fr repeat(7, 1fr);
-  margin: 20px; }
+  margin: 20px;
+}
 
 main #edt .entete {
-  display: contents; }
+  display: contents;
+}
 
 main #edt .row {
-  display: contents; }
+  display: contents;
+}
 
 main #edt .time-label {
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 main #edt .day,
 main #edt .time-label {
@@ -130,7 +161,8 @@ main #edt .time-label {
   padding: 10px;
   color: #F9F7F4;
   background-color: #11074D;
-  border: 1px solid #3ADDE2; }
+  border: 1px solid #3ADDE2;
+}
 
 main #edt .slot {
   background-color: #F9F7F4;
@@ -138,7 +170,8 @@ main #edt .slot {
   height: 20px;
   text-align: center;
   padding: 10px;
-  font-size: 0.8em; }
+  font-size: 0.8em;
+}
 
 main #filtres {
   height: 100px;
@@ -149,20 +182,22 @@ main #filtres {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  border-radius: 10px; }
-  main #filtres ul {
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    gap: 20px; }
-    main #filtres ul li {
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease; }
-
+  border-radius: 10px;
+}
+main #filtres ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+main #filtres ul li {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
 main #liste-concert {
   width: 100%;
   box-sizing: content-box;
@@ -172,37 +207,45 @@ main #liste-concert {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 600px auto;
-  gap: 20px; }
-  main #liste-concert article {
-    text-align: center;
-    color: #11074D;
-    box-sizing: border-box;
-    border-radius: 20px 10px 20px 0px; }
-    main #liste-concert article .info-concert .title {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin: 5px 0 0 0; }
-    main #liste-concert article .info-concert .concert-image img {
-      width: 100%;
-      height: 200px;
-      border-radius: 20px 10px 0px 0px; }
-    main #liste-concert article .info-concert .description {
-      padding: 10px; }
-      main #liste-concert article .info-concert .description ul {
-        padding: 0;
-        list-style: none; }
-        main #liste-concert article .info-concert .description ul li {
-          padding: 0;
-          list-style: none; }
-    main #liste-concert article .footer-concert-button {
-      border-radius: 0px 0px 20px 0px;
-      width: 100%;
-      height: 30px;
-      background-color: #11074D;
-      color: #F9F7F4;
-      border: none;
-      margin-top: auto;
-      cursor: pointer; }
+  gap: 20px;
+}
+main #liste-concert article {
+  text-align: center;
+  color: #11074D;
+  box-sizing: border-box;
+  border-radius: 20px 10px 20px 0px;
+}
+main #liste-concert article .info-concert .title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 5px 0 0 0;
+}
+main #liste-concert article .info-concert .concert-image img {
+  width: 100%;
+  height: 200px;
+  border-radius: 20px 10px 0px 0px;
+}
+main #liste-concert article .info-concert .description {
+  padding: 10px;
+}
+main #liste-concert article .info-concert .description ul {
+  padding: 0;
+  list-style: none;
+}
+main #liste-concert article .info-concert .description ul li {
+  padding: 0;
+  list-style: none;
+}
+main #liste-concert article .footer-concert-button {
+  border-radius: 0px 0px 20px 0px;
+  width: 100%;
+  height: 30px;
+  background-color: #11074D;
+  color: #F9F7F4;
+  border: none;
+  margin-top: auto;
+  cursor: pointer;
+}
 
 main #template-soiree {
   width: 100%;
@@ -213,82 +256,174 @@ main #template-soiree {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: minmax(800px, 1100px) auto;
-  gap: 20px; }
-  main #template-soiree #filtre {
-    height: 80px;
-    max-width: 1000px;
-    margin: auto; }
-  main #template-soiree article {
-    text-align: center;
-    color: #11074D;
-    box-sizing: border-box;
-    border-radius: 20px 10px 20px 0px;
-    padding: 20px;
-    margin: 20px auto;
-    width: 100%; }
-    main #template-soiree article h3 {
-      font-size: 2em;
-      margin-bottom: 20px; }
-    main #template-soiree article > ul {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: minmax(160px, 1fr);
-      gap: 20px;
-      padding: 0;
-      list-style: none;
-      margin: 0 0 20px; }
-      main #template-soiree article > ul li {
-        margin-bottom: 10px; }
-        main #template-soiree article > ul li > ul {
-          height: 160px;
-          padding: 10px;
-          list-style: none;
-          background-color: #11074D;
-          color: #F9F7F4;
-          border-radius: 10px;
-          margin: 0; }
-          main #template-soiree article > ul li > ul li {
-            padding: 5px 0; }
-          main #template-soiree article > ul li > ul li {
-            font-weight: bold; }
-            main #template-soiree article > ul li > ul li:first-child {
-              font-size: 1.2em; }
-            main #template-soiree article > ul li > ul li :first-child {
-              font-weight: normal;
-              margin-left: 16px; }
-            main #template-soiree article > ul li > ul li :not(:first-child) {
-              font-weight: normal;
-              margin-left: 10px; }
-    main #template-soiree article > #grid-concerts {
-      display: grid;
-      grid-template-rows: 400px auto;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px; }
-      main #template-soiree article > #grid-concerts > .concerts {
-        overflow: auto;
-        margin-bottom: 20px;
-        padding: 15px;
-        background-color: #3ADDE2;
-        color: #000;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); }
-        main #template-soiree article > #grid-concerts > .concerts .title {
-          font-size: 1.8em;
-          font-weight: bold;
-          margin-bottom: 10px;
-          color: #333; }
-        main #template-soiree article > #grid-concerts > .concerts .info-concert {
-          margin-top: 10px;
-          padding: 10px;
-          background-color: #f4f4f4;
-          border-radius: 10px; }
-          main #template-soiree article > #grid-concerts > .concerts .info-concert .description {
-            padding: 10px;
-            background-color: #eaeaea;
-            border-radius: 5px; }
-            main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul {
-              list-style: none;
-              padding: 0; }
-              main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
-                font-weight: normal;
-                padding: 5px 0; }
+  gap: 20px;
+}
+main #template-soiree #filtre {
+  height: 80px;
+  max-width: 1000px;
+  margin: auto;
+}
+main #template-soiree article {
+  text-align: center;
+  color: #11074D;
+  box-sizing: border-box;
+  border-radius: 20px 10px 20px 0px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 100%;
+}
+main #template-soiree article h3 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+main #template-soiree article > ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: minmax(160px, 1fr);
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+  margin: 0 0 20px;
+}
+main #template-soiree article > ul li {
+  margin-bottom: 10px;
+}
+main #template-soiree article > ul li > ul {
+  height: 160px;
+  padding: 10px;
+  list-style: none;
+  background-color: #11074D;
+  color: #F9F7F4;
+  border-radius: 10px;
+  margin: 0;
+}
+main #template-soiree article > ul li > ul li {
+  padding: 5px 0;
+}
+main #template-soiree article > ul li > ul li {
+  font-weight: bold;
+}
+main #template-soiree article > ul li > ul li:first-child {
+  font-size: 1.2em;
+}
+main #template-soiree article > ul li > ul li :first-child {
+  font-weight: normal;
+  margin-left: 16px;
+}
+main #template-soiree article > ul li > ul li :not(:first-child) {
+  font-weight: normal;
+  margin-left: 10px;
+}
+main #template-soiree article > #grid-concerts {
+  display: grid;
+  grid-template-rows: 400px auto;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+main #template-soiree article > #grid-concerts > .concerts {
+  overflow: auto;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #3ADDE2;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+main #template-soiree article > #grid-concerts > .concerts .title {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+main #template-soiree article > #grid-concerts > .concerts .info-concert {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+}
+main #template-soiree article > #grid-concerts > .concerts .info-concert .description {
+  padding: 10px;
+  background-color: #eaeaea;
+  border-radius: 5px;
+}
+main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul {
+  list-style: none;
+  padding: 0;
+}
+main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
+  font-weight: normal;
+  padding: 5px 0;
+}
+
+#auth-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+}
+
+#auth-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.auth-option {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #3ADDE2;
+  border: none;
+  font-size: 1em;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.auth-option.active {
+  background-color: #11074D;
+  color: #F9F7F4;
+}
+
+#auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form {
+  display: none;
+}
+
+.auth-form.active {
+  display: block;
+}
+
+.auth-form input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  width: calc(100% - 20px);
+  box-sizing: border-box;
+}
+
+.auth-form button {
+  padding: 10px;
+  background-color: #11074D;
+  color: #F9F7F4;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.auth-form button:hover {
+  background-color: #3ADDE2;
+}
+
+/*# sourceMappingURL=index.css.map */
