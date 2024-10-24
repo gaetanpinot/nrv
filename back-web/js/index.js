@@ -1098,7 +1098,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars2) {
+      exports["default"] = function(Handlebars3) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1108,11 +1108,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars2.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars2) {
+        Handlebars3.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars3) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars2;
+          return Handlebars3;
         };
       };
       module.exports = exports["default"];
@@ -5724,7 +5724,20 @@
     document.querySelector("#afficherSoiree").addEventListener("click", getSoireeJauge);
   }
 
+  // lib/spectacles.js
+  var import_handlebars2 = __toESM(require_handlebars());
+  var TEMPLATE_FORM_SPECTACLE = import_handlebars2.default.compile(
+    document.querySelector("#templateFormSpectacle").innerHTML
+  );
+  var afficherSpectacleForm = function() {
+    document.querySelector("main").innerHTML = TEMPLATE_FORM_SPECTACLE([]);
+  };
+  function listenerSpectacleForm() {
+    document.querySelector("#ajouterSpectacle").addEventListener("click", afficherSpectacleForm);
+  }
+
   // index.js
+  listenerSpectacleForm();
   listenerJauge();
 })();
 //# sourceMappingURL=index.js.map
