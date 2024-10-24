@@ -5718,15 +5718,42 @@
   // lib/spectacle.js
   var import_handlebars = __toESM(require_handlebars());
   var URL_API = "http://localhost:44010";
-  var URI_SPECTACLES = "/spectacles";
+  var URI_SPECTACLES = "/spectacles?page=0&nombre=12";
   var TEMPLATE_SPECTACLE = import_handlebars.default.compile(
     document.querySelector("#templateSpectacle").innerHTML
   );
   var TEMPLATE_SOIREE = import_handlebars.default.compile(
     document.querySelector("#templateSoiree").innerHTML
   );
+  var pagination = 0;
+  function pagi(aa) {
+    pagination += aa;
+    pagination = pagination < 0 ? 0 : pagination;
+    const NEW_URI_SPECTACLES = "/spectacles?page=" + pagination + "&nombre=12";
+    document.querySelector("#actuelle").innerHTML = "";
+    document.querySelector("#actuelle").innerHTML = pagination;
+    document.querySelector("#liste-concert").innerHTML = "";
+    fetch(URL_API + NEW_URI_SPECTACLES).then((resp) => resp.json()).then((data) => {
+      data.forEach(function(val) {
+        document.querySelector("#liste-concert").innerHTML += TEMPLATE_SPECTACLE(val);
+      });
+    }).then(() => {
+      document.querySelectorAll(".footer-concert-button").forEach((e) => {
+        e.addEventListener("click", () => {
+          afficheSoiree(e.dataset.id);
+        });
+      });
+    }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration des spectacles :", err));
+  }
+  document.querySelector("#Pre").addEventListener("click", function() {
+    pagi(-1);
+  });
+  document.querySelector("#Suiv").addEventListener("click", function() {
+    pagi(1);
+  });
   document.querySelector("#retour-concert").addEventListener("click", function() {
     let insertion = document.querySelector("#template-soiree");
+    pagination = 0;
     if (insertion) {
       insertion.setAttribute("id", "liste-concert");
       insertion.innerHTML = "";
@@ -5763,11 +5790,11 @@
     fetch(uri).then((resp) => resp.json()).then((data) => {
       data.forEach((val) => {
         let insertion = document.querySelector("#liste-concert");
+        insertion.innerHTML = "";
+        insertion.innerHTML += TEMPLATE_SOIREE(val);
         if (insertion) {
           insertion.setAttribute("id", "template-soiree");
         }
-        insertion.innerHTML = "";
-        insertion.innerHTML += TEMPLATE_SOIREE(val);
       });
     });
   }
