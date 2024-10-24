@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/index.css">
+    <script type="text/javascript" src="./js/index.js" defer></script>
+    <title>NRV.net</title>
+</head>
+
+<body>
+
+    <div id="soirees">
+
+    </div>
+
+    <script id="templateLieu" type="text/x-handlebars-template">
+</script>
+</body>
+
+<script id="templateSoirees" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class = "soiree">
+            <h3 class= "titreSoiree">
+            {{this.nom}}
+            </h3>
+        <div class ="infoDateSoiree">
+            <div class="dateSoiree">
+            Date : {{this.date}}
+            </div>
+            <div class = "heureSoiree">
+            Heure : {{this.heure_debut}}
+            </div>
+            <div class = "dureeSoiree">
+            Duree : {{this.duree}}
+            </div>
+        </div>
+        <div class ="lieuSoiree">
+        Lieu de la soiree : {{this.lieu.nom}}
+        </div>
+        <div class = "infoPlacesSoiree">
+    <p>Nombre de places assises vendu : {{subtract this.lieu.nb_places_assises  this.nb_places_assises_restantes}} sur {{this.lieu.nb_places_assises}} disponible</p>
+    <p>Nombre de places debout vendu : {{subtract this.lieu.nb_places_debout  this.nb_places_debout_restantes}} sur {{this.lieu.nb_places_debout}} disponible</p>
+        </div>
+        </div>
+        {{/each}}
+</script>
+
+</html>

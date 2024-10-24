@@ -30,6 +30,7 @@ $panier = '
 create table panier(
 id uuid primary key,
 id_utilisateur uuid not null,
+id_billet uuid not null,
 is_valide bool not null,
 foreign key(id_utilisateur) references utilisateur(id)
 );';
@@ -183,8 +184,8 @@ for($i = 0; $i<$nbUser ; $i++){
 // is_valide bool not null,
 // foreign key(email_utilisateur) references utilisateur(email)
 $query = 'insert into panier 
-(id, id_utilisateur, is_valide)
-values (:id, :id, :valide);';
+(id, id_utilisateur, id_billet, is_valide)
+values (:id, :id, :id, :valide);';
 
 
 // id uuid primary key,
@@ -292,9 +293,9 @@ for($i=0; $i<$nbSoire; $i++){
 		'id'=> $faker->uuid(),
 		'nom'=> $faker->word(),
 		'id_theme' => $faker->numberBetween(1,count($theme)),
-		'date' => $faker->date(),
-		'heure_debut'=> $faker->date('H:i'),
-		'duree' => $faker->date('H:i'),
+		'date' => $faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d'),
+		'heure_debut'=> $faker->dateTimeBetween('today 18:00', 'today 20:30')->format('H:i'),
+		'duree' => $faker->dateTimeBetween('today 1:30', 'today 05:00')->format('H:i'),
 		'id_lieu' => $l['id'],
 		'nb_places_assises_restantes' => $l['nb_places_assises'],
 		'nb_places_debout_restantes' => $l['nb_places_debout'],
@@ -368,3 +369,4 @@ foreach($soireeArray as $soir){
 	}
 
 }
+

@@ -11,9 +11,11 @@ class BilletRepository implements BilletRepositoryInterface
 {
     protected PDO $pdo;
 
-    public function __construct(Container $cont){
+    public function __construct(Container $cont)
+    {
         $this->pdo = $cont->get('pdo.commun');
     }
+
     public function getBillet(): array
     {
         return $this->pdo->query('SELECT * FROM billet')->fetchAll();
@@ -21,14 +23,16 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function getBilletById(string $id): Billet
     {
-        $result = $this->pdo->query('SELECT * FROM billet WHERE id = ' . $id)->fetch();
+        $result = $this->pdo->query('SELECT * FROM billet WHERE id = :id');
+        $result->execute(['id' => $id]);
+        $result = $result->fetch();
         return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
 
     }
 
     public function save(Billet $billet): void
     {
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, id_user, id_spectacle, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif');
+        $request = $this->pdo->prepare('INSERT INTO billet (id, id_user, id_soiree, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_utilisateur, id_soiree = :id_soiree, tarif = :tarif');
         $request->execute([
             'id' => $billet->id,
             'id_utilisateur' => $billet->id_user,
