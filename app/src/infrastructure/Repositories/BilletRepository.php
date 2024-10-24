@@ -23,11 +23,17 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function getBilletById(string $id): Billet
     {
-        $result = $this->pdo->query('SELECT * FROM billet WHERE id = :id');
-        $result->execute(['id' => $id]);
-        $result = $result->fetch();
-        return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
+        $stmt = $this->pdo->prepare('SELECT * FROM billet WHERE id = :id');
 
+        $stmt->execute(['id' => $id]);
+
+        $result = $stmt->fetch();
+
+        if (!$result) {
+            throw new \Exception("Billet non trouvé : $id");
+        }
+
+        return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
     }
 
     public function save(Billet $billet): void

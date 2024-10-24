@@ -3,46 +3,47 @@
 namespace nrv\application\actions;
 
 use DI\Container;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use nrv\core\service\billet\BilletService;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use nrv\core\service\panier\PanierService;
-use Psr\Http\Message\ResponseFactoryInterface;
+use nrv\core\domain\entities\Billet\Billet;
 
 class AjouterBilletDansPanierAction extends AbstractAction
 {
-    protected BilletService $billetService;
     protected PanierService $panierService;
 
-    public function __construct(Container $cont, BilletService $billetService, PanierService $panierService)
+    public function __construct(Container $cont, PanierService $panierService)
     {
         parent::__construct($cont);
-        $this->billetService = $billetService;
         $this->panierService = $panierService;
     }
 
-    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
+    public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $data = $rq->getParsedBody();
-        $id_utilisateur = $data['id_utilisateur'] ?? null;
-        $id_billet = $data['id_billet'] ?? null;
 
-        if (!$id_utilisateur || !$id_billet) {
-            $rs->getBody()->write(json_encode(['error']));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(400);
+        $id_panier = $args['id_panier'];
+        $id_billet = $data['id_billet'] ?? null;
+        $id_user = $data['id_user'] ?? null;
+        $id_spectacle = $data['id_spectacle'] ?? null;
+        $tarif = $data['tarif'] ?? null;
+
+        if (!$id_billet || !$id_user || !$id_spectacle || !$tarif) {
+            $rs->getBody()->write(json_encode(['error' => 'Toute les informations ne sont pas transmise.']));
+            return $rs->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
+        $billet = new Billet($id_billet, $id_user, $id_spectacle, $tarif);
+
         try {
-            $billet = $this->billetService->getBilletById($id_billet);
-
-            $this->panierService->addBilletToPanier($id_utilisateur, $billet);
-
-            $rs->getBody()->write(json_encode(['success' => 'Billet ajouter au panier']));
+            $panierDTO = $this->panierService->ajouterBilletDansPanier($id_panier, $billet);
+            $rs->getBody()->write(json_encode($panierDTO));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
         } catch (\Exception $e) {
-            $this->loger->error($e->getMessage());
             $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
             return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }
 }
+
+

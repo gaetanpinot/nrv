@@ -30,7 +30,6 @@ $panier = '
 create table panier(
 id uuid primary key,
 id_utilisateur uuid not null,
-id_billet uuid not null,
 is_valide bool not null,
 foreign key(id_utilisateur) references utilisateur(id)
 );';
@@ -184,8 +183,8 @@ for($i = 0; $i<$nbUser ; $i++){
 // is_valide bool not null,
 // foreign key(email_utilisateur) references utilisateur(email)
 $query = 'insert into panier 
-(id, id_utilisateur, id_billet, is_valide)
-values (:id, :id, :id, :valide);';
+(id, id_utilisateur, is_valide)
+values (:id, :id, :valide);';
 
 
 // id uuid primary key,

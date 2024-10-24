@@ -32,7 +32,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/spectacles/{dateDeb}/{dateFin}', \nrv\application\actions\AfficheDateSpectacleAction::class);
 
     $app->post('/panier/ajouter-billet', AjouterBilletDansPanierAction::class);
-    
+
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
     });
