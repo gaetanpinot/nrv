@@ -7,7 +7,7 @@ use nrv\core\domain\entities\Theme\Theme;
 
 class ThemeDTO extends DTO
 {
-    public string $id;
+    public int $id;
     public string $label;
 
     public function __construct(Theme $theme)

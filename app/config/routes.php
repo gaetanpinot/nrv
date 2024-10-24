@@ -11,6 +11,8 @@ use Slim\Exception\HttpNotFoundException;
 use nrv\application\actions\HomeAction;
 use nrv\application\actions\GetSoireesSpectaclesAction;
 use \nrv\application\actions\AfficheDetailSoireeAction;
+use \nrv\application\actions\GetLieuxAction;
+use \nrv\application\actions\GetThemesAction;
 
 return function (\Slim\App $app): \Slim\App {
 
@@ -22,7 +24,7 @@ return function (\Slim\App $app): \Slim\App {
     
     $app->get('/spectacles[/]', AfficheListeSpectaclesAction::class);
 
-    $app->post('/inscription[/]', [InscriptionAction::class, 'inscription']);
+    $app->post('/inscription[/]', InscriptionAction::class);
 
     $app->post('/connexion[/]', ConnexionAction::class);
 
@@ -31,6 +33,10 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/utilisateur/{id}/paniers[/]', GetPanierByIdAction::class);
 
     $app->post('/panier/ajouter-billet', AjouterBilletDansPanierAction::class);
+
+    $app->get('/lieux[/]', GetLieuxAction::class);
+
+    $app->get('/themes[/]', GetThemesAction::class);
     
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;

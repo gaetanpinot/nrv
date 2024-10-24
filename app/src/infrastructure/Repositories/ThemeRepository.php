@@ -15,16 +15,25 @@ class ThemeRepository implements ThemeRepositoryInterface
     public function __construct(Container $cont){
         $this->pdo = $cont->get('pdo.commun');
     }
-    public function getTheme(): array
+    public function getThemes(): array
     {
         return $this->pdo->query('SELECT * FROM theme')->fetchAll();
     }
 
-    public function getThemeById(string $id): Theme
+    public function getThemeById(int $id): Theme
     {
-        $result = $this->pdo->query('SELECT * FROM theme WHERE id = ' . $id)->fetch();
+        $result = $this->pdo->prepare('SELECT * FROM theme WHERE id = :id');
+        $result->execute(['id' => $id]);
+        $result = $result->fetch();
         return new Theme($result['id'], $result['label']);
+    }
 
+    public function getThemeByLabel(string $label): Theme
+    {
+        $result = $this->pdo->prepare('SELECT * FROM theme WHERE label = :label');
+        $result->execute(['label' => $label]);
+        $result = $result->fetch();
+        return new Theme($result['id'], $result['label']);
     }
 
     public function save(Theme $theme): void
@@ -34,6 +43,7 @@ class ThemeRepository implements ThemeRepositoryInterface
             'id' => $theme->id,
             'label' => $theme->label,
         ]);
+        $request = $request->fetch();
     }
 
     public function updateTheme(Theme $theme): void
@@ -43,11 +53,13 @@ class ThemeRepository implements ThemeRepositoryInterface
             'id' => $theme->id,
             'label' => $theme->label,
         ]);
+        $request = $request->fetch();
     }
 
     public function deleteTheme(string $id): void
     {
         $request = $this->pdo->prepare('DELETE FROM theme WHERE id = :id');
         $request->execute(['id' => $id]);
+        $request = $request->fetch();
     }
 }
