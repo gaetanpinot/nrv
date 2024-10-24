@@ -35,8 +35,8 @@ class SpectacleService implements SpectacleServiceInterface
         return $res;
     }
 
-    public function addSpectacle($spec_params){
-        $this->spectacleRepository->addSpectacle($spec_params);
+    public function addSpectacle($spectacle){
+        $this->spectacleRepository->save($spectacle);
     }
 
 }

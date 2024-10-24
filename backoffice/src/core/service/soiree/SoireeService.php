@@ -41,4 +41,9 @@ class SoireeService implements SoireeServiceInterface
             return $s->toDTO();
         },$jauge);
     }
+
+
+    public function addSoiree($soiree){
+        $this->soireeRepository->save($soiree);
+    }
 }

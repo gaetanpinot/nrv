@@ -18,6 +18,7 @@ vendor
 /app/logs/*
 /app/var/*
 app/var/logs
+backoffice/var/logs
 !/app/logs/README.md
 /app/vendor
 # Cache

@@ -166,6 +166,8 @@ GROUP BY soiree.id, lieu_spectacle.id;
             'tarif_reduit' => $soiree->tarif_reduit
         ]);
         $request = $request->fetch();
+
+
     }
 
     public function updateSoiree(Soiree $soiree): void{
@@ -191,16 +193,6 @@ GROUP BY soiree.id, lieu_spectacle.id;
         $request->execute(['id' => $id]);
         $request = $request->fetch();
     }
-
-//    public function getSoireesIds(){
-//        $request = $this->pdo->prepare('SELECT id FROM soiree');
-//        $request->execute();
-//        $result = $request->fetchAll();
-//        return array_map(function($r){
-//            return $r['id'];
-//        }, $result);
-//    }
-//
     public function getNbPlacesVendues(): array{
 
         $query = "
