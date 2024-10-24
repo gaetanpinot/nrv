@@ -13,7 +13,8 @@ Handlebars.registerHelper('add', function (value1, value2) {
     return (Number(value1) + Number(value2)) ;
 });
 let getSoireeJauge = function(){
-fetch(URL_API+URI_JAUGE).then((resp) => resp.json())
+fetch(URL_API+URI_JAUGE)
+        .then((resp) => resp.json())
         .then((data) => {
             // console.log(data);
                 document.querySelector('main').innerHTML = TEMPLATE_SOIREES(data);

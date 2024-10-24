@@ -5701,6 +5701,8 @@
   // lib/settings.js
   var URL_API = "http://localhost:44014";
   var URI_JAUGE = "/jauge";
+  var URI_SPECTACLES = "/spectacles";
+  var URI_ARTISTES = "/artistes";
 
   // lib/jauge.js
   var TEMPLATE_SOIREES = import_handlebars.default.compile(
@@ -5730,7 +5732,44 @@
     document.querySelector("#templateFormSpectacle").innerHTML
   );
   var afficherSpectacleForm = function() {
-    document.querySelector("main").innerHTML = TEMPLATE_FORM_SPECTACLE([]);
+    fetch(URL_API + URI_ARTISTES).then((resp) => resp.json()).then((data) => {
+      document.querySelector("main").innerHTML = TEMPLATE_FORM_SPECTACLE(data);
+      document.querySelector("#formSpectacle").addEventListener("submit", submitSpectacleForm);
+    });
+  };
+  var submitSpectacleForm = function(e) {
+    event.preventDefault();
+    let formData = e.target.elements;
+    let getD = function($ch) {
+      return formData[$ch].value.trim();
+    };
+    let submitData = {
+      titre: getD("titre"),
+      description: getD("description"),
+      url_image: getD("url_image"),
+      url_video: getD("url_video")
+    };
+    let artistes = Array.from(e.target.querySelectorAll(".artistes"));
+    let checkedArtisteId = artistes.filter((artiste) => artiste.checked).map((artiste) => artiste.value);
+    if (checkedArtisteId.length === 0) {
+      alert("Vous n'avez pas sellection\xE9 d'artiste");
+    } else {
+      submitData.artistes = checkedArtisteId;
+      console.log(submitData);
+      fetch(URL_API + URI_SPECTACLES, {
+        body: JSON.stringify(submitData),
+        headers: {
+          "content-type": "application/json"
+        },
+        method: "POST"
+      }).then((resp) => {
+        if (resp.ok) {
+          alert("Le spectacle \xE0 \xE9t\xE9 cr\xE9e sans probl\xE8me");
+        } else {
+          alert("Probl\xE8me lors de la cr\xE9ation du spectacle");
+        }
+      });
+    }
   };
   function listenerSpectacleForm() {
     document.querySelector("#ajouterSpectacle").addEventListener("click", afficherSpectacleForm);
