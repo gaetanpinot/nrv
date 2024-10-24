@@ -24,13 +24,14 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         //puis les concatennes tous avec json_agg
         $tables = '';
         $where = '';
+        $order = '';
         $execute = array('limit'=>$nombre,
         'offset'=> $offset * $nombre);
 
         if($filtre != null){
             if(isset($filtre['date'])){
-                $where .= ' soiree.date between :dateDebut and :dateFin and ';
-                $execute = array_merge(array('dateDebut' => $filtre['date']['dateDebut'], 'dateFin' => $filtre['date']['dateFin']), $execute);
+                $where .= ' ';
+                $order = ' order by soiree.date '.$filtre['date']['sens'].' ';
             }
             if(isset($filtre['style'])){
                 $tables .= 'theme,';
@@ -41,8 +42,8 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             if(isset($filtre['lieu'])){
                 $tables .= 'lieu_spectacle,';
                 $where .= ' soiree.id_lieu = lieu_spectacle.id and
-                    lieu_spectacle.id = :lieu and ';
-                $execute = array_merge(array('lieu' => $filtre['lieu']['id']), $execute);
+                    lieu_spectacle.nom = :lieu and ';
+                $execute = array_merge(array('lieu' => $filtre['lieu']['nom']), $execute);
             }
             $query = "
             select
@@ -53,7 +54,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             where".$where.
             "spectacle.id = spectacles_soiree.id_spectacle and
             spectacles_soiree.id_soiree = soiree.id
-            group by spectacle.id
+            group by spectacle.id, soiree.date".$order."
             limit :limit
             offset :offset 
             ;";
