@@ -4,6 +4,7 @@ namespace nrv\infrastructure\Repositories;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Lieu\Lieu;
 use nrv\core\domain\entities\Spectacle\Spectacle;
+use nrv\core\domain\entities\Theme\Theme;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use DI\Container;
 use nrv\core\domain\entities\Soiree\Soiree;
@@ -86,6 +87,8 @@ class SoireeRepository implements SoireeRepositoryInterface{
         
         $request = $this->pdo->prepare("SELECT 
     soiree.*,
+    theme.id as theme_id,
+    theme.label as theme_label,
     json_agg(
         json_build_object(
             'id', spectacle.id, 
@@ -122,8 +125,10 @@ INNER JOIN spectacle
     ON spectacle.id = spectacles_soiree.id_spectacle
 INNER JOIN lieu_spectacle 
     ON soiree.id_lieu = lieu_spectacle.id
+INNER JOIN theme
+    on soiree.id_theme = theme.id
 WHERE soiree.id = :id
-GROUP BY soiree.id, lieu_spectacle.id;
+GROUP BY soiree.id, lieu_spectacle.id, theme.id;
 ");
 
         $request->execute(['id' => $id]);
@@ -143,7 +148,8 @@ GROUP BY soiree.id, lieu_spectacle.id;
             $spectacles[] = new Spectacle($spec['id'], $spec['titre'], $spec['description'], $spec['url_video'], $spec['url_image'], $artistes);
         }
 
-        $retour = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $lieu, $spectacles,
+        $theme = new Theme($soiree['theme_id'], $soiree['theme_label']);
+        $retour = new Soiree($soiree['id'], $soiree['nom'], $theme, $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $lieu, $spectacles,
             $soiree['nb_places_assises_restantes'], $soiree['nb_places_debout_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
 
 

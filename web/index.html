@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -18,24 +18,11 @@
             <nav>
 
                 <ul>
-                    <li id="dropdown">
-                        Filtré les répresentations
-                        <ul id="filtre">
-                            <li id="lieu">
-                                <a href="index.html#liste-representation ">par lieux</a>
-                            </li>
-                            <li id="styles">
-                                <a href="index.html#liste-representation ">par styles</a>
-                            </li>
-                            <li id="date">
-                                <a href="index.html#liste-representation ">par date</a>
-                            </li>
-
-                        </ul>
-
+                    <li>
+                        <a href="index.html#primary-content" alt="Concerts">Concerts</a>
                     </li>
                     <li>
-                        <a href="index.html#edt" alt="emploie du temps ">edt</a>
+                        <a href="index.html#edt" alt="Soirées">Calendrier</a>
                     </li>
 
                 </ul>
@@ -74,15 +61,27 @@
                 <!-- Les créneaux horaires seront ajoutés ici en JavaScript -->
             </div>
         </div>
-        <div>
+        <div id="primary-content">
             <div id="filtres">
                 <ul>
                     <li id="retour-concert">Retour a liste des concerts
                     </li>
-                    <li>Filtres</li>
-                    <li id="filtre-all">all</li>
+                    <li>Filtres :</li>
+                    <li id="filtre-all dropdown">all
+                        <ul>
+                            <li>Metal</li>
+                            <li>Pop</li>
+                            <li>Rock</li>
+                            <li>Reggae</li>
+                            <li>Classique</li>
+                            <li>Jazz</li>
+
+                        </ul>
+                    </li>
                     <li id="filtre-style">Style</li>
                     <li id="filtre-lieux">lieux</li>
+
+
                 </ul>
             </div>
             <div id="liste-concert">
