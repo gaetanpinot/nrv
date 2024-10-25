@@ -52,7 +52,7 @@ Gaëtan, Sasha
 - Modification du panier : nombre de billets.  
 - Backoffice : ajouter des spectacles et des soirées.  
 Gaëtan, Yehor
-- ~~Backoffice : gérer les lieux et le nombre de places sur chaque lieu.~~
-- ~~Backoffice : vente de billets à l’entrée des soirées. L‘application est utilisée par l’organisateur du festival pour la vente de billets sur le lieu de chaque soirée.~~
-- ~~Panier persistant : possibilité d’ajouter des réservations qui sont conservées au-delà de la session jusqu’au paiement.~~
-- ~~Vérification des places disponibles dans un panier avant paiement.~~
+- Backoffice : gérer les lieux et le nombre de places sur chaque lieu.
+- Backoffice : vente de billets à l’entrée des soirées. L‘application est utilisée par l’organisateur du festival pour la vente de billets sur le lieu de chaque soirée.
+- Panier persistant : possibilité d’ajouter des réservations qui sont conservées au-delà de la session jusqu’au paiement.
+- Vérification des places disponibles dans un panier avant paiement.
