@@ -1,17 +1,21 @@
 <?php
-
 namespace nrv\core\service\soiree;
 
+use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use nrv\core\domain\entities\Soiree\Soiree;
 use nrv\core\dto\SoireeDTO;
+use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\infrastructure\Repositories\SoireeRepository;
 
 class SoireeService implements SoireeServiceInterface
 {
-    private SoireeRepository $soireeRepository;
-    public function __construct(SoireeRepository $soireeRepository)
+    private SoireeRepositoryInterface $soireeRepository;
+    protected LoggerInterface $log;
+    public function __construct(ContainerInterface $co)
     {
-        $this->soireeRepository = $soireeRepository;
+        $this->soireeRepository = $co->get(SoireeRepositoryInterface::class);
+        $this->log = $co->get(LoggerInterface::class);
     }
 
     public function getSoireeDetail($soiree_id): SoireeDTO
@@ -26,8 +30,10 @@ class SoireeService implements SoireeServiceInterface
     public function getSoireeSpectacleId(string $id): array
     {
         $soirees = $this->soireeRepository->getSoireeBySpectacleId($id);
-                         return array_map(function(Soiree $s){
-                                          return new SoireeDTO($s);
+        
+        $this->log->error(count($soirees));
+        return array_map(function(Soiree $s){
+            return new SoireeDTO($s);
         },$soirees);
     }
 

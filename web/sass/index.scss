@@ -88,21 +88,27 @@ header {
                     cursor: pointer;
                     font-size: 20px;
                 }
+                li:hover {
+                    @extend %primaire-background;
+                }
             }
             #logo-panier {
-                width: 20px;
+                width: 40px;
+                padding: 0px;
             }
             #logo-panier img {
                 @extend %logo;
-                background-color: none;
+                width: 30px;
+                margin: 5px;
             }
             #img-compte {
                 padding: 0px;
-                background-color: unset;
+                width: 40px;
             }
             #img-compte img {
                 @extend %logo;
-                width: 40px;
+                width: 30px;
+                margin: 5px;
             }
             a {
                 text-decoration: none;
@@ -285,7 +291,7 @@ main #pagination {
     }
 }
 
-main #template-soiree {
+main #liste-soiree {
     #filtre {
         @extend %second-background;
         height: 80px;
@@ -551,9 +557,6 @@ footer {
                         padding: 10px;
                         font-size: 20px;
                     }
-                    #logo-panier {
-                        width: 20px;
-                    }
                 }
             }
         }
@@ -615,7 +618,7 @@ footer {
                 }
             }
         }
-        main #template-soiree {
+        main #liste-soiree {
             padding-top: 20px;
             grid-template-columns: repeat(1, 1fr);
             grid-template-rows: minmax(800px, 2000px) auto;
@@ -722,9 +725,6 @@ footer {
                         padding: 10px;
                         font-size: 20px;
                     }
-                    #logo-panier {
-                        width: 20px;
-                    }
                 }
             }
         }
@@ -786,7 +786,7 @@ footer {
                 }
             }
         }
-        main #template-soiree {
+        main #liste-soiree {
             padding-top: 20px;
             grid-template-columns: repeat(1, 1fr);
             grid-template-rows: minmax(800px, 2000px) auto;
@@ -893,9 +893,6 @@ footer {
                         padding: 10px;
                         font-size: 20px;
                     }
-                    #logo-panier {
-                        width: 20px;
-                    }
                 }
             }
         }
@@ -945,7 +942,7 @@ footer {
                     }
                     .concert-image img {
                         width: 100%;
-                        height: 80px;
+                        height: 100px;
                     }
                     .description {
                         padding: 10px;
@@ -957,7 +954,7 @@ footer {
                 }
             }
         }
-        main #template-soiree {
+        main #liste-soiree {
             padding-top: 20px;
             grid-template-columns: repeat(1, 1fr);
             grid-template-rows: minmax(800px, 2000px) auto;

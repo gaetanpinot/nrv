@@ -8,6 +8,8 @@ use nrv\back\core\domain\entities\Lieu\Lieu;
 use nrv\core\domain\entities\Theme;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\core\service\soiree\SoireeService;
+use nrv\core\service\soiree\SoireeServiceInterface;
 use nrv\core\service\spectacle\SpectacleService;
 use nrv\core\service\spectacle\SpectacleServiceInterface;
 use nrv\infrastructure\Repositories\SoireeRepository;
@@ -31,6 +33,7 @@ return [
     SoireeRepositoryInterface::class => DI\autowire(SoireeRepository::class),
     LieuRepositoryInterface::class => DI\autowire(LieuRepository::class),
     ThemeRepositoryInterface::class => DI\autowire(ThemeRepository::class),
+    SoireeServiceInterface::class => DI\autowire(SoireeService::class),
     //Services
     SpectacleServiceInterface::class => DI\create(SpectacleService::class)->constructor(DI\get(ContainerInterface::class)),
     LieuServiceInterface::class => DI\create(LieuService::class)->constructor(DI\get(ContainerInterface::class)),

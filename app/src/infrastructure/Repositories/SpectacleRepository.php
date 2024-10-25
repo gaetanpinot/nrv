@@ -1,8 +1,8 @@
 <?php
 namespace nrv\infrastructure\Repositories;
 
-use nrv\core\domain\entities\Spectacle\Spectacle;
 use nrv\core\domain\entities\Artiste\Artiste;
+use nrv\core\domain\entities\Spectacle\Spectacle;
 use \PDO;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
 use DI\Container;

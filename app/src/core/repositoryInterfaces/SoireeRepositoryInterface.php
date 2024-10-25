@@ -9,4 +9,5 @@ interface SoireeRepositoryInterface{
     public function save(Soiree $soiree): void;
     public function updateSoiree(Soiree $soiree): void;
     public function deleteSoiree(string $id): void;
+public function getSoireeBySpectacleId(string $id): array;
 }

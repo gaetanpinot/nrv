@@ -11,7 +11,53 @@
     <script type="text/javascript"
             src="./js/index.js"
             defer></script>
-    <title>NRV.net</title>
+
+
+    <title>Nancy Rock Vibration - Festival de Rock à Nancy | 12 Soirées, 4 Lieux</title>
+
+    <!-- Meta Description pour le SEO -->
+    <meta name="description"
+          content="Découvrez Nancy Rock Vibration, le festival de rock incontournable de Nancy. 12 soirées de performances live dans 4 lieux uniques de la ville. Réservez vos places !">
+
+    <!-- Meta Tags pour le SEO -->
+    <meta name="keywords"
+          content="Nancy Rock Vibration, festival de rock, concerts Nancy, musique live, événements musicaux, rock, Nancy, France">
+    <meta name="robots"
+          content="index, follow">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph pour le partage sur les réseaux sociaux -->
+    <meta property="og:title"
+          content="Nancy Rock Vibration - Festival de Rock à Nancy">
+    <meta property="og:description"
+          content="Participez à Nancy Rock Vibration, le festival de rock incontournable avec 12 soirées et 4 lieux exceptionnels à Nancy !">
+    <meta property="og:image"
+          content="./img/banner.png">
+    <!-- URL de l'image à adapter -->
+    <meta property="og:url"
+          content="https://nrv-festival.com">
+    <meta property="og:type"
+          content="website">
+
+    <!-- Twitter Card pour les aperçus Twitter -->
+    <meta name="twitter:card"
+          content="summary_large_image">
+    <meta name="twitter:title"
+          content="Nancy Rock Vibration - Festival de Rock à Nancy">
+    <meta name="twitter:description"
+          content="Rejoignez Nancy Rock Vibration, le festival qui fait vibrer Nancy ! 12 soirées de rock dans des lieux emblématiques.">
+    <meta name="twitter:image"
+          content="./img/banner.png">
+
+    <!-- Balise Canonique pour éviter le contenu dupliqué -->
+    <link rel="canonical"
+          href="https://nrv-festival.com">
+
+    <!-- Favicon -->
+    <link rel="icon"
+          href="./img/favicon.png"
+          type="image/x-icon">
 </head>
 
 <body>
@@ -26,22 +72,20 @@
                         <a href="index.html#primary-content"
                            alt="Concerts">Concerts</a>
                     </li>
-                    <li>
-                        <a href="index.html#edt"
-                           alt="Soirées">Calendrier</a>
-                    </li>
+                    <!--<li>
+                        <a href="index.html#edt" alt="Soirées">Calendrier</a>
+                        </li>
+                    -->
 
                 </ul>
                 <ul>
                     <li id="logo-panier">
-                        <img src="/img/panier.svg "
-                             alt="panier "
-                             onclick="window.location.href='panier.html'">
+                        <img src="./img/panier.svg "
+                             alt="panier ">
                     </li>
                     <li id="img-compte">
                         <img src="https://i.pravatar.cc/300 "
-                             alt="compte "
-                             onclick="window.location.href='compte.html'">
+                             alt="compte ">
                     </li>
                 </ul>
             </nav>
@@ -123,8 +167,7 @@
             <div id="pagination">
                 <ul>
                     <li id="Pre">Précédent</li>
-                    <li id="actuelle">0</li>
-
+                    <li id="actuelle">{{pagination}}</li>
                     <li id="Suiv">Suivant</li>
                 </ul>
             </div>
@@ -252,7 +295,7 @@
                 </div>
                 {{/each}}
             </div>
-            <button data-user="" data-soiree="{{this.id}}">Prendre un billet</button>
+            <button id="billet" data-soiree="{{this.id}}">Prendre un billet</button>
 
         </article>
     </script>

@@ -3,14 +3,14 @@ header #top nav #img-compte img, header #top nav #logo-panier img {
   border-radius: 100%;
 }
 
-body, main #template-soiree article, main #liste-concert article, main #filtres ul li > *, main #filtres ul li {
+body, main #liste-soiree article, main #liste-concert article, main #filtres ul li > *, main #filtres ul li, header #top nav ul li:hover {
   background-color: #F9F7F4;
   color: #FFF;
   font-family: sans-serif;
   font-weight: 400;
 }
 
-footer, main #template-soiree #filtre, main #filtres, header {
+footer, main #liste-soiree #filtre, main #filtres, header {
   background-color: #11074D;
 }
 
@@ -90,17 +90,20 @@ header #top nav ul li {
   font-size: 20px;
 }
 header #top nav #logo-panier {
-  width: 20px;
+  width: 40px;
+  padding: 0px;
 }
 header #top nav #logo-panier img {
-  background-color: none;
+  width: 30px;
+  margin: 5px;
 }
 header #top nav #img-compte {
   padding: 0px;
-  background-color: unset;
+  width: 40px;
 }
 header #top nav #img-compte img {
-  width: 40px;
+  width: 30px;
+  margin: 5px;
 }
 header #top nav a {
   text-decoration: none;
@@ -256,7 +259,7 @@ main #pagination ul li {
   padding: 10px 15px;
   border-radius: 5px;
 }
-main #template-soiree {
+main #liste-soiree {
   width: 100%;
   box-sizing: content-box;
   padding-top: 20px;
@@ -267,12 +270,12 @@ main #template-soiree {
   grid-template-rows: minmax(800px, 1100px) auto;
   gap: 20px;
 }
-main #template-soiree #filtre {
+main #liste-soiree #filtre {
   height: 80px;
   max-width: 1000px;
   margin: auto;
 }
-main #template-soiree article {
+main #liste-soiree article {
   text-align: center;
   color: #11074D;
   box-sizing: border-box;
@@ -281,11 +284,11 @@ main #template-soiree article {
   margin: 20px auto;
   width: 100%;
 }
-main #template-soiree article h3 {
+main #liste-soiree article h3 {
   font-size: 2em;
   margin-bottom: 20px;
 }
-main #template-soiree article > ul {
+main #liste-soiree article > ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: minmax(160px, 1fr);
@@ -294,10 +297,10 @@ main #template-soiree article > ul {
   list-style: none;
   margin: 0 0 20px;
 }
-main #template-soiree article > ul li {
+main #liste-soiree article > ul li {
   margin-bottom: 10px;
 }
-main #template-soiree article > ul li > ul {
+main #liste-soiree article > ul li > ul {
   height: 160px;
   padding: 10px;
   list-style: none;
@@ -306,30 +309,30 @@ main #template-soiree article > ul li > ul {
   border-radius: 10px;
   margin: 0;
 }
-main #template-soiree article > ul li > ul li {
+main #liste-soiree article > ul li > ul li {
   padding: 5px 0;
 }
-main #template-soiree article > ul li > ul li {
+main #liste-soiree article > ul li > ul li {
   font-weight: bold;
 }
-main #template-soiree article > ul li > ul li:first-child {
+main #liste-soiree article > ul li > ul li:first-child {
   font-size: 1.2em;
 }
-main #template-soiree article > ul li > ul li :first-child {
+main #liste-soiree article > ul li > ul li :first-child {
   font-weight: normal;
   margin-left: 16px;
 }
-main #template-soiree article > ul li > ul li :not(:first-child) {
+main #liste-soiree article > ul li > ul li :not(:first-child) {
   font-weight: normal;
   margin-left: 10px;
 }
-main #template-soiree article > #grid-concerts {
+main #liste-soiree article > #grid-concerts {
   display: grid;
   grid-template-rows: 400px auto;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
-main #template-soiree article > #grid-concerts > .concerts {
+main #liste-soiree article > #grid-concerts > .concerts {
   overflow: auto;
   margin-bottom: 20px;
   padding: 15px;
@@ -338,28 +341,28 @@ main #template-soiree article > #grid-concerts > .concerts {
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
-main #template-soiree article > #grid-concerts > .concerts .title {
+main #liste-soiree article > #grid-concerts > .concerts .title {
   font-size: 1.8em;
   font-weight: bold;
   margin-bottom: 10px;
   color: #333;
 }
-main #template-soiree article > #grid-concerts > .concerts .info-concert {
+main #liste-soiree article > #grid-concerts > .concerts .info-concert {
   margin-top: 10px;
   padding: 10px;
   background-color: #f4f4f4;
   border-radius: 10px;
 }
-main #template-soiree article > #grid-concerts > .concerts .info-concert .description {
+main #liste-soiree article > #grid-concerts > .concerts .info-concert .description {
   padding: 10px;
   background-color: #eaeaea;
   border-radius: 5px;
 }
-main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul {
+main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul {
   list-style: none;
   padding: 0;
 }
-main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
+main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
   font-weight: normal;
   padding: 5px 0;
 }
@@ -534,9 +537,6 @@ body {
     padding: 10px;
     font-size: 20px;
   }
-  body header #top nav #logo-panier {
-    width: 20px;
-  }
   body main #description {
     font-size: 1em;
   }
@@ -591,80 +591,80 @@ body {
     height: 30px;
     margin-top: auto;
   }
-  body main #template-soiree {
+  body main #liste-soiree {
     padding-top: 20px;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: minmax(800px, 2000px) auto;
     gap: 20px;
   }
-  body main #template-soiree article {
+  body main #liste-soiree article {
     padding: 20px;
     margin: 20px auto;
     width: 100%;
   }
-  body main #template-soiree article h3 {
+  body main #liste-soiree article h3 {
     font-size: 2em;
     margin-bottom: 20px;
   }
-  body main #template-soiree article > ul {
+  body main #liste-soiree article > ul {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: minmax(160px, 1fr);
     gap: 20px;
   }
-  body main #template-soiree article > ul li {
+  body main #liste-soiree article > ul li {
     margin-bottom: 10px;
   }
-  body main #template-soiree article > ul li > ul {
+  body main #liste-soiree article > ul li > ul {
     height: 160px;
     padding: 10px;
   }
-  body main #template-soiree article > ul li > ul li {
+  body main #liste-soiree article > ul li > ul li {
     padding: 5px 0;
   }
-  body main #template-soiree article > ul li > ul li {
+  body main #liste-soiree article > ul li > ul li {
     font-weight: bold;
   }
-  body main #template-soiree article > ul li > ul li:first-child {
+  body main #liste-soiree article > ul li > ul li:first-child {
     font-size: 1.2em;
   }
-  body main #template-soiree article > ul li > ul li :first-child {
+  body main #liste-soiree article > ul li > ul li :first-child {
     font-weight: normal;
     margin-left: 16px;
   }
-  body main #template-soiree article > ul li > ul li :not(:first-child) {
+  body main #liste-soiree article > ul li > ul li :not(:first-child) {
     font-weight: normal;
     margin-left: 10px;
   }
-  body main #template-soiree article > #grid-concerts {
+  body main #liste-soiree article > #grid-concerts {
     display: grid;
     grid-template-rows: 400px auto;
     grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts {
+  body main #liste-soiree article > #grid-concerts > .concerts {
     overflow: auto;
     margin-bottom: 20px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .title {
+  body main #liste-soiree article > #grid-concerts > .concerts .title {
     font-size: 1.8em;
     font-weight: bold;
     margin-bottom: 10px;
     color: #333;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert {
     margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description {
     padding: 10px;
     border-radius: 5px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul {
     list-style: none;
     padding: 0;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
     font-weight: normal;
     padding: 5px 0;
   }
@@ -697,9 +697,6 @@ body {
   body header #top nav ul li {
     padding: 10px;
     font-size: 20px;
-  }
-  body header #top nav #logo-panier {
-    width: 20px;
   }
   body main #description {
     font-size: 1em;
@@ -755,80 +752,80 @@ body {
     height: 30px;
     margin-top: auto;
   }
-  body main #template-soiree {
+  body main #liste-soiree {
     padding-top: 20px;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: minmax(800px, 2000px) auto;
     gap: 20px;
   }
-  body main #template-soiree article {
+  body main #liste-soiree article {
     padding: 20px;
     margin: 20px auto;
     width: 100%;
   }
-  body main #template-soiree article h3 {
+  body main #liste-soiree article h3 {
     font-size: 2em;
     margin-bottom: 20px;
   }
-  body main #template-soiree article > ul {
+  body main #liste-soiree article > ul {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: minmax(160px, 1fr);
     gap: 20px;
   }
-  body main #template-soiree article > ul li {
+  body main #liste-soiree article > ul li {
     margin-bottom: 10px;
   }
-  body main #template-soiree article > ul li > ul {
+  body main #liste-soiree article > ul li > ul {
     height: 160px;
     padding: 10px;
   }
-  body main #template-soiree article > ul li > ul li {
+  body main #liste-soiree article > ul li > ul li {
     padding: 5px 0;
   }
-  body main #template-soiree article > ul li > ul li {
+  body main #liste-soiree article > ul li > ul li {
     font-weight: bold;
   }
-  body main #template-soiree article > ul li > ul li:first-child {
+  body main #liste-soiree article > ul li > ul li:first-child {
     font-size: 1.2em;
   }
-  body main #template-soiree article > ul li > ul li :first-child {
+  body main #liste-soiree article > ul li > ul li :first-child {
     font-weight: normal;
     margin-left: 16px;
   }
-  body main #template-soiree article > ul li > ul li :not(:first-child) {
+  body main #liste-soiree article > ul li > ul li :not(:first-child) {
     font-weight: normal;
     margin-left: 10px;
   }
-  body main #template-soiree article > #grid-concerts {
+  body main #liste-soiree article > #grid-concerts {
     display: grid;
     grid-template-rows: 400px auto;
     grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts {
+  body main #liste-soiree article > #grid-concerts > .concerts {
     overflow: auto;
     margin-bottom: 20px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .title {
+  body main #liste-soiree article > #grid-concerts > .concerts .title {
     font-size: 1.8em;
     font-weight: bold;
     margin-bottom: 10px;
     color: #333;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert {
     margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description {
     padding: 10px;
     border-radius: 5px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul {
     list-style: none;
     padding: 0;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
     font-weight: normal;
     padding: 5px 0;
   }
@@ -861,9 +858,6 @@ body {
   body header #top nav ul li {
     padding: 10px;
     font-size: 20px;
-  }
-  body header #top nav #logo-panier {
-    width: 20px;
   }
   body main #description {
     font-size: 1.2em;
@@ -910,7 +904,7 @@ body {
   }
   body main #liste-concert article .info-concert .concert-image img {
     width: 100%;
-    height: 80px;
+    height: 100px;
   }
   body main #liste-concert article .info-concert .description {
     padding: 10px;
@@ -919,80 +913,80 @@ body {
     height: 30px;
     margin-top: auto;
   }
-  body main #template-soiree {
+  body main #liste-soiree {
     padding-top: 20px;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: minmax(800px, 2000px) auto;
     gap: 20px;
   }
-  body main #template-soiree article {
+  body main #liste-soiree article {
     padding: 20px;
     margin: 20px auto;
     width: 100%;
   }
-  body main #template-soiree article h3 {
+  body main #liste-soiree article h3 {
     font-size: 2em;
     margin-bottom: 20px;
   }
-  body main #template-soiree article > ul {
+  body main #liste-soiree article > ul {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: minmax(160px, 1fr);
     gap: 20px;
   }
-  body main #template-soiree article > ul li {
+  body main #liste-soiree article > ul li {
     margin-bottom: 10px;
   }
-  body main #template-soiree article > ul li > ul {
+  body main #liste-soiree article > ul li > ul {
     height: 160px;
     padding: 10px;
   }
-  body main #template-soiree article > ul li > ul li {
+  body main #liste-soiree article > ul li > ul li {
     padding: 5px 0;
   }
-  body main #template-soiree article > ul li > ul li {
+  body main #liste-soiree article > ul li > ul li {
     font-weight: bold;
   }
-  body main #template-soiree article > ul li > ul li:first-child {
+  body main #liste-soiree article > ul li > ul li:first-child {
     font-size: 1.2em;
   }
-  body main #template-soiree article > ul li > ul li :first-child {
+  body main #liste-soiree article > ul li > ul li :first-child {
     font-weight: normal;
     margin-left: 16px;
   }
-  body main #template-soiree article > ul li > ul li :not(:first-child) {
+  body main #liste-soiree article > ul li > ul li :not(:first-child) {
     font-weight: normal;
     margin-left: 10px;
   }
-  body main #template-soiree article > #grid-concerts {
+  body main #liste-soiree article > #grid-concerts {
     display: grid;
     grid-template-rows: 400px auto;
     grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts {
+  body main #liste-soiree article > #grid-concerts > .concerts {
     overflow: auto;
     margin-bottom: 20px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .title {
+  body main #liste-soiree article > #grid-concerts > .concerts .title {
     font-size: 1.8em;
     font-weight: bold;
     margin-bottom: 10px;
     color: #333;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert {
     margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description {
     padding: 10px;
     border-radius: 5px;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul {
     list-style: none;
     padding: 0;
   }
-  body main #template-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
+  body main #liste-soiree article > #grid-concerts > .concerts .info-concert .description ul li {
     font-weight: normal;
     padding: 5px 0;
   }

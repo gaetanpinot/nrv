@@ -21,7 +21,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/soirees/{id}[/]', AfficheDetailSoireeAction::class);
 
     $app->get('/spectacles/{id}/soirees[/]', GetSoireesSpectaclesAction::class);
-    
+
     $app->get('/spectacles[/]', AfficheListeSpectaclesAction::class);
 
     $app->post('/inscription[/]', InscriptionAction::class);
