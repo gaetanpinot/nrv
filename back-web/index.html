@@ -79,11 +79,12 @@
     </div>
 
     <div id = "lieuxSoireeForm">
+    <h3> Lieux </h3>
     {{#each this.lieux}}
     <div class = "inputCheck inputLieux">
     <input type = "radio" id = "lieux{{@index}}" name = "lieux" value = "{{this.id}}" class="lieux" required>
     <label for = "lieux{{@index}}">
-    <h3>Lieux : {{this.nom}}</h3>
+    <h4>{{this.nom}}</h4>
     <p>Adresse : {{this.adresse}}</p>
     <p>Nombre de places assises : {{this.nb_places_assises}} </p>
     <p>Nombre de places debout : {{this.nb_places_debout}} </p>
@@ -103,11 +104,12 @@
     </div>
 
     <div id = "spectaclesSoireeForm">
+    <h3>Spectacles : </h3>
     {{#each this.spectacles}} 
     <div class = "inputCheck inputSpectacles">
     <input type = "checkbox" id = "spectacles{{@index}}" name = "spectacles{{@index}}" value = "{{this.id}}" class="spectacles">
     <label for = "spectacles{{@index}}"> 
-    <h3>{{this.titre}}</h3>
+    <h4>{{this.titre}}</h4>
     <p>{{this.description}}</p>
     <p>Artistes : {{#each this.artistes}} {{this.prenom}} {{/each}}</p>
     </label>
@@ -129,7 +131,7 @@
     <input type = "url" id = "url_video" name = "url_video">
     <div id = "inputsArtists">
     {{#each this}}
-    <div class = "inputArtist">
+    <div class = "inputCheck inputArtist">
     <input type = "checkbox" id = "artiste{{@index}}" name = "artiste{{@index}}" value = "{{this.id}}" class="artistes">
     <label for = "artiste{{@index}}">Artiste {{this.prenom}}</label>
     </div>

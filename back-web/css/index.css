@@ -14,20 +14,16 @@ main {
     @media (max-width: 30em) {
       main form {
         width: 100%; } }
-#formSoiree {
-  display: flex;
-  flex-direction: row;
-  width: 100%; }
-
 .inputCheck {
   display: flex;
   flex-direction: row;
   align-items: center; }
-  .inputCheck label {
-    width: 95%; }
   .inputCheck input {
-    width: 2em;
-    height: 2em; }
+    width: 1.5em;
+    height: 1.5em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    box-sizing: border-box; }
 
 #description {
   height: 10em;
@@ -41,6 +37,3 @@ main {
 #inputsArtists {
   display: flex;
   flex-direction: column; }
-  #inputsArtists .inputArtist input {
-    height: 1.5em;
-    width: 1.5em; }

@@ -26,25 +26,19 @@ main {
   }
 }
 
-#formSoiree {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
 
 .inputCheck {
   display: flex;
   flex-direction: row;
   align-items: center;
 
-  label {
-    width: 95%;
-  }
-
   input {
-    $largeurCheckbox: 2em;
+    $largeurCheckbox: 1.5em;
     width: $largeurCheckbox;
     height: $largeurCheckbox;
+    min-width: $largeurCheckbox;
+    min-height: $largeurCheckbox;
+    box-sizing: border-box;
   }
 }
 
@@ -62,11 +56,4 @@ main {
 #inputsArtists {
   display: flex;
   flex-direction: column;
-
-  .inputArtist {
-    input {
-      height: 1.5em;
-      width: 1.5em;
-    }
-  }
 }
