@@ -4,60 +4,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-          href="./css/index.css">
-    <script type="text/javascript"
-            src="./js/index.js"
-            defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/index.css">
+    <script type="text/javascript" src="./js/index.js" defer></script>
 
 
     <title>Nancy Rock Vibration - Festival de Rock à Nancy | 12 Soirées, 4 Lieux</title>
 
     <!-- Meta Description pour le SEO -->
-    <meta name="description"
-          content="Découvrez Nancy Rock Vibration, le festival de rock incontournable de Nancy. 12 soirées de performances live dans 4 lieux uniques de la ville. Réservez vos places !">
+    <meta name="description" content="Découvrez Nancy Rock Vibration, le festival de rock incontournable de Nancy. 12 soirées de performances live dans 4 lieux uniques de la ville. Réservez vos places !">
 
     <!-- Meta Tags pour le SEO -->
-    <meta name="keywords"
-          content="Nancy Rock Vibration, festival de rock, concerts Nancy, musique live, événements musicaux, rock, Nancy, France">
-    <meta name="robots"
-          content="index, follow">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Nancy Rock Vibration, festival de rock, concerts Nancy, musique live, événements musicaux, rock, Nancy, France">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Open Graph pour le partage sur les réseaux sociaux -->
-    <meta property="og:title"
-          content="Nancy Rock Vibration - Festival de Rock à Nancy">
-    <meta property="og:description"
-          content="Participez à Nancy Rock Vibration, le festival de rock incontournable avec 12 soirées et 4 lieux exceptionnels à Nancy !">
-    <meta property="og:image"
-          content="./img/banner.png">
+    <meta property="og:title" content="Nancy Rock Vibration - Festival de Rock à Nancy">
+    <meta property="og:description" content="Participez à Nancy Rock Vibration, le festival de rock incontournable avec 12 soirées et 4 lieux exceptionnels à Nancy !">
+    <meta property="og:image" content="./img/banner.png">
     <!-- URL de l'image à adapter -->
-    <meta property="og:url"
-          content="https://nrv-festival.com">
-    <meta property="og:type"
-          content="website">
+    <meta property="og:url" content="https://nrv-festival.com">
+    <meta property="og:type" content="website">
 
     <!-- Twitter Card pour les aperçus Twitter -->
-    <meta name="twitter:card"
-          content="summary_large_image">
-    <meta name="twitter:title"
-          content="Nancy Rock Vibration - Festival de Rock à Nancy">
-    <meta name="twitter:description"
-          content="Rejoignez Nancy Rock Vibration, le festival qui fait vibrer Nancy ! 12 soirées de rock dans des lieux emblématiques.">
-    <meta name="twitter:image"
-          content="./img/banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nancy Rock Vibration - Festival de Rock à Nancy">
+    <meta name="twitter:description" content="Rejoignez Nancy Rock Vibration, le festival qui fait vibrer Nancy ! 12 soirées de rock dans des lieux emblématiques.">
+    <meta name="twitter:image" content="./img/banner.png">
 
     <!-- Balise Canonique pour éviter le contenu dupliqué -->
-    <link rel="canonical"
-          href="https://nrv-festival.com">
+    <link rel="canonical" href="https://nrv-festival.com">
 
     <!-- Favicon -->
-    <link rel="icon"
-          href="./img/favicon.png"
-          type="image/x-icon">
+    <link rel="icon" href="./img/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -68,9 +48,8 @@
             <nav>
 
                 <ul>
-                    <li>
-                        <a href="index.html#primary-content"
-                           alt="Concerts">Concerts</a>
+                    <li id="home">
+                        <a href="index.html#primary-content" alt="Concerts">Concerts</a>
                     </li>
                     <!--<li>
                         <a href="index.html#edt" alt="Soirées">Calendrier</a>
@@ -80,34 +59,25 @@
                 </ul>
                 <ul>
                     <li id="logo-panier">
-                        <img src="./img/panier.svg "
-                             alt="panier ">
+                        <img src="./img/panier.svg " alt="panier ">
                     </li>
                     <li id="img-compte">
-                        <img src="https://i.pravatar.cc/300 "
-                             alt="compte ">
+                        <img src="./img/account.svg" alt="compte ">
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
     <main>
-        <div id="loader"
-             style="display: none;">Loading...</div>
+        <div id="loader" style="display: none;">Loading...</div>
     </main>
 
-    <script id="templateConcerts"
-            type="text/x-handlebars-template">
+    <script id="templateConcerts" type="text/x-handlebars-template">
         <div id="description">
-            <strong class="creme">Nancy Rock Vibration</strong> est un événement musical palpitant qui se déroule sur 12
-            soirées inoubliables, offrant une immersion totale dans l'univers du rock. Réparti dans 4 lieux
-            emblématiques de la ville de Nancy,
-            chaque lieu accueille 3 représentations uniques, chacune mettant en avant des artistes locaux et
-            internationaux. Cependant, chaque soirée se concentre sur un seul lieu, permettant aux spectateurs de
-            profiter d'une atmosphère immersive et d'une
+            <strong class="creme">Nancy Rock Vibration</strong> est un événement musical palpitant qui se déroule sur 12 soirées inoubliables, offrant une immersion totale dans l'univers du rock. Réparti dans 4 lieux emblématiques de la ville de Nancy,
+            chaque lieu accueille 3 représentations uniques, chacune mettant en avant des artistes locaux et internationaux. Cependant, chaque soirée se concentre sur un seul lieu, permettant aux spectateurs de profiter d'une atmosphère immersive et d'une
             programmation spécialement sélectionnée pour l'endroit.<br>
-            <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants,
-            des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
+            <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants, des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
         </div>
         <!--
         <div id="edt">
@@ -174,8 +144,12 @@
         </div>
     </script>
 
+<<<<<<< HEAD
+    <script id="templateAccount" type="text/x-handlebars-template">
+=======
     <script id="templateAccountNonAuth"
             type="text/x-handlebars-template">
+>>>>>>> 133e5f4a3d22149d9a32a4b644171bb528f5d350
         <div id="auth-container">
             <div id="auth-options">
                 <button id="login-btn" class="auth-option active">Se connecter</button>
@@ -212,8 +186,7 @@
         <div class="footer-content">
             <div class="about-festival">
                 <h4>Nancy Rock Vibration</h4>
-                <p>12 soirées de rock intense dans 4 lieux emblématiques de Nancy. Venez vibrer au rythme des guitares,
-                    des voix et des performances en live !</p>
+                <p>12 soirées de rock intense dans 4 lieux emblématiques de Nancy. Venez vibrer au rythme des guitares, des voix et des performances en live !</p>
             </div>
 
             <div class="contact-info">
@@ -253,25 +226,22 @@
     </footer>
 
 
-    <script id="templateSoiree"
-            type="text/x-handlebars-template">
-
+    <script id="templateSoiree" type="text/x-handlebars-template">
         <article>
             <h3>Répresentation de la soirée</h3>
-
             <ul>
-                <li class="info">
+                <li class="info ">
                     <ul>
-                        <li id="date">Le {{this.date}}, <br>à {{this.lieu.nom}}</li>
-                        <li id="heures">Commence à {{this.heure_debut}}, Durée: {{this.duree}}</li>
-                        <li id="style">Style: {{this.theme.label}}</li>
+                        <li id="date ">Le {{this.date}}, <br>à {{this.lieu.nom}}</li>
+                        <li id="heures ">Commence à {{this.heure_debut}}, Durée: {{this.duree}}</li>
+                        <li id="style ">Style: {{this.theme.label}}</li>
                     </ul>
                 </li>
-                <li class="tarif">
+                <li class="tarif ">
                     <ul>
                         <li>Prix</li>
-                        <li id="normal">Tarif normal: {{this.tarif_normal}}</li>
-                        <li id="reduit">Tarif réduit: {{this.tarif_reduit}}</li>
+                        <li id="normal ">Tarif normal: {{this.tarif_normal}} €</li>
+                        <li id="reduit ">Tarif réduit: {{this.tarif_reduit}} €</li>
                     </ul>
                 </li>
                 <li class="places">
@@ -287,10 +257,10 @@
                 <div class="concerts" data-id="{{this.id}}">
 
                     <h4 class="title representation toggle">{{this.titre}}</h4>
-                    <div class="info-concert">
+                    <div class="info-concert ">
 
-                        <div class="description">
-                            <ul class="artistes">
+                        <div class="description ">
+                            <ul class="artistes ">
                                 <h5>Avec :</h5>
                                 {{#each this.artistes}}
                                 <li>{{this.prenom}}</li>
@@ -303,18 +273,17 @@
                 </div>
                 {{/each}}
             </div>
-            <button id="billet" data-soiree="{{this.id}}">Prendre un billet</button>
+            <button class="prendre-billet" data-soiree="{{this.id}}">Prendre un billet</button>
 
         </article>
     </script>
 
 
-    <script id="templateSpectacle"
-            type="text/x-handlebars-template">
+    <script id="templateSpectacle" type="text/x-handlebars-template">
         <article>
             <div class="info-concert">
                 <div class="concert-image">
-                    <img src="{{this.url_image}}" alt="image concert">
+                    <img src="{{this.url_image}}" alt="image concert ">
                 </div>
                 <h4 class="title representation toggle">{{this.titre}}</h4>
 
@@ -331,8 +300,7 @@
     </script>
 
 
-    <script id="event-template"
-            type="text/x-handlebars-template">
+    <script id="event-template" type="text/x-handlebars-template">
         <select>
             <option value="{{theme.label}}">{{theme.label}}</option>
         </select>
@@ -341,6 +309,41 @@
         </select>
     </script>
 
+    <script id="templateBillet" type="text/x-handlebars-template">
+        <form id="billet-form" method="GET">
+            <h3>Billet pour</h3>
+            <ul>
+                <li class="info">
+                    <ul>
+                        <li id="date">Le {{this.date}}, <br>à {{this.lieu.nom}}</li>
+                        <li id="heures">Commence à {{this.heure_debut}}, Durée: {{this.duree}}</li>
+                        <li id="style">Style: {{this.theme.label}}</li>
+                    </ul>
+                </li>
+
+                <li class="tarif">
+                    <ul>
+                        <label>Prix</label>
+                        <li id="normal">Tarif normal: {{this.tarif_normal}} €</li>
+                        <input type="radio" name="tarif" id="normal" value="{{this.tarif_normal}}">
+                        <li id="reduit">Tarif réduit: {{this.tarif_reduit}} €</li>
+                        <input type="radio" name="tarif" id="reduit" value="{{this.tarif_reduit}}">
+                    </ul>
+                </li>
+
+                <li class="places">
+                    <ul>
+                        <label>Choix de la place</label>
+                        <li id="assises">{{this.nb_places_assises_restantes}} places assises restantes</li>
+                        <input type="radio" name="place" id="assises" value="assises">
+                        <li id="debout">{{this.nb_places_debout_restantes}} places debout restantes</li>
+                        <input type="radio" name="place" id="debout" value="debout">
+                    </ul>
+                </li>
+            </ul>
+            <button type="submit" data-soiree="{{this.id}}">Valider</button>
+        </form>
+    </script>
 
 </body>
 

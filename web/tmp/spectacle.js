@@ -28,7 +28,7 @@ function pagi(aa) {
         .then((resp) => resp.json())
         .then((data) => {
             data.forEach(function(val) {
-                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val);
+                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val.trim());
             });
         })
         .then(() => {
@@ -42,12 +42,12 @@ function pagi(aa) {
 }
 
 function renderTemplate(containerId, data, template) {
-    
+
     const container = document.getElementById(containerId);
     if (container) {
-        container.innerHTML = ''; 
+        container.innerHTML = '';
         data.forEach(item => {
-            container.innerHTML += template(item); 
+            container.innerHTML += template(item);
         });
     } else {
         console.error(`container ${containerId} not found`);
@@ -77,12 +77,12 @@ function setSpectacleEventListeners() {
 function handlePaginationChange(step) {
     pagination += step;
     pagination = Math.max(pagination, 0);
-    loadSpectacles(); 
+    loadSpectacles();
 }
 
 function resetToConcertList() {
-    pagination = 0; 
-    loadSpectacles(); 
+    pagination = 0;
+    loadSpectacles();
 }
 
 
@@ -92,8 +92,8 @@ function loadSpectacles() {
         .then((resp) => resp.json())
         .then((data) => {
             renderTemplate('liste-concert', data, TEMPLATE_SPECTACLE);
-            setSpectacleEventListeners(); 
-            document.querySelector('#actuelle').textContent = pagination; 
+            setSpectacleEventListeners();
+            document.querySelector('#actuelle').textContent = pagination;
         })
         .catch((err) => console.error("Ошибка при загрузке спектаклей:", err));
 }
@@ -106,7 +106,7 @@ export function afficheSpectacles() {
             renderTemplate('main-content', data, TEMPLATE_SPECTACLE);
             console.log(data);
             data.forEach(function(val) {
-                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val);
+                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val.trim());
             });
         }).then(() => {
             document.querySelectorAll(".footer-concert-button").forEach((e) => {
@@ -119,23 +119,26 @@ export function afficheSpectacles() {
 }
 
 function afficheSoiree(idSpectacles) {
-    //console.log('affiche soiree ' + idSpectacles);
     let uri = URL_API + '/spectacles/' + idSpectacles + '/soirees';
-    //console.log(uri);
     fetch(uri)
         .then((resp) => resp.json())
         .then((data) => {
+            let insertion = document.querySelector('#liste-concert');
+            if (insertion) {
+                insertion.setAttribute("id", "liste-soiree");
+            } else {
+                console.error("Élément #liste-concert introuvable.");
+                return;
+            }
+
+            insertion.innerHTML = "";
             data.forEach((val) => {
-                let insertion = document.querySelector('#liste-concert');
-                //console.log(insertion);
-                insertion.innerHTML = "";
                 insertion.innerHTML += TEMPLATE_SOIREE(val);
-                if (insertion) {
-                    insertion.setAttribute("id", "template-soiree");
-                }
             });
-        });
+        })
+        .catch((error) => console.error("Erreur lors de la récupération des données:", error));
 }
+
 
 
 function filter() {
