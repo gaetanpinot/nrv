@@ -55,14 +55,14 @@ document.querySelector("#Suiv").addEventListener("click", function() {
 document.querySelector("#retour-concert").addEventListener("click", function() {
     //console.log("retour concert");
 
-    let insertion = document.querySelector('#template-soiree');
+    let insertion = document.querySelector('#liste-soiree');
     pagination = 0;
 
     if (insertion) {
         insertion.setAttribute("id", "liste-concert"); // todo Change l'ID à "liste-concert"
         insertion.innerHTML = ""; // todo Vide le contenu de l'élément
     } else {
-        //console.error('Élément #template-soiree non trouvé');
+        //console.error('Élément #liste-soiree non trouvé');
         return; // todo Stoppe le script si l'élément n'est pas trouvé
     }
 
@@ -103,23 +103,26 @@ export function afficheSpectacles() {
 }
 
 function afficheSoiree(idSpectacles) {
-    //console.log('affiche soiree ' + idSpectacles);
     let uri = URL_API + '/spectacles/' + idSpectacles + '/soirees';
-    //console.log(uri);
     fetch(uri)
         .then((resp) => resp.json())
         .then((data) => {
+            let insertion = document.querySelector('#liste-concert');
+            if (insertion) {
+                insertion.setAttribute("id", "liste-soiree");
+            } else {
+                console.error("Élément #liste-concert introuvable.");
+                return;
+            }
+
+            insertion.innerHTML = "";
             data.forEach((val) => {
-                let insertion = document.querySelector('#liste-concert');
-                //console.log(insertion);
-                insertion.innerHTML = "";
                 insertion.innerHTML += TEMPLATE_SOIREE(val);
-                if (insertion) {
-                    insertion.setAttribute("id", "template-soiree");
-                }
             });
-        });
+        })
+        .catch((error) => console.error("Erreur lors de la récupération des données:", error));
 }
+
 
 const billetElement = document.querySelector("#billet");
 if (billetElement) {
