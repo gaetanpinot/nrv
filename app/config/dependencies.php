@@ -5,8 +5,11 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
 use nrv\back\core\domain\entities\Lieu\Lieu;
+use nrv\core\domain\entities\Theme;
 use nrv\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\core\service\soiree\SoireeService;
+use nrv\core\service\soiree\SoireeServiceInterface;
 use nrv\core\service\spectacle\SpectacleService;
 use nrv\core\service\spectacle\SpectacleServiceInterface;
 use nrv\infrastructure\Repositories\SoireeRepository;
@@ -18,6 +21,10 @@ use nrv\infrastructure\Repositories\LieuRepository;
 use nrv\core\repositoryInterfaces\LieuRepositoryInterface;
 use nrv\core\service\lieu\LieuServiceInterface;
 use nrv\core\service\lieu\LieuService;
+use nrv\infrastructure\Repositories\ThemeRepository;
+use nrv\core\repositoryInterfaces\ThemeRepositoryInterface;
+use nrv\core\service\theme\ThemeService;
+use nrv\core\service\theme\ThemeServiceInterface;
 
 return [
 
@@ -25,9 +32,12 @@ return [
     SpectacleRepositoryInterface::class => DI\autowire(SpectacleRepository::class),
     SoireeRepositoryInterface::class => DI\autowire(SoireeRepository::class),
     LieuRepositoryInterface::class => DI\autowire(LieuRepository::class),
+    ThemeRepositoryInterface::class => DI\autowire(ThemeRepository::class),
+    SoireeServiceInterface::class => DI\autowire(SoireeService::class),
     //Services
     SpectacleServiceInterface::class => DI\create(SpectacleService::class)->constructor(DI\get(ContainerInterface::class)),
     LieuServiceInterface::class => DI\create(LieuService::class)->constructor(DI\get(ContainerInterface::class)),
+    ThemeServiceInterface::class => DI\create(ThemeService::class)->constructor(DI\get(ContainerInterface::class)),
     //PDO
     'pdo.commun' => function(ContainerInterface $c){
         $config= parse_ini_file($c->get('db.config'));

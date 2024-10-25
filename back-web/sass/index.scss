@@ -1,0 +1,48 @@
+$wForm: 30em;
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.3em;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: $wForm;
+
+    >*[type='text'],
+    input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width:$wForm) {
+      width: 100%;
+
+    }
+  }
+}
+
+#description {
+  height: 10em;
+  width: 100%;
+  resize: none;
+}
+
+#submitSpectacle {
+  height: 4.5em;
+  width: 7em;
+}
+
+#inputsArtists {
+  display: flex;
+  flex-direction: column;
+
+  .inputArtist {
+    input {
+      height: 1.5em;
+      width: 1.5em;
+    }
+  }
+}

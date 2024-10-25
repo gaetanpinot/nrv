@@ -1098,7 +1098,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars2) {
+      exports["default"] = function(Handlebars3) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1108,11 +1108,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars2.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars2) {
+        Handlebars3.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars3) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars2;
+          return Handlebars3;
         };
       };
       module.exports = exports["default"];
@@ -5695,22 +5695,87 @@
     }
   });
 
-  // index.js
+  // lib/jauge.js
   var import_handlebars = __toESM(require_handlebars());
+
+  // lib/settings.js
   var URL_API = "http://localhost:44014";
   var URI_JAUGE = "/jauge";
+  var URI_SPECTACLES = "/spectacles";
+  var URI_ARTISTES = "/artistes";
+
+  // lib/jauge.js
   var TEMPLATE_SOIREES = import_handlebars.default.compile(
     document.querySelector("#templateSoirees").innerHTML
   );
   import_handlebars.default.registerHelper("subtract", function(value1, value2) {
-    return value1 - value2;
+    return Number(value1) - Number(value2);
   });
-  function getSoireeJauge() {
+  import_handlebars.default.registerHelper("totalPlaces", function(value1, value2, value3, value4) {
+    return Number(value1) + Number(value2) - (Number(value3) + Number(value4));
+  });
+  import_handlebars.default.registerHelper("add", function(value1, value2) {
+    return Number(value1) + Number(value2);
+  });
+  var getSoireeJauge = function() {
     fetch(URL_API + URI_JAUGE).then((resp) => resp.json()).then((data) => {
-      console.log(data);
-      document.querySelector("#soirees").innerHTML = TEMPLATE_SOIREES(data);
+      document.querySelector("main").innerHTML = TEMPLATE_SOIREES(data);
     });
+  };
+  function listenerJauge() {
+    document.querySelector("#afficherSoiree").addEventListener("click", getSoireeJauge);
   }
-  getSoireeJauge();
+
+  // lib/spectacles.js
+  var import_handlebars2 = __toESM(require_handlebars());
+  var TEMPLATE_FORM_SPECTACLE = import_handlebars2.default.compile(
+    document.querySelector("#templateFormSpectacle").innerHTML
+  );
+  var afficherSpectacleForm = function() {
+    fetch(URL_API + URI_ARTISTES).then((resp) => resp.json()).then((data) => {
+      document.querySelector("main").innerHTML = TEMPLATE_FORM_SPECTACLE(data);
+      document.querySelector("#formSpectacle").addEventListener("submit", submitSpectacleForm);
+    });
+  };
+  var submitSpectacleForm = function(e) {
+    event.preventDefault();
+    let formData = e.target.elements;
+    let getD = function($ch) {
+      return formData[$ch].value.trim();
+    };
+    let submitData = {
+      titre: getD("titre"),
+      description: getD("description"),
+      url_image: getD("url_image"),
+      url_video: getD("url_video")
+    };
+    let artistes = Array.from(e.target.querySelectorAll(".artistes"));
+    let checkedArtisteId = artistes.filter((artiste) => artiste.checked).map((artiste) => artiste.value);
+    if (checkedArtisteId.length === 0) {
+      alert("Vous n'avez pas sellection\xE9 d'artiste");
+    } else {
+      submitData.artistes = checkedArtisteId;
+      fetch(URL_API + URI_SPECTACLES, {
+        body: JSON.stringify(submitData),
+        headers: {
+          "content-type": "application/json"
+        },
+        method: "POST"
+      }).then((resp) => {
+        if (resp.ok) {
+          alert("Le spectacle \xE0 \xE9t\xE9 cr\xE9e sans probl\xE8me");
+        } else {
+          alert("Probl\xE8me lors de la cr\xE9ation du spectacle");
+        }
+      });
+    }
+  };
+  function listenerSpectacleForm() {
+    document.querySelector("#ajouterSpectacle").addEventListener("click", afficherSpectacleForm);
+  }
+
+  // index.js
+  listenerSpectacleForm();
+  listenerJauge();
 })();
 //# sourceMappingURL=index.js.map

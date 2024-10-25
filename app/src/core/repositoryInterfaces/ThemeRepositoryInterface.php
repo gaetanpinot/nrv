@@ -9,8 +9,9 @@ use PhpParser\Node\Stmt\Label;
 
 interface ThemeRepositoryInterface
 {
-    public function getTheme(): array;
-    public function getThemeById(string $id): Theme;
+    public function getThemes(): array;
+    public function getThemeById(int $id): Theme;
+    public function getThemeByLabel(string $label): Theme;
     public function save(Theme $label): void;
     public function updateTheme(Theme $label): void;
     public function deleteTheme(string $id): void;

@@ -378,6 +378,10 @@ foreach($soireeArray as $soir){
 	}
 
 }
+// on enleve les spectacles qui n'on pas de soiree
+$query = "delete from spectacle_artistes where 
+spectacle_artistes.id_spectacle not in (select distinct(id_spectacle) from spectacles_soiree);
+delete from spectacle where 
+spectacle.id not in (select distinct(id_spectacle) from spectacles_soiree);";
 
-
-
+$co->exec($query);

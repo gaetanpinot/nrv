@@ -7,7 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/index.css">
     <script type="text/javascript" src="./js/index.js" defer></script>
-    <title>NRV.net</title>
+
+
+    <title>Nancy Rock Vibration - Festival de Rock à Nancy | 12 Soirées, 4 Lieux</title>
+
+    <!-- Meta Description pour le SEO -->
+    <meta name="description" content="Découvrez Nancy Rock Vibration, le festival de rock incontournable de Nancy. 12 soirées de performances live dans 4 lieux uniques de la ville. Réservez vos places !">
+
+    <!-- Meta Tags pour le SEO -->
+    <meta name="keywords" content="Nancy Rock Vibration, festival de rock, concerts Nancy, musique live, événements musicaux, rock, Nancy, France">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Open Graph pour le partage sur les réseaux sociaux -->
+    <meta property="og:title" content="Nancy Rock Vibration - Festival de Rock à Nancy">
+    <meta property="og:description" content="Participez à Nancy Rock Vibration, le festival de rock incontournable avec 12 soirées et 4 lieux exceptionnels à Nancy !">
+    <meta property="og:image" content="./img/banner.png">
+    <!-- URL de l'image à adapter -->
+    <meta property="og:url" content="https://nrv-festival.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card pour les aperçus Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nancy Rock Vibration - Festival de Rock à Nancy">
+    <meta name="twitter:description" content="Rejoignez Nancy Rock Vibration, le festival qui fait vibrer Nancy ! 12 soirées de rock dans des lieux emblématiques.">
+    <meta name="twitter:image" content="./img/banner.png">
+
+    <!-- Balise Canonique pour éviter le contenu dupliqué -->
+    <link rel="canonical" href="https://nrv-festival.com">
+
+    <!-- Favicon -->
+    <link rel="icon" href="./img/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -21,17 +51,18 @@
                     <li>
                         <a href="index.html#primary-content" alt="Concerts">Concerts</a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="index.html#edt" alt="Soirées">Calendrier</a>
-                    </li>
+                        </li>
+                    -->
 
                 </ul>
                 <ul>
                     <li id="logo-panier">
-                        <img src="/img/panier.svg " alt="panier " onclick="window.location.href='panier.html'">
+                        <img src="/img/panier.svg" alt="panier " onclick="window.location.href='panier.html'">
                     </li>
                     <li id="img-compte">
-                        <img src="https://i.pravatar.cc/300 " alt="compte " onclick="window.location.href='compte.html'">
+                        <img src="/img/account.svg" alt="compte " onclick="window.location.href='compte.html'">
                     </li>
                 </ul>
             </nav>
@@ -44,6 +75,7 @@
             programmation spécialement sélectionnée pour l'endroit.<br>
             <strong class="creme">Nancy Rock Vibration</strong> promet de faire vibrer la ville avec des sons puissants, des performances en direct, et une énergie débordante pendant presque deux semaines de pur rock.
         </div>
+        <!--
         <div id="edt">
             <div id="schedule">
                 <div class="entete">
@@ -58,35 +90,52 @@
                 </div>
 
 
-                <!-- Les créneaux horaires seront ajoutés ici en JavaScript -->
-            </div>
+                // Les créneaux horaires seront ajoutés ici en JavaScript
         </div>
+        </div>
+        -->
         <div id="primary-content">
             <div id="filtres">
                 <ul>
-                    <li id="retour-concert">Retour a liste des concerts
-                    </li>
+                    <li id="retour-concert">Retour à la liste des concerts</li>
                     <li>Filtres :</li>
-                    <li id="filtre-all dropdown">all
-                        <ul>
-                            <li>Metal</li>
-                            <li>Pop</li>
-                            <li>Rock</li>
-                            <li>Reggae</li>
-                            <li>Classique</li>
-                            <li>Jazz</li>
-
-                        </ul>
+                    <li>
+                        <select id="filtre-style">
+                <option value="all">Style</option>
+                <option value="all">Tous</option>
+                <option value="metal">Metal</option>
+                <option value="pop">Pop</option>
+                <option value="rock">Rock</option>
+                <option value="reggae">Reggae</option>
+                <option value="classique">Classique</option>
+                <option value="jazz">Jazz</option>
+            </select>
                     </li>
-                    <li id="filtre-style">Style</li>
-                    <li id="filtre-lieux">lieux</li>
-
-
+                    <li>
+                        <select id="filtre-lieu">
+                <option value="all">Aléatoire</option>
+            </select>
+                    </li>
+                    <li>
+                        <select id="filtre-date">
+                <option value="recent">Récent</option>
+                <option value="ancient">Ancien</option>
+            </select>
+                    </li>
                 </ul>
             </div>
+
             <div id="liste-concert">
 
 
+
+            </div>
+            <div id="pagination">
+                <ul>
+                    <li id="Pre">Précédent</li>
+                    <li id="actuelle">0</li>
+                    <li id="Suiv">Suivant</li>
+                </ul>
             </div>
         </div>
 
@@ -94,7 +143,49 @@
 
 
     </main>
-    <footer></footer>
+    <footer>
+        <div class="footer-content">
+            <div class="about-festival">
+                <h4>Nancy Rock Vibration</h4>
+                <p>12 soirées de rock intense dans 4 lieux emblématiques de Nancy. Venez vibrer au rythme des guitares, des voix et des performances en live !</p>
+            </div>
+
+            <div class="contact-info">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li>Email : <a href="mailto:contact@nrv-festival.com">contact@nrv-festival.com</a></li>
+                    <li>Téléphone : <a href="tel:+33383000000">+33 3 83 00 00 00</a></li>
+                    <li>Adresse : 123 Rue du Rock, 54000 Nancy, France</li>
+                </ul>
+            </div>
+
+            <div class="social-media">
+                <h4>Suivez-nous</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+
+            <div class="useful-links">
+                <h4>Informations pratiques</h4>
+                <ul>
+                    <li><a href="#">Billetterie en ligne</a></li>
+                    <li><a href="#">Plan des lieux</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Conditions générales</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Nancy Rock Vibration. Tous droits réservés.</p>
+            <p>Site web conçu par <a href="#">Nom de l'agence ou designer</a>.</p>
+        </div>
+    </footer>
+
 
     <script id="templateSoiree" type="text/x-handlebars-template">
 
@@ -145,33 +236,41 @@
                 </div>
                 {{/each}}
             </div>
+            <button id="billet" data-soiree="{{this.id}}">Prendre un billet</button>
 
         </article>
     </script>
 
 
-    <script id="templateSpectacle" type="text/x-handlebars-template">
+    <script id="templateSpectacle" type="text/x-handlebars-template ">
         <article>
             <div class="info-concert">
                 <div class="concert-image">
-                    <img src="{{this.url_image}}" alt="image concert ">
+                    <img src="{{this.url_image}}" alt="image concert">
                 </div>
-                <h4 class="title representation toggle ">{{this.titre}}</h4>
+                <h4 class="title representation toggle">{{this.titre}}</h4>
 
-                <div class="description ">
-                    <p class="description-content ">{{this.description}}</p>
-                    <ul class="artistes ">
+                <div class="description">
+                    <ul class="artistes">
                         <label>Avec :</label> {{#each this.artistes}}
                         <li>{{this.prenom}}</li>
                         {{/each}}
                     </ul>
                 </div>
-                <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
             </div>
+            <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
         </article>
     </script>
 
 
+    <script id="event-template" type="text/x-handlebars-template">
+        <select>
+            <option value="{{theme.label}}">{{theme.label}}</option>
+        </select>
+        <select>
+            <option value="{{date}}">{{date}}</option>
+        </select>
+    </script>
 
 
 </body>

@@ -11,7 +11,7 @@ class LieuDTO extends DTO{
     public string $adresse;
     public string $nb_places_assises;
     public string $nb_places_debout;
-    public string $lien_image;
+    public array $lien_image;
 
     public function __construct(Lieu $lieu){
         $this->id = $lieu->id;

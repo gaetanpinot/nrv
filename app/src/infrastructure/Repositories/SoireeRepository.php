@@ -1,6 +1,7 @@
 <?php
 namespace nrv\infrastructure\Repositories;
 
+use Psr\Log\LoggerInterface;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Lieu\Lieu;
 use nrv\core\domain\entities\Spectacle\Spectacle;
@@ -13,9 +14,11 @@ use PDO;
 class SoireeRepository implements SoireeRepositoryInterface{
 
     protected PDO $pdo;
+    protected LoggerInterface $log;
 
     public function __construct(Container $cont){
         $this->pdo = $cont->get('pdo.commun');
+        $this->log = $cont->get(LoggerInterface::class);
     }
     public function getSoireeBySpectacleId(string $id): array{
         $query = "select soiree.id as id from soiree,spectacles_soiree where soiree.id = spectacles_soiree.id_soiree and spectacles_soiree.id_spectacle = :id;";
