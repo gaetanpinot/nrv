@@ -14,6 +14,21 @@ main {
     @media (max-width: 30em) {
       main form {
         width: 100%; } }
+#formSoiree {
+  display: flex;
+  flex-direction: row;
+  width: 100%; }
+
+.inputCheck {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+  .inputCheck label {
+    width: 95%; }
+  .inputCheck input {
+    width: 2em;
+    height: 2em; }
+
 #description {
   height: 10em;
   width: 100%;

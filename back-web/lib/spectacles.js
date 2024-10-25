@@ -1,5 +1,5 @@
 import Handlebars from "handlebars";
-import {URL_API, URI_ARTISTES,URI_SPECTACLES} from './settings.js';
+import {URL_API, URI_ARTISTES, URI_SPECTACLES } from './settings.js';
 const TEMPLATE_FORM_SPECTACLE = Handlebars.compile(
 document.querySelector('#templateFormSpectacle').innerHTML);
 let afficherSpectacleForm = function(){
@@ -11,7 +11,7 @@ let afficherSpectacleForm = function(){
         });
 }
 let submitSpectacleForm = function(e){
-event.preventDefault();
+    event.preventDefault();
     let formData =e.target.elements;
     let getD = function($ch){
     return formData[$ch].value.trim();
@@ -24,7 +24,7 @@ event.preventDefault();
     };
     let artistes =Array.from( e.target.querySelectorAll('.artistes'));
     // console.log(artistes);
-    let checkedArtisteId = artistes.filter((artiste)=>artiste.checked).map((artiste)=> artiste.value);
+    let checkedArtisteId = artistes.filter((artiste)=>artiste.checked).map((artiste)=> artiste.value.trim());
     // console.log( checkedArtisteId);
     if (checkedArtisteId.length === 0){
         alert("Vous n'avez pas sellectioné d'artiste");

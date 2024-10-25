@@ -151,7 +151,22 @@ GROUP BY soiree.id, lieu_spectacle.id;
     }
 
     public function save(Soiree $soiree, array $spectacles = array()): void{
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heure_debut, duree, id_lieu, nb_places_assises_restantes, nb_places_debout_restantes, tarif_normal, tarif_reduit) VALUES (:id, :nom, :id_theme, :date, :heure_debut, :duree, :id_lieu, :nb_places_assises_restantes, :nb_places_debout_restantes, :tarif_normal, :tarif_reduit) ON CONFLICT (id) DO UPDATE SET nom = :nom, id_theme = :id_theme, date = :date, heure_debut = :heure_debut, duree = :duree, id_lieu = :id_lieu, nb_places_assises_restantes = :nb_places_assises_restantes, nb_places_debout_restantes = :nb_places_debout_restantes, tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit');
+        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heure_debut, duree, id_lieu, nb_places_assises_restantes, nb_places_debout_restantes, tarif_normal, tarif_reduit)
+            VALUES (:id, :nom, :id_theme, :date, :heure_debut, :duree, :id_lieu,
+            (select nb_places_assises from lieu_spectacle where id = :id_lieu),
+            (select nb_places_debout from lieu_spectacle where id = :id_lieu),
+            :tarif_normal, :tarif_reduit)
+            ON CONFLICT (id)
+            DO UPDATE SET 
+            nom = :nom,
+            id_theme = :id_theme,
+            date = :date,
+            heure_debut = :heure_debut,
+            duree = :duree,
+            id_lieu = :id_lieu,
+            nb_places_assises_restantes = (select nb_places_assises from lieu_spectacle where id = :id_lieu),
+            nb_places_debout_restantes = (select nb_places_debout from lieu_spectacle where id = :id_lieu),
+            tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit');
         $request->execute([
             'id' => $soiree->id,
             'nom' => $soiree->nom,
@@ -160,8 +175,6 @@ GROUP BY soiree.id, lieu_spectacle.id;
             'heure_debut' => $soiree->heure_debut->format('H:i:s'),
             'duree' => $soiree->duree->format('H:i:s'),
             'id_lieu' => $soiree->lieu->id,
-                'nb_places_assises_restantes' => $soiree->nb_places_assises_restantes,
-            'nb_places_debout_restantes' => $soiree->nb_places_debout_restantes,
             'tarif_normal' => $soiree->tarif_normal,
             'tarif_reduit' => $soiree->tarif_reduit
         ]);

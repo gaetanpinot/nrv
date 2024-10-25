@@ -28,8 +28,8 @@ class Soiree extends Entity
         $this->nom = $nom;
         $this->id_theme = $id_theme;
         $this->date = DateTime::createFromFormat('Y-m-d', $date);
-        $this->heure_debut = DateTime::createFromFormat('H:i:s', $heure_debut);
-        $this->duree = DateTime::createFromFormat('H:i:s', $duree);
+        $this->heure_debut = DateTime::createFromFormat('H:i', $heure_debut);
+        $this->duree = DateTime::createFromFormat('H:i', $duree);
         $this->lieu = $lieu;
         $this->spectacles = $spectacles;
         $this->nb_places_assises_restantes = $nb_places_assises_restantes;
