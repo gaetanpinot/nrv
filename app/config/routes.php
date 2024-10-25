@@ -28,11 +28,11 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->post('/connexion[/]', ConnexionAction::class);
 
-    $app->get('/utilisateur/{id}/billets[/]', GetUserBilletsAction::class);
+    $app->get('/utilisateur/{id}/billets[/]', GetUserBilletsAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
 
-    $app->get('/utilisateur/{id}/paniers[/]', GetPanierByIdAction::class);
+    $app->get('/utilisateur/{id}/paniers[/]', GetPanierByIdAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
 
-    $app->post('/panier/ajouter-billet', AjouterBilletDansPanierAction::class);
+    $app->post('/panier/ajouter-billet', AjouterBilletDansPanierAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
 
     $app->get('/lieux[/]', GetLieuxAction::class);
 
