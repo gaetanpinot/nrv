@@ -14,6 +14,10 @@ PRYKHODKO Yehor
 Le schéma peut aussi être retrouvé en detail de le fichier de construction `./app/src/infrastructure/genereDb.php`  
 ![Schema de la base sql](./schema.jpg "Schema de la base sql")
 
+## Données
+email `user@mail.com`  
+mot de passe `1234`  
+
 ## Tableau de bord
 ### Fonctionnalité de base :
 #### Programme du festival:

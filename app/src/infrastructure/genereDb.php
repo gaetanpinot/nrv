@@ -171,6 +171,15 @@ $query = 'insert into utilisateur
 (id, email, nom, prenom, password, role)
 values (:id, :email, :nom, :prenom, :password, :role);';
 $insert = $co->prepare($query);
+$val = [
+	'id' => $faker->uuid(),
+	'email' => 'user@mail.com',
+	'nom' =>'user',
+	'prenom' => 'userprenom',
+	'password'=> password_hash("1234",PASSWORD_DEFAULT),
+	'role' => 1
+];
+$insert->execute($val);
 for($i = 0; $i<$nbUser ; $i++){
 
 	$nom = $faker->lastName();
