@@ -5818,7 +5818,7 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     }).then((resp) => resp.json()).then((data) => {
-      if (data.success) {
+      if (data) {
         alert("Login successful");
       } else {
         alert("Login failed: " + data.message);
@@ -5836,7 +5836,7 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nom, prenom, email, password })
     }).then((resp) => resp.json()).then((data) => {
-      if (data.success) {
+      if (data) {
         alert("Signup successful");
       } else {
         alert("Signup failed: " + data.message);
