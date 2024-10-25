@@ -83,8 +83,6 @@ document.querySelector("#retour-concert").addEventListener("click", function() {
         .catch((err) => console.error("Erreur lors de la récupération des spectacles :", err));
 });
 
-
-
 export function afficheSpectacles() {
     // console.log("affiche spectacle");
     fetch(URL_API + URI_SPECTACLES)
@@ -121,6 +119,19 @@ function afficheSoiree(idSpectacles) {
                 }
             });
         });
+}
+
+const billetElement = document.querySelector("#billet");
+if (billetElement) {
+    billetElement.addEventListener("click", function() {
+        const token = localStorage.getItem('token');
+        console.log(token);
+        //URL_API = 'http://localhost:44010';
+        if (token) {
+            fetch(URL_API + '/billet?token=' + token + '&soiree=' + dataset.id);
+            console.log(URL_API + '/billet?token=' + token + '&soiree=' + dataset.id);
+        }
+    });
 }
 
 
