@@ -10,10 +10,14 @@ install:
 	sudo docker compose up -d --build
 	sudo docker exec -it $(phpdocker) composer install
 	sudo docker exec -it $(backdocker) composer install
+	sudo docker exec -it $(webdocker) npm  install
+	sudo docker exec -it $(web-backdocker) npm  install
 installNoSudo:
 	docker compose up -d --build
 	docker exec -it $(phpdocker) composer install
 	docker exec -it $(backdocker) composer install
+	docker exec -it $(webdocker) npm  install
+	docker exec -it $(web-backdocker) npm  install
 
 buildJs:
 	sudo docker exec -it $(webdocker) npm  run build

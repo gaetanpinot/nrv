@@ -6,6 +6,8 @@ use nrv\back\application\actions\AjouterModifierLieuAction;
 use nrv\back\application\actions\AjouterSpectacleAction;
 use nrv\back\application\actions\GetArtistes;
 use nrv\back\application\actions\GetLieus;
+use nrv\back\application\actions\GetSpectacles;
+use nrv\back\application\actions\GetThemesAction;
 use nrv\back\application\actions\HomeAction;
 
 
@@ -21,4 +23,6 @@ return [
     \nrv\back\application\actions\AjouterSoireeAction::class=>DI\autowire(),
     GetArtistes::class=>DI\autowire(),
     GetLieus::class=>DI\autowire(),
+    GetThemesAction::class=>DI\autowire(),
+    GetSpectacles::class=>DI\autowire(),
 ];

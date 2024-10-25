@@ -1,12 +1,11 @@
 <?php
 
-namespace nrv\infrastructure\Repositories;
+namespace nrv\back\infrastructure\Repositories;
 
 use DI\Container;
-use nrv\core\domain\entities\Artiste\Artiste;
-use nrv\core\repositoryInterfaces\ThemeRepositoryInterface;
-use \nrv\core\domain\entities\Theme\Theme;
-use nrv\infrastructure\Exceptions\NoDataFoundException;
+use nrv\back\core\domain\entities\Artiste\Artiste;
+use nrv\back\core\repositoryInterfaces\ThemeRepositoryInterface;
+use \nrv\back\core\domain\entities\Theme\Theme;
 use PDO;
 
 class ThemeRepository implements ThemeRepositoryInterface
@@ -18,10 +17,10 @@ class ThemeRepository implements ThemeRepositoryInterface
     }
     public function getThemes(): array
     {
-        return ($this->pdo->query('SELECT * FROM theme')->fetchAll()) == false ? throw new NoDataFoundException(): $this->pdo->query('SELECT * FROM theme')->fetchAll();
+        return $this->pdo->query('SELECT * FROM theme')->fetchAll();
     }
 
-    public function getThemeById(int $id): Theme
+    public function getThemeById(string $id): Theme
     {
         $result = $this->pdo->prepare('SELECT * FROM theme WHERE id = :id');
         $result->execute(['id' => $id]);
@@ -62,5 +61,9 @@ class ThemeRepository implements ThemeRepositoryInterface
         $request = $this->pdo->prepare('DELETE FROM theme WHERE id = :id');
         $request->execute(['id' => $id]);
         $request = $request->fetch();
+    }
+
+    public function getTheme(): array
+    {
     }
 }

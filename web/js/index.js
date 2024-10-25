@@ -5941,6 +5941,92 @@
     loadConcerts();
   }
 
+<<<<<<< HEAD
+=======
+  // lib/compte.js
+  var import_handlebars2 = __toESM(require_handlebars());
+  var TEMPLATE_ACCOUNT;
+  var URL_API2 = "http://localhost:44010";
+  function isAuthenticated() {
+    return localStorage.getItem("jwt") !== null;
+  }
+  function renderAccountTemplate() {
+    const main = document.querySelector("main");
+    if (isAuthenticated()) {
+      TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccountAuth").innerHTML);
+    } else {
+      TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccountNonAuth").innerHTML);
+    }
+    main.innerHTML = TEMPLATE_ACCOUNT();
+    isAuthenticated() ? setAuthenticatedEventListeners() : setUnauthenticatedEventListeners();
+  }
+  function setUnauthenticatedEventListeners() {
+    document.getElementById("login-btn").addEventListener("click", showLoginForm);
+    document.getElementById("signup-btn").addEventListener("click", showSignupForm);
+    document.getElementById("login-form").addEventListener("submit", handleLogin);
+    document.getElementById("signup-form").addEventListener("submit", handleSignup);
+  }
+  function setAuthenticatedEventListeners() {
+    document.getElementById("logout-btn").addEventListener("click", handleLogout);
+  }
+  function showLoginForm() {
+    document.getElementById("login-form").classList.add("active");
+    document.getElementById("signup-form").classList.remove("active");
+    document.getElementById("login-btn").classList.add("active");
+    document.getElementById("signup-btn").classList.remove("active");
+  }
+  function showSignupForm() {
+    document.getElementById("signup-form").classList.add("active");
+    document.getElementById("login-form").classList.remove("active");
+    document.getElementById("signup-btn").classList.add("active");
+    document.getElementById("login-btn").classList.remove("active");
+  }
+  function handleLogin(event) {
+    event.preventDefault();
+    const email = document.querySelector("#login-form input[type='email']").value;
+    const password = document.querySelector("#login-form input[type='password']").value;
+    fetch(`${URL_API2}/connexion`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    }).then((resp) => resp.json()).then((data) => {
+      if (data && data.token) {
+        localStorage.setItem("jwt", data.token);
+        renderAccountTemplate();
+      } else {
+        alert("\xC9chec de la connexion: " + data.message);
+      }
+    }).catch((error) => console.error("Erreur de connexion:", error));
+  }
+  function handleSignup(event) {
+    event.preventDefault();
+    const nom = document.querySelector("#signup-form input[placeholder='Nom complet']").value;
+    const prenom = document.querySelector("#signup-form input[placeholder='Prenom complet']").value;
+    const email = document.querySelector("#signup-form input[type='email']").value;
+    const password = document.querySelector("#signup-form input[type='password']").value;
+    fetch(`${URL_API2}/inscription`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nom, prenom, email, password })
+    }).then((resp) => resp.json()).then((data) => {
+      if (data && data.token) {
+        localStorage.setItem("jwt", data.token);
+        renderAccountTemplate();
+      } else {
+        alert("\xC9chec de l'inscription: " + data.message);
+      }
+    }).catch((error) => console.error("Erreur d'inscription:", error));
+  }
+  function handleLogout() {
+    localStorage.removeItem("jwt");
+    alert("D\xE9connexion r\xE9ussie");
+    renderAccountTemplate();
+  }
+  function afficheAccount() {
+    renderAccountTemplate();
+  }
+
+>>>>>>> 133e5f4a3d22149d9a32a4b644171bb528f5d350
   // index.js
   console.log("index js build");
   afficheSpectacles();

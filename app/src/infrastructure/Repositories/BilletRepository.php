@@ -5,6 +5,7 @@ namespace nrv\infrastructure\Repositories;
 use DI\Container;
 use nrv\core\domain\entities\Billet\Billet;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
+use nrv\infrastructure\Exceptions\NoDataFoundException;
 use PDO;
 
 class BilletRepository implements BilletRepositoryInterface
@@ -30,7 +31,7 @@ class BilletRepository implements BilletRepositoryInterface
         $result = $stmt->fetch();
 
         if (!$result) {
-            throw new \Exception("Billet non trouvé : $id");
+            throw new NoDataFoundException("Billet non trouvé : $id");
         }
 
         return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
@@ -73,8 +74,13 @@ class BilletRepository implements BilletRepositoryInterface
         INNER JOIN panier ON panier.id = billet_panier.id_panier
         WHERE panier.is_valide = true
     ';
+        $res = $this->pdo->query($query)->fetchAll();
 
-        return $this->pdo->query($query)->fetchAll();
+        if (!$res) {
+            throw new NoDataFoundException("Aucun billet trouvé");
+        }
+
+        return $res;
     }
 
 }

@@ -3,7 +3,11 @@
 namespace nrv\application\actions;
 
 use DI\Container;
+use nrv\infrastructure\Exceptions\NoDataFoundException;
+use PDOException;
+use PHPUnit\Framework\MockObject\Exception;
 use Respect\Validation\Exceptions\NestedValidationException;
+use Respect\Validation\Exceptions\ValidatorException;
 use Respect\Validation\Validator;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\service\spectacle\SpectacleService;
@@ -22,35 +26,50 @@ class AfficheListeSpectaclesAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        //Affichage de la liste des spectacles : pour chaque spectacle, on affiche le titre, la date et
-        //l’horaire, une image.
-        $params = $rq->getQueryParams();
-        $pageValidator = Validator::key('page',Validator::intVal()->greaterThan(-1));
-        $nombreValidator = Validator::key('nombre',Validator::intVal()->greaterThan(0)->lessThan(31));
-        $page = 0;
-        $nombre = 10;
-        $filtre = array();
-        
-        if(isset($params['style'])){
-            $style = $params['style'];
-            $filtre = array('style' => array('label' => $style));
+        try {
+
+
+            //Affichage de la liste des spectacles : pour chaque spectacle, on affiche le titre, la date et
+            //l’horaire, une image.
+            $params = $rq->getQueryParams();
+            $pageValidator = Validator::key('page',Validator::intVal()->greaterThan(-1));
+            $nombreValidator = Validator::key('nombre',Validator::intVal()->greaterThan(0)->lessThan(31));
+            $page = 0;
+            $nombre = 10;
+            $filtre = array();
+
+            if(isset($params['style'])){
+                $style = $params['style'];
+                $filtre = array('style' => array('label' => $style));
+            }
+            if(isset($params['lieu'])){
+                $lieu = $params['lieu'];
+                $filtre = array_merge($filtre ,array('lieu' => array('nom' => $lieu)));
+            }
+            if(isset($params['date'])){
+                $sens = $params['date'];
+                $filtre = array_merge($filtre ,array('date' => array('sens' => $sens)));
+            }
+            try{
+                $pageValidator->assert($params);
+                $page = $params['page'];
+                $nombreValidator->assert($params);
+                $nombre = $params['nombre'];
+            }catch(NestedValidationException $e){
+            }
+            $spectacles = $this->spectacleService->getSpectacles($page, $nombre, $filtre);
+            return JsonRenderer::render($rs, 200, $spectacles);
         }
-        if(isset($params['lieu'])){
-            $lieu = $params['lieu'];
-            $filtre = array_merge($filtre ,array('lieu' => array('nom' => $lieu)));
+        catch (ValidatorException $e) {
+            return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);
+        } catch (NoDataFoundException $e){
+            return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
         }
-        if(isset($params['date'])){
-            $sens = $params['date'];
-            $filtre = array_merge($filtre ,array('date' => array('sens' => $sens)));
+        catch (PDOException  $e) {
+            return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
         }
-        try{
-            $pageValidator->assert($params);
-            $page = $params['page'];
-            $nombreValidator->assert($params);
-            $nombre = $params['nombre'];
-        }catch(NestedValidationException $e){
+        catch (\Exception $e) {
+            return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
         }
-        $spectacles = $this->spectacleService->getSpectacles($page, $nombre, $filtre);
-        return JsonRenderer::render($rs, 200, $spectacles);
     }
 }

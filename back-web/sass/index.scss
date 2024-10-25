@@ -1,5 +1,7 @@
 $wForm: 30em;
 
+
+
 main {
   display: flex;
   flex-direction: column;
@@ -24,6 +26,22 @@ main {
   }
 }
 
+
+.inputCheck {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  input {
+    $largeurCheckbox: 1.5em;
+    width: $largeurCheckbox;
+    height: $largeurCheckbox;
+    min-width: $largeurCheckbox;
+    min-height: $largeurCheckbox;
+    box-sizing: border-box;
+  }
+}
+
 #description {
   height: 10em;
   width: 100%;
@@ -38,11 +56,4 @@ main {
 #inputsArtists {
   display: flex;
   flex-direction: column;
-
-  .inputArtist {
-    input {
-      height: 1.5em;
-      width: 1.5em;
-    }
-  }
 }

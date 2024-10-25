@@ -144,7 +144,12 @@
         </div>
     </script>
 
+<<<<<<< HEAD
     <script id="templateAccount" type="text/x-handlebars-template">
+=======
+    <script id="templateAccountNonAuth"
+            type="text/x-handlebars-template">
+>>>>>>> 133e5f4a3d22149d9a32a4b644171bb528f5d350
         <div id="auth-container">
             <div id="auth-options">
                 <button id="login-btn" class="auth-option active">Se connecter</button>
@@ -164,8 +169,16 @@
                     <input type="email" placeholder="Adresse email" required>
                     <input type="password" placeholder="Mot de passe" required>
                     <button type="submit">Créer un compte</button>
-                </form>
+                </form>                
             </div>
+        </div>
+    </script>
+
+    <script id="templateAccountAuth"
+            type="text/x-handlebars-template">
+        <div id="auth-container">
+            <button id="logout-btn">Se déconnecter</button>
+            <button id="logout-btn">Mes billets</button>
         </div>
     </script>
 

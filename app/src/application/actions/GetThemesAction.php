@@ -2,6 +2,7 @@
 namespace nrv\application\actions;
 
 use DI\Container;
+use nrv\infrastructure\Exceptions\NoDataFoundException;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use nrv\application\renderer\JsonRenderer;
@@ -17,7 +18,18 @@ class GetThemesAction extends AbstractAction{
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        $themes = $this->themeService->getThemes();
-        return JsonRenderer::render($rs, 200, $themes);
+        try {
+            $themes = $this->themeService->getThemes();
+            return JsonRenderer::render($rs, 200, $themes);
+        }
+        catch (NoDataFoundException $e) {
+            return JsonRenderer::render($rs, 404, ['error' => $e->getMessage()]);
+        } catch (\PDOException $e) {
+            return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
+        }
+            catch (\Exception $e) {
+            return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
+        }
+
     }
 }

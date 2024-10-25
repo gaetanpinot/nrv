@@ -3,10 +3,12 @@
 namespace nrv\application\actions;
 
 use DI\Container;
+use nrv\application\renderer\JsonRenderer;
 use nrv\core\service\billet_panier\BilletPanierService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use nrv\core\dto\BilletDTO;
+use Respect\Validation\Exceptions\ValidatorException;
+use Respect\Validation\Validator;
 
 class AjouterBilletDansPanierAction extends AbstractAction
 {
@@ -20,19 +22,25 @@ class AjouterBilletDansPanierAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
+        try {
         $data = $rq->getParsedBody();
         $id_utilisateur = $data['id_utilisateur'];
         $id_soiree = $data['id_soiree'];
         $tarif = 0;
 
+        Validator::uuid()->assert($id_utilisateur);
+        Validator::uuid()->assert($id_soiree);
 
-        try {
             $this->billetPanierService->ajouterBilletAuPanier($id_utilisateur, $id_soiree, $tarif);
-            $rs->getBody()->write(json_encode(['status' => 'success', 'message' => 'Billet ajouté au panier']));
-            return $rs->withStatus(200)->withHeader('Content-Type', 'application/json');
-        } catch (\Exception $e) {
-            $rs->getBody()->write(json_encode(['status' => 'error', 'message' => $e->getMessage()]));
-            return $rs->withStatus(400)->withHeader('Content-Type', 'application/json');
+            return  JsonRenderer::render($rs, 200, ['status' => 'success', 'message' => 'Billet ajouté au panier']);
+        }  catch (ValidatorException $e) {
+            return JsonRenderer::render($rs, 400, ['status' => 'error', 'message' => $e->getMessage()]);
+        } catch (\PDOException $e) {
+            return JsonRenderer::render($rs, 500, ['status' => 'error', 'message' => $e->getMessage()]);
+        }
+
+        catch (\Exception $e) {
+            return JsonRenderer::render($rs, 500, ['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
 }

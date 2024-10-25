@@ -46,7 +46,6 @@ function loadConcerts() {
                 listeConcertContainer.innerHTML += TEMPLATE_SPECTACLE(item);
             });
 
-            // document.getElementById('actuelle').textContent = pagination;
             setEventListeners();
         })
         .catch((err) => console.error("Erreur lors de la récupération des spectacles:", err))
