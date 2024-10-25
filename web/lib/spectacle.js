@@ -1,6 +1,8 @@
 import Handlebars from "handlebars";
 const URL_API = 'http://localhost:44010';
 const URI_SPECTACLES = '/spectacles?page=0&nombre=12';
+var FILTRES = '';
+let ancien_filtres = '';
 const TEMPLATE_CONCERTS = Handlebars.compile(document.querySelector("#templateConcerts").innerHTML);
 const TEMPLATE_SPECTACLE = Handlebars.compile(document.querySelector("#templateSpectacle").innerHTML);
 const TEMPLATE_SOIREE = Handlebars.compile(document.querySelector("#templateSoiree").innerHTML);
@@ -27,6 +29,29 @@ function renderTemplate(template, data) {
     main.innerHTML = template(data); 
 }
 
+function filtrer() {
+
+    let lieu = document.getElementById('filtre-lieu').value;
+    let date = document.getElementById('filtre-date').value;
+    let theme = document.getElementById('filtre-style').value;
+
+    FILTRES = '&lieu=' + lieu + '&date=' + date + '&style=' + theme;
+    if (FILTRES != ancien_filtres || FILTRES == '') {
+        ancien_filtres = FILTRES;
+        pagination = 0;
+    }
+
+    //clear list
+    document.getElementById('liste-concert').innerHTML = '';
+
+    //load new list
+    loadConcerts();
+
+    document.getElementById('filtre-lieu').value = lieu;
+    document.getElementById('filtre-date').value = date;
+    document.getElementById('filtre-style').value = theme;
+}
+
 function loadConcerts() {
     
     showLoader();
@@ -34,7 +59,7 @@ function loadConcerts() {
     renderTemplate(TEMPLATE_CONCERTS, {pagination});
 
     const NEW_URI_SPECTACLES = `/spectacles?page=${pagination}&nombre=12`;
-    fetch(URL_API + NEW_URI_SPECTACLES)
+    fetch(URL_API + NEW_URI_SPECTACLES + FILTRES)
         .then((resp) => resp.json())
         .then((data) => {
             
@@ -62,13 +87,16 @@ function setEventListeners() {
             afficheSoiree(e.dataset.id);
         });
     });
+
+    document.getElementById("filtre-style").addEventListener("change", filtrer);
+    document.getElementById("filtre-date").addEventListener("change", filtrer);
+    document.getElementById("filtre-lieu").addEventListener("change", filtrer);
 }
 
 function handlePaginationChange(step) {
     pagination += step;
     pagination = Math.max(pagination, 0);
-    console.log(pagination)
-    loadConcerts(); 
+    filtrer(); 
 }
 
 function afficheSoiree(idSpectacles) {
@@ -85,6 +113,8 @@ function afficheSoiree(idSpectacles) {
 
 
 function resetToConcertList() {
+    FILTRES = '&lieu=all&date=ASC&style=all';
+    pagination = 0;
     loadConcerts(); 
 }
 

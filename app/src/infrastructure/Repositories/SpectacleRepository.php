@@ -16,7 +16,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $this->pdo = $cont->get('pdo.commun');
     }
 
-    public function getSpectacles(int $offset = 0, int $nombre = 10, array $filtre = null): array{
+    public function getSpectacles(int $offset = 0, int $nombre = 12, array $filtre = null): array{
         //on veut un spectacle et tous ses artistes en une seul requete
         //on ne veut pas à avoir plusieurs lignes avec le meme id de spectacle pour les differents artistes
         //on fait le select avec un group by sur la table principale
@@ -25,8 +25,9 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $tables = '';
         $where = '';
         $order = '';
+        $decalage = $offset * $nombre;
         $execute = array('limit'=>$nombre,
-        'offset'=> $offset * $nombre);
+        'offset'=> $decalage);
 
         if($filtre != null){
             if(isset($filtre['date']) && $filtre['date'] != null){

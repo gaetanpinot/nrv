@@ -28,7 +28,7 @@ class AfficheListeSpectaclesAction extends AbstractAction
         $pageValidator = Validator::key('page',Validator::intVal()->greaterThan(-1));
         $nombreValidator = Validator::key('nombre',Validator::intVal()->greaterThan(0)->lessThan(31));
         $page = 0;
-        $nombre = 10;
+        $nombre = 12;
         $filtre = array();
         
         if(isset($params['style'])){
