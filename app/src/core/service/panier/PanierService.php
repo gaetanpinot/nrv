@@ -4,6 +4,7 @@ namespace nrv\core\service\panier;
 
 use DI\Container;
 use nrv\core\domain\entities\Billet\Billet;
+use nrv\core\dto\BilletDTO;
 use nrv\core\dto\PanierDTO;
 use nrv\infrastructure\Repositories\PanierRepository;
 use PDO;
@@ -20,45 +21,23 @@ class PanierService
         $this->pdo = $cont->get('pdo.commun');
     }
 
-    public function getPanierById(string $id): PanierDTO
+    public function getPanierById(string $userId): array
     {
-        $request = $this->pdo->prepare('SELECT * FROM panier WHERE id_utilisateur = :id_utilisateur');
-        $request->execute(['id_utilisateur' => $id]);
-        $result = $request->fetch();
+        $billets = $this->panierRepository->getPanierBillets();
+        $userBillets = [];
 
-        if (!$result) {
-            throw new \Exception("Panier non trouvé pour l'id: $id");
+        foreach ($billets as $billet) {
+            if ($billet['id_utilisateur'] === $userId) {
+                $userBillets[] = new BilletDTO(new Billet(
+                    $billet['id'],
+                    $billet['id_utilisateur'],
+                    $billet['id_soiree'],
+                    $billet['tarif']
+                ));
+            }
         }
 
-        return new PanierDTO(new Panier ($result['id'], $result['id_utilisateur'], $result['is_valide']));
+        return $userBillets;
     }
-
-    public function addBilletToPanier(string $id_utilisateur, Billet $billet): void
-    {
-        $panier = $this->getOrCreatePanierForUser($id_utilisateur);
-
-        $panier->setIdBillet($billet->getId());
-
-        $this->panierRepository->save($panier);
-    }
-
-    public function validatePanier(string $id_utilisateur): void
-    {
-        $panier = $this->getOrCreatePanierForUser($id_utilisateur);
-
-        $panier->setValide(true);
-
-        $this->panierRepository->save($panier);
-    }
-
-    public function getOrCreatePanierForUser(string $id_utilisateur): Panier
-    {
-        try {
-            return $this->panierRepository->getPanierByUserId($id_utilisateur);
-        } catch (\Exception $e) {
-            return new Panier(uniqid(), $id_utilisateur, null, false);
-        }
-    }
-
 
 }
