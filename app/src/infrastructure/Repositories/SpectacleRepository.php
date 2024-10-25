@@ -29,17 +29,17 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         'offset'=> $offset * $nombre);
 
         if($filtre != null){
-            if(isset($filtre['date'])){
+            if(isset($filtre['date']) && $filtre['date'] != null){
                 $where .= ' ';
                 $order = ' order by soiree.date '.$filtre['date']['sens'].' ';
             }
-            if(isset($filtre['style'])){
+            if(isset($filtre['style']) && $filtre['style']['label'] != null && $filtre['style']['label'] != 'all'){
                 $tables .= 'theme,';
                 $where .= ' soiree.id_theme = theme.id and
                     theme.label = :style and ';
                 $execute = array_merge(array('style' => $filtre['style']['label']), $execute);
             }
-            if(isset($filtre['lieu'])){
+            if(isset($filtre['lieu']) && $filtre['lieu']['nom'] != null && $filtre['lieu']['nom'] != 'all'){
                 $tables .= 'lieu_spectacle,';
                 $where .= ' soiree.id_lieu = lieu_spectacle.id and
                     lieu_spectacle.nom = :lieu and ';
