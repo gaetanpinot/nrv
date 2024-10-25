@@ -5817,7 +5817,10 @@
       dataForm.themes = yield fetch(URL_API + URI_THEMES).then(handleResp);
       dataForm.spectacles = yield fetch(URL_API + URI_SPECTACLES).then(handleResp);
       document.querySelector("main").innerHTML = TEMPLATE_FORM_SOIREE(dataForm);
+      document.querySelector("#submitSoiree").addEventListener("submit", submitSoireeForm);
     });
+  };
+  var submitSoireeForm = function(e) {
   };
   function listenerSoireeForm() {
     document.querySelector("#ajouterSoiree").addEventListener("click", getInfoSoireeForm);
