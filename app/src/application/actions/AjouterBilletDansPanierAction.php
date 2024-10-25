@@ -34,7 +34,7 @@ class AjouterBilletDansPanierAction extends AbstractAction
 
         try {
             $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY'), 'HS256'));
-            $userId = $decoded->id ?? null;
+            $userId = $decoded->sub ?? null;
 
             if (!$userId) {
                 throw new \Exception('Utilisateur non trouvé dans le token');

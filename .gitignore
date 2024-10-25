@@ -23,6 +23,7 @@ backoffice/var/logs
 /app/vendor
 # Cache
 *.map
+js/index.js*
 /var/cache/*
 .phpunit.result.cache
 cache.properties

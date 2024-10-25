@@ -5807,7 +5807,6 @@
 
   // lib/billet.js
   var URL_API2 = "http://localhost:44010";
-  var URI_BILLET = "/billet";
   var TEMPLATE_BILLET = import_handlebars2.default.compile(document.querySelector("#templateBillet").innerHTML);
   function package_billet(idSoiree) {
     document.querySelector(".prendre-billet").addEventListener("click", function() {
@@ -5840,23 +5839,29 @@
         }
         const tarif = formData.get("tarif");
         const place = formData.get("place");
-        const token = localStorage.getItem("token") || "";
+        const token = localStorage.getItem("jwt") || "";
         console.error("active token verification");
         let dataform = `token=${token}&place=${place}&tarif=${tarif}&soiree=${idSoiree}`;
         console.log(dataform);
-        const uri = `${URL_API2}${URI_BILLET}?${dataform}`;
-        fetch(uri).then((resp) => {
-          if (resp.statusCode === 401) {
-            alert("Veuillez vous connecter pour continuer.");
-            localStorage.removeItem("token");
-            afficheAccount();
-          }
+        console.log(token);
+        fetch(`${URL_API2}/panier/ajouter-billet`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            tarif,
+            place,
+            soiree: idSoiree
+          })
+        }).then((resp) => {
           if (!resp.ok) {
             throw new Error("Erreur dans la r\xE9ponse du serveur");
           }
           return resp.json();
         }).then((data2) => {
-          if (data2.success) {
+          if (data2.status === "success") {
             alert("Billet achet\xE9 avec succ\xE8s.");
           } else {
             alert("Billet pas achet\xE9.");

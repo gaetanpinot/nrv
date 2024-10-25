@@ -50,7 +50,7 @@ function create_billet(data, idSoiree) {
             const place = formData.get('place');
 
             // Récupère le token
-            const token = localStorage.getItem('token') || '';
+            const token = localStorage.getItem('jwt') || '';
 
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             /*if (!token) {
@@ -65,6 +65,7 @@ function create_billet(data, idSoiree) {
             let dataform = `token=${token}&place=${place}&tarif=${tarif}&soiree=${idSoiree}`;
             console.log(dataform); // Affiche les données assemblées
 
+            console.log(token);
             // Envoie les données au serveur en POST
             fetch(`${URL_API}/panier/ajouter-billet`, {
                 method: 'POST',
