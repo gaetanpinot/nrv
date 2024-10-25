@@ -37,7 +37,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/lieux[/]', GetLieuxAction::class);
 
     $app->get('/themes[/]', GetThemesAction::class);
-    
+
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
     });

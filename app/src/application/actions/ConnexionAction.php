@@ -5,6 +5,7 @@ use nrv\core\service\utilisateur\UtilisateurService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use DI\Container;
+use nrv\application\renderer\JsonRenderer;
 
 class ConnexionAction extends AbstractAction
 {
@@ -24,18 +25,15 @@ class ConnexionAction extends AbstractAction
 
         if (empty($email) || empty($password)) {
             $this->loger->warning('Email ou mot de passe manquant.');
-            $rs->getBody()->write(json_encode(['error' => 'Email ou mot de passe manquant.']));
-            return $rs->withStatus(400)->withHeader('Content-Type', 'application/json');
+            return JsonRenderer::render($rs, 400, ['error' => 'Email ou mot de passe manquant.']);
         }
 
         try {
             $jwt = $this->utilisateurService->connexion($email, $password);
-            $rs->getBody()->write(json_encode(['token' => $jwt]));
-            return $rs->withStatus(200)->withHeader('Content-Type', 'application/json');
+            return JsonRenderer::render($rs, 200, ['token' => $jwt]);
         } catch (\Exception $e) {
             $this->loger->error('Erreur de connexion : ' . $e->getMessage());
-            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
-            return $rs->withStatus(401)->withHeader('Content-Type', 'application/json');
+            return JsonRenderer::render($rs, 401, ['error' => $e->getMessage()]);
         }
     }
 }

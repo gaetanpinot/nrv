@@ -23,12 +23,20 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         return $utilisateurs;
     }
 
-    public function getUtilisateurByEmail(string $email): Utilisateur{
+    public function getUtilisateurByEmail(string $email): ?Utilisateur
+    {
         $request = $this->pdo->prepare('SELECT * FROM utilisateur WHERE email = :email');
         $request->execute(['email' => $email]);
-        $request = $request->fetch();
-        return new Utilisateur($request['id'], $request['email'], $request['nom'], $request['prenom'], $request['password'], $request['role']);
+        $result = $request->fetch();
+
+        if (!$result) {
+            return null;
+        }
+
+        return new Utilisateur($result['id'], $result['email'], $result['nom'], $result['prenom'],
+            $result['password'], $result['role']);
     }
+
 
 
     public function save(Utilisateur $utilisateur): void{

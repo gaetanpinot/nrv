@@ -5,6 +5,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use nrv\core\service\billet\BilletService;
 use DI\Container;
+use nrv\application\renderer\JsonRenderer;
 
 class GetUserBilletsAction extends AbstractAction
 {
@@ -22,12 +23,10 @@ class GetUserBilletsAction extends AbstractAction
 
         try {
             $billets = $this->billetService->getBilletsByUserId($userId);
-            $rs->getBody()->write(json_encode($billets));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
+            return JsonRenderer::render($rs, 200, $billets);
         } catch (\Exception $e) {
             $this->loger->error("Erreur lors de la récupération des billets de l'utilisateur $userId : " . $e->getMessage());
-            $rs->getBody()->write(json_encode(['error' => $e->getMessage()]));
-            return $rs->withHeader('Content-Type', 'application/json')->withStatus(500);
+            return JsonRenderer::render($rs, 500, ['error' => $e->getMessage()]);
         }
     }
 }
