@@ -29,6 +29,22 @@ function renderTemplate(template, data) {
     const main = document.querySelector('main');
     main.innerHTML = '';
     main.innerHTML = template(data);
+    initFiltres();
+}
+
+function initFiltres() {
+    const select = document.getElementById('filtre-lieu');
+    select.innerHTML = '';
+    select.innerHTML += `<option value="all">Tous</option>`
+    const uri = `${URL_API}/lieux`;
+    fetch(uri)
+        .then((resp) => resp.json())
+        .then((data) => {
+            data.forEach((lieu) => {
+                select.innerHTML += `<option value="${lieu.nom}">${lieu.nom}</option>`;
+            });
+        })
+        .catch((err) => console.error("Erreur lors de la récupération des lieux :", err));
 }
 
 function filtrer() {
