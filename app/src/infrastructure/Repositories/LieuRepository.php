@@ -5,6 +5,7 @@ use DI\Container;
 use nrv\core\domain\entities\Lieu\Lieu;
 use nrv\core\domain\entities\Soiree\Soiree;
 use nrv\core\repositoryInterfaces\LieuRepositoryInterface;
+use nrv\infrastructure\Exceptions\NoDataFoundException;
 use PDO;
 use Respect\Validation\Rules\Contains;
 
@@ -19,6 +20,9 @@ class LieuRepository implements LieuRepositoryInterface{
     public function getLieux(): array{
         $result = $this->pdo->query("SELECT *,json_build_object('lien_images', lieu_spectacle.lien_image) as lien_images FROM lieu_spectacle")->fetchAll();
         $lieux = [];
+        if (!$result){
+            throw new NoDataFoundException('Aucun lieu trouvé');
+        }
         foreach($result as $lieu){
             $lieux[] = new Lieu($lieu['id'], $lieu['nom'], $lieu['adresse'], $lieu['nb_places_assises'], $lieu['nb_places_debout'], json_decode($lieu['lien_images'],true));
         }

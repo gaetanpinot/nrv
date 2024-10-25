@@ -6,6 +6,7 @@ use DI\Container;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\repositoryInterfaces\ThemeRepositoryInterface;
 use \nrv\core\domain\entities\Theme\Theme;
+use nrv\infrastructure\Exceptions\NoDataFoundException;
 use PDO;
 
 class ThemeRepository implements ThemeRepositoryInterface
@@ -17,7 +18,7 @@ class ThemeRepository implements ThemeRepositoryInterface
     }
     public function getThemes(): array
     {
-        return $this->pdo->query('SELECT * FROM theme')->fetchAll();
+        return ($this->pdo->query('SELECT * FROM theme')->fetchAll()) == false ? throw new NoDataFoundException(): $this->pdo->query('SELECT * FROM theme')->fetchAll();
     }
 
     public function getThemeById(int $id): Theme

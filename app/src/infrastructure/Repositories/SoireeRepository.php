@@ -1,6 +1,7 @@
 <?php
 namespace nrv\infrastructure\Repositories;
 
+use nrv\infrastructure\Exceptions\NoDataFoundException;
 use Psr\Log\LoggerInterface;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Lieu\Lieu;
@@ -136,6 +137,11 @@ GROUP BY soiree.id, lieu_spectacle.id, theme.id;
 
         $request->execute(['id' => $id]);
         $soiree = $request->fetch();
+
+        if(!$soiree){
+            //not found data
+            throw new NoDataFoundException("Soiree not found");
+        }
 
         $lieu_decodee = json_decode($soiree['lieu'],true);
         $lieu = new Lieu($lieu_decodee['id'], $lieu_decodee['nom'], $lieu_decodee['adresse'], $lieu_decodee['nb_places_assises'], $lieu_decodee['nb_places_debout'], $lieu_decodee['lien_image']);
