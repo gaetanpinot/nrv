@@ -3,6 +3,7 @@
 namespace nrv\back\core\service\lieu;
 
 use DI\Container;
+use nrv\back\core\dto\LieuDTO;
 use nrv\back\infrastructure\Repositories\LieuRepository;
 use nrv\back\core\domain\entities\Lieu\Lieu;
 use Ramsey\Uuid\Uuid;
@@ -35,5 +36,10 @@ class LieuService implements LieuServiceInterface
     public function modifierLieu($lieu): void
     {
         $this->lieuRepository->updateLieu($lieu);
+    }
+    public function getLieus():array{
+        return array_map(function(Lieu $l){
+            return new LieuDTO($l);
+        },$this->lieuRepository->getLieux());
     }
 }

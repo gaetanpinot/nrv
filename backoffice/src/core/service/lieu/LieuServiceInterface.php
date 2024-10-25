@@ -7,5 +7,6 @@ interface LieuServiceInterface
     public function addLieu($lieu): void;
     public function deleteLieu($lieu_id): void;
     public function modifierLieu($lieu): void;
+    public function getLieus(): array;
 
 }
