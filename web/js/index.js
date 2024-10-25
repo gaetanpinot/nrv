@@ -1099,7 +1099,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars3) {
+      exports["default"] = function(Handlebars4) {
         (function() {
           if (typeof globalThis === "object")
             return;
@@ -1110,11 +1110,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars3.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars3) {
+        Handlebars4.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars4) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars3;
+          return Handlebars4;
         };
       };
       module.exports = exports["default"];
@@ -5716,11 +5716,146 @@
   });
 
   // lib/spectacle.js
+  var import_handlebars3 = __toESM(require_handlebars());
+
+  // lib/billet.js
+  var import_handlebars2 = __toESM(require_handlebars());
+
+  // lib/compte.js
   var import_handlebars = __toESM(require_handlebars());
+  var TEMPLATE_ACCOUNT = import_handlebars.default.compile(document.querySelector("#templateAccount").innerHTML);
   var URL_API = "http://localhost:44010";
-  var TEMPLATE_CONCERTS = import_handlebars.default.compile(document.querySelector("#templateConcerts").innerHTML);
-  var TEMPLATE_SPECTACLE = import_handlebars.default.compile(document.querySelector("#templateSpectacle").innerHTML);
-  var TEMPLATE_SOIREE = import_handlebars.default.compile(document.querySelector("#templateSoiree").innerHTML);
+  function renderAccountTemplate() {
+    const main = document.querySelector("main");
+    main.innerHTML = TEMPLATE_ACCOUNT();
+    setEventListeners();
+  }
+  function setEventListeners() {
+    document.getElementById("login-btn").addEventListener("click", showLoginForm);
+    document.getElementById("signup-btn").addEventListener("click", showSignupForm);
+    document.getElementById("login-form").addEventListener("submit", handleLogin);
+    document.getElementById("signup-form").addEventListener("submit", handleSignup);
+  }
+  function showLoginForm() {
+    document.getElementById("login-form").classList.add("active");
+    document.getElementById("signup-form").classList.remove("active");
+    document.getElementById("login-btn").classList.add("active");
+    document.getElementById("signup-btn").classList.remove("active");
+  }
+  function showSignupForm() {
+    document.getElementById("signup-form").classList.add("active");
+    document.getElementById("login-form").classList.remove("active");
+    document.getElementById("signup-btn").classList.add("active");
+    document.getElementById("login-btn").classList.remove("active");
+  }
+  function handleLogin(event) {
+    event.preventDefault();
+    const email = document.querySelector("#login-form input[type='email']").value;
+    const password = document.querySelector("#login-form input[type='password']").value;
+    fetch(`${URL_API}/connexion`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    }).then((resp) => resp.json()).then((data) => {
+      if (data) {
+        alert("Login successful");
+      } else {
+        alert("Login failed: " + data.message);
+      }
+    }).catch((error) => console.error("Login error:", error));
+  }
+  function handleSignup(event) {
+    event.preventDefault();
+    const nom = document.querySelector("#signup-form input[placeholder='Nom complet']").value;
+    const prenom = document.querySelector("#signup-form input[placeholder='Prenom complet']").value;
+    const email = document.querySelector("#signup-form input[type='email']").value;
+    const password = document.querySelector("#signup-form input[type='password']").value;
+    fetch(`${URL_API}/inscription`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nom, prenom, email, password })
+    }).then((resp) => resp.json()).then((data) => {
+      if (data) {
+        alert("Signup successful");
+      } else {
+        alert("Signup failed: " + data.message);
+      }
+    }).catch((error) => console.error("Signup error:", error));
+  }
+  function afficheAccount() {
+    renderAccountTemplate();
+  }
+
+  // lib/billet.js
+  var URL_API2 = "http://localhost:44010";
+  var URI_BILLET = "/billet";
+  var TEMPLATE_BILLET = import_handlebars2.default.compile(document.querySelector("#templateBillet").innerHTML);
+  function package_billet(idSoiree) {
+    document.querySelector(".prendre-billet").addEventListener("click", function() {
+      const uri = `${URL_API2}/soirees/${idSoiree}`;
+      fetch(uri).then((resp) => resp.json()).then((data) => {
+        create_billet(data, idSoiree);
+      }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e :", err));
+    });
+  }
+  function create_billet(data, idSoiree) {
+    let insertion = document.querySelector("#liste-soiree");
+    if (insertion) {
+      insertion.innerHTML = "";
+      insertion.innerHTML += TEMPLATE_BILLET(data);
+      const form = document.createElement("form");
+      form.setAttribute("id", "billet-form");
+      insertion.appendChild(form);
+    } else {
+      console.error("\xC9l\xE9ment #liste-soiree introuvable.");
+      return;
+    }
+    const formElement = document.querySelector("#billet-form");
+    if (formElement) {
+      formElement.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(formElement);
+        if (!formData.get("tarif") || !formData.get("place")) {
+          alert("Veuillez renseigner tous les champs.");
+          return;
+        }
+        const tarif = formData.get("tarif");
+        const place = formData.get("place");
+        const token = localStorage.getItem("token") || "";
+        console.error("active token verification");
+        let dataform = `token=${token}&place=${place}&tarif=${tarif}&soiree=${idSoiree}`;
+        console.log(dataform);
+        const uri = `${URL_API2}${URI_BILLET}?${dataform}`;
+        fetch(uri, {
+          method: "POST",
+          // Assurez-vous que vous utilisez la bonne méthode
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+            // Spécifiez le type de contenu
+          }
+        }).then((resp) => {
+          if (!resp.ok) {
+            throw new Error("Erreur dans la r\xE9ponse du serveur");
+          }
+          return resp.json();
+        }).then((data2) => {
+          if (data2.success) {
+            alert("Billet achet\xE9 avec succ\xE8s.");
+          } else {
+            alert("Billet pas achet\xE9.");
+          }
+        }).catch((err) => console.error("Erreur lors de l'achat du billet :", err));
+      });
+    } else {
+      console.error("\xC9l\xE9ment #billet-form introuvable.");
+    }
+  }
+
+  // lib/spectacle.js
+  var URL_API3 = "http://localhost:44010";
+  var TEMPLATE_CONCERTS = import_handlebars3.default.compile(document.querySelector("#templateConcerts").innerHTML);
+  var TEMPLATE_SPECTACLE = import_handlebars3.default.compile(document.querySelector("#templateSpectacle").innerHTML);
+  var TEMPLATE_SOIREE = import_handlebars3.default.compile(document.querySelector("#templateSoiree").innerHTML);
   var pagination = 0;
   function showLoader() {
     const loader = document.getElementById("loader");
@@ -5743,16 +5878,16 @@
     showLoader();
     renderTemplate(TEMPLATE_CONCERTS, { pagination });
     const NEW_URI_SPECTACLES = `/spectacles?page=${pagination}&nombre=12`;
-    fetch(URL_API + NEW_URI_SPECTACLES).then((resp) => resp.json()).then((data) => {
+    fetch(URL_API3 + NEW_URI_SPECTACLES).then((resp) => resp.json()).then((data) => {
       const listeConcertContainer = document.getElementById("liste-concert");
       listeConcertContainer.innerHTML = "";
       data.forEach((item) => {
         listeConcertContainer.innerHTML += TEMPLATE_SPECTACLE(item);
       });
-      setEventListeners();
+      setEventListeners2();
     }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration des spectacles:", err)).finally(() => hideLoader());
   }
-  function setEventListeners() {
+  function setEventListeners2() {
     document.getElementById("Pre").addEventListener("click", () => handlePaginationChange(-1));
     document.getElementById("Suiv").addEventListener("click", () => handlePaginationChange(1));
     document.getElementById("retour-concert").addEventListener("click", resetToConcertList);
@@ -5770,7 +5905,7 @@
   }
   function afficheSoiree(idSpectacles) {
     showLoader();
-    const uri = `${URL_API}/spectacles/${idSpectacles}/soirees`;
+    const uri = `${URL_API3}/spectacles/${idSpectacles}/soirees`;
     fetch(uri).then((resp) => resp.json()).then((data) => {
       rendersoiree(data);
     }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration des soirees :", err)).finally(() => hideLoader());
@@ -5787,6 +5922,17 @@
     data.forEach((val) => {
       insertion.innerHTML += TEMPLATE_SOIREE(val);
     });
+    const buttonsBillet = document.querySelectorAll(".prendre-billet");
+    if (buttonsBillet.length > 0) {
+      buttonsBillet.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const soireeId = event.currentTarget.dataset.soiree;
+          package_billet(soireeId);
+        });
+      });
+    } else {
+      console.log("Aucun bouton billet trouv\xE9.");
+    }
   }
   function resetToConcertList() {
     loadConcerts();
@@ -5795,81 +5941,17 @@
     loadConcerts();
   }
 
-  // lib/compte.js
-  var import_handlebars2 = __toESM(require_handlebars());
-  var TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccount").innerHTML);
-  var URL_API2 = "http://localhost:44010";
-  function renderAccountTemplate() {
-    const main = document.querySelector("main");
-    main.innerHTML = TEMPLATE_ACCOUNT();
-    setEventListeners2();
-  }
-  function setEventListeners2() {
-    document.getElementById("login-btn").addEventListener("click", showLoginForm);
-    document.getElementById("signup-btn").addEventListener("click", showSignupForm);
-    document.getElementById("login-form").addEventListener("submit", handleLogin);
-    document.getElementById("signup-form").addEventListener("submit", handleSignup);
-  }
-  function showLoginForm() {
-    document.getElementById("login-form").classList.add("active");
-    document.getElementById("signup-form").classList.remove("active");
-    document.getElementById("login-btn").classList.add("active");
-    document.getElementById("signup-btn").classList.remove("active");
-  }
-  function showSignupForm() {
-    document.getElementById("signup-form").classList.add("active");
-    document.getElementById("login-form").classList.remove("active");
-    document.getElementById("signup-btn").classList.add("active");
-    document.getElementById("login-btn").classList.remove("active");
-  }
-  function handleLogin(event) {
-    event.preventDefault();
-    const email = document.querySelector("#login-form input[type='email']").value;
-    const password = document.querySelector("#login-form input[type='password']").value;
-    fetch(`${URL_API2}/connexion`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    }).then((resp) => resp.json()).then((data) => {
-      if (data.success) {
-        alert("Login successful");
-      } else {
-        alert("Login failed: " + data.message);
-      }
-    }).catch((error) => console.error("Login error:", error));
-  }
-  function handleSignup(event) {
-    event.preventDefault();
-    const nom = document.querySelector("#signup-form input[placeholder='Nom complet']").value;
-    const prenom = document.querySelector("#signup-form input[placeholder='Prenom complet']").value;
-    const email = document.querySelector("#signup-form input[type='email']").value;
-    const password = document.querySelector("#signup-form input[type='password']").value;
-    fetch(`${URL_API2}/inscription`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nom, prenom, email, password })
-    }).then((resp) => resp.json()).then((data) => {
-      if (data.success) {
-        alert("Signup successful");
-      } else {
-        alert("Signup failed: " + data.message);
-      }
-    }).catch((error) => console.error("Signup error:", error));
-  }
-  function afficheAccount() {
-    renderAccountTemplate();
-  }
-
   // index.js
   console.log("index js build");
-  (function() {
-    document.getElementById("img-compte").addEventListener("click", (e) => {
-      afficheAccount();
-    });
-    document.querySelector("header h1").addEventListener("click", (e) => {
-      afficheSpectacles();
-    });
+  afficheSpectacles();
+  document.querySelector("#img-compte").addEventListener("click", () => {
+    afficheAccount();
+  });
+  document.querySelector("h1").addEventListener("click", () => {
     afficheSpectacles();
-  })();
+  });
+  document.querySelector("#home").addEventListener("click", () => {
+    afficheSpectacles();
+  });
 })();
 //# sourceMappingURL=index.js.map

@@ -48,7 +48,7 @@
             <nav>
 
                 <ul>
-                    <li>
+                    <li id="home">
                         <a href="index.html#primary-content" alt="Concerts">Concerts</a>
                     </li>
                     <!--<li>
@@ -214,10 +214,8 @@
 
 
     <script id="templateSoiree" type="text/x-handlebars-template">
-
         <article>
             <h3>Répresentation de la soirée</h3>
-
             <ul>
                 <li class="info ">
                     <ul>
@@ -229,8 +227,8 @@
                 <li class="tarif ">
                     <ul>
                         <li>Prix</li>
-                        <li id="normal ">Tarif normal: {{this.tarif_normal}}</li>
-                        <li id="reduit ">Tarif réduit: {{this.tarif_reduit}}</li>
+                        <li id="normal ">Tarif normal: {{this.tarif_normal}} €</li>
+                        <li id="reduit ">Tarif réduit: {{this.tarif_reduit}} €</li>
                     </ul>
                 </li>
                 <li class="places">
@@ -262,7 +260,7 @@
                 </div>
                 {{/each}}
             </div>
-            <button id="billet " data-soiree="{{this.id}}">Prendre un billet</button>
+            <button class="prendre-billet" data-soiree="{{this.id}}">Prendre un billet</button>
 
         </article>
     </script>
@@ -270,34 +268,69 @@
 
     <script id="templateSpectacle" type="text/x-handlebars-template">
         <article>
-            <div class="info-concert ">
-                <div class="concert-image ">
-                    <img src="{{this.url_image}} " alt="image concert ">
+            <div class="info-concert">
+                <div class="concert-image">
+                    <img src="{{this.url_image}}" alt="image concert ">
                 </div>
-                <h4 class="title representation toggle ">{{this.titre}}</h4>
+                <h4 class="title representation toggle">{{this.titre}}</h4>
 
-                <div class="description ">
-                    <ul class="artistes ">
+                <div class="description">
+                    <ul class="artistes">
                         <label>Avec :</label> {{#each this.artistes}}
                         <li>{{this.prenom}}</li>
                         {{/each}}
                     </ul>
                 </div>
             </div>
-            <button class="footer-concert-button " data-id="{{this.id}}">Soir ou ce concert est présent</button>
+            <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
         </article>
     </script>
 
 
     <script id="event-template" type="text/x-handlebars-template">
         <select>
-            <option value="{{theme.label}} ">{{theme.label}}</option>
+            <option value="{{theme.label}}">{{theme.label}}</option>
         </select>
         <select>
-            <option value="{{date}} ">{{date}}</option>
+            <option value="{{date}}">{{date}}</option>
         </select>
     </script>
 
+    <script id="templateBillet" type="text/x-handlebars-template">
+        <form id="billet-form" method="GET">
+            <h3>Billet pour</h3>
+            <ul>
+                <li class="info">
+                    <ul>
+                        <li id="date">Le {{this.date}}, <br>à {{this.lieu.nom}}</li>
+                        <li id="heures">Commence à {{this.heure_debut}}, Durée: {{this.duree}}</li>
+                        <li id="style">Style: {{this.theme.label}}</li>
+                    </ul>
+                </li>
+
+                <li class="tarif">
+                    <ul>
+                        <label>Prix</label>
+                        <li id="normal">Tarif normal: {{this.tarif_normal}} €</li>
+                        <input type="radio" name="tarif" id="normal" value="{{this.tarif_normal}}">
+                        <li id="reduit">Tarif réduit: {{this.tarif_reduit}} €</li>
+                        <input type="radio" name="tarif" id="reduit" value="{{this.tarif_reduit}}">
+                    </ul>
+                </li>
+
+                <li class="places">
+                    <ul>
+                        <label>Choix de la place</label>
+                        <li id="assises">{{this.nb_places_assises_restantes}} places assises restantes</li>
+                        <input type="radio" name="place" id="assises" value="assises">
+                        <li id="debout">{{this.nb_places_debout_restantes}} places debout restantes</li>
+                        <input type="radio" name="place" id="debout" value="debout">
+                    </ul>
+                </li>
+            </ul>
+            <button type="submit" data-soiree="{{this.id}}">Valider</button>
+        </form>
+    </script>
 
 </body>
 

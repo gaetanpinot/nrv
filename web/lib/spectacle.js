@@ -1,4 +1,6 @@
 import Handlebars from "handlebars";
+import { package_billet } from './billet.js';
+
 const URL_API = 'http://localhost:44010';
 const URI_SPECTACLES = '/spectacles?page=0&nombre=12';
 const TEMPLATE_CONCERTS = Handlebars.compile(document.querySelector("#templateConcerts").innerHTML);
@@ -96,6 +98,22 @@ function rendersoiree(data) {
     data.forEach((val) => {
         insertion.innerHTML += TEMPLATE_SOIREE(val);
     });
+    // Sélectionne tous les éléments avec la classe `prendre-billet`
+    const buttonsBillet = document.querySelectorAll('.prendre-billet');
+    if (buttonsBillet.length > 0) {
+        //console.log('buttonbillet event activated');
+
+        buttonsBillet.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const soireeId = event.currentTarget.dataset.soiree;
+
+                // Appelle la fonction `package_billet` avec l'ID de la soirée
+                package_billet(soireeId);
+            });
+        });
+    } else {
+        console.log('Aucun bouton billet trouvé.');
+    }
 }
 
 function resetToConcertList() {
