@@ -5784,18 +5784,29 @@
 
   // lib/compte.js
   var import_handlebars2 = __toESM(require_handlebars());
-  var TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccount").innerHTML);
+  var TEMPLATE_ACCOUNT;
   var URL_API2 = "http://localhost:44010";
+  function isAuthenticated() {
+    return localStorage.getItem("jwt") !== null;
+  }
   function renderAccountTemplate() {
     const main = document.querySelector("main");
+    if (isAuthenticated()) {
+      TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccountAuth").innerHTML);
+    } else {
+      TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccountNonAuth").innerHTML);
+    }
     main.innerHTML = TEMPLATE_ACCOUNT();
-    setEventListeners2();
+    isAuthenticated() ? setAuthenticatedEventListeners() : setUnauthenticatedEventListeners();
   }
-  function setEventListeners2() {
+  function setUnauthenticatedEventListeners() {
     document.getElementById("login-btn").addEventListener("click", showLoginForm);
     document.getElementById("signup-btn").addEventListener("click", showSignupForm);
     document.getElementById("login-form").addEventListener("submit", handleLogin);
     document.getElementById("signup-form").addEventListener("submit", handleSignup);
+  }
+  function setAuthenticatedEventListeners() {
+    document.getElementById("logout-btn").addEventListener("click", handleLogout);
   }
   function showLoginForm() {
     document.getElementById("login-form").classList.add("active");
@@ -5818,12 +5829,13 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     }).then((resp) => resp.json()).then((data) => {
-      if (data) {
-        alert("Login successful");
+      if (data && data.token) {
+        localStorage.setItem("jwt", data.token);
+        renderAccountTemplate();
       } else {
-        alert("Login failed: " + data.message);
+        alert("\xC9chec de la connexion: " + data.message);
       }
-    }).catch((error) => console.error("Login error:", error));
+    }).catch((error) => console.error("Erreur de connexion:", error));
   }
   function handleSignup(event) {
     event.preventDefault();
@@ -5836,12 +5848,18 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nom, prenom, email, password })
     }).then((resp) => resp.json()).then((data) => {
-      if (data) {
-        alert("Signup successful");
+      if (data && data.token) {
+        localStorage.setItem("jwt", data.token);
+        renderAccountTemplate();
       } else {
-        alert("Signup failed: " + data.message);
+        alert("\xC9chec de l'inscription: " + data.message);
       }
-    }).catch((error) => console.error("Signup error:", error));
+    }).catch((error) => console.error("Erreur d'inscription:", error));
+  }
+  function handleLogout() {
+    localStorage.removeItem("jwt");
+    alert("D\xE9connexion r\xE9ussie");
+    renderAccountTemplate();
   }
   function afficheAccount() {
     renderAccountTemplate();
