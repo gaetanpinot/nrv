@@ -42,7 +42,7 @@ function handleLogin(event) {
     })
     .then(resp => resp.json())
     .then(data => {
-        if (data.success) {
+        if (data) {
             alert('Login successful');
         } else {
             alert('Login failed: ' + data.message);
@@ -65,7 +65,7 @@ function handleSignup(event) {
     })
     .then(resp => resp.json())
     .then(data => {
-        if (data.success) {
+        if (data) {
             alert('Signup successful');
         } else {
             alert('Signup failed: ' + data.message);
