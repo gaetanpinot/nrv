@@ -69,6 +69,11 @@ function create_billet(data, idSoiree) {
             const uri = `${URL_API}${URI_BILLET}?${dataform}`; // Corrections apportées ici
             fetch(uri)
                 .then((resp) => {
+                    if (resp.statusCode === 401) {
+                        alert('Veuillez vous connecter pour continuer.');
+                        localStorage.removeItem('token');
+                        afficheAccount();
+                    }
                     if (!resp.ok) {
                         throw new Error('Erreur dans la réponse du serveur');
                     }
@@ -82,6 +87,7 @@ function create_billet(data, idSoiree) {
                     }
                 })
                 .catch((err) => console.error("Erreur lors de l'achat du billet :", err));
+
         });
     } else {
         console.error("Élément #billet-form introuvable.");
