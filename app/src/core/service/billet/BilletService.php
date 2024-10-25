@@ -17,7 +17,7 @@ class BilletService
 
     public function getBilletsByUserId(string $userId): array
     {
-        $billets = $this->billetRepository->getBillet();
+        $billets = $this->billetRepository->getMesBillets();
         $userBillets = [];
 
         foreach ($billets as $billet) {

@@ -5,6 +5,8 @@ use nrv\core\service\utilisateur\UtilisateurService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
+use nrv\application\renderer\JsonRenderer;
+use Psr\Log\LoggerInterface;
 
 class InscriptionAction extends AbstractAction
 {
@@ -22,7 +24,9 @@ class InscriptionAction extends AbstractAction
 
         if (empty($data['email']) || empty($data['prenom']) || empty($data['nom']) || empty($data['password'])) {
             $this->loger->warning('Champs requis manquants lors de l\'inscription');
-            return $this->errorResponse($rs, "Tous les champs sont requis", 400);
+            return JsonRenderer::render($rs, 400, [
+                'error' => "Tous les champs sont requis"
+            ]);
         }
 
         try {
@@ -33,27 +37,16 @@ class InscriptionAction extends AbstractAction
                 $data['password']
             );
 
-            return $this->jsonResponse($rs, [
+            return JsonRenderer::render($rs, 201, [
                 'message' => 'Inscription réussie',
                 'utilisateur' => $utilisateurDTO
-            ], 201);
+            ]);
 
         } catch (\Exception $e) {
             $this->loger->error('Erreur lors de l\'inscription : ' . $e->getMessage());
-            return $this->errorResponse($rs, $e->getMessage(), 400);
+            return JsonRenderer::render($rs, 400, [
+                'error' => $e->getMessage()
+            ]);
         }
     }
-
-    private function jsonResponse(Response $response, array $data, int $status): Response
-    {
-        $response = $response->withHeader('Content-Type', 'application/json');
-        $response->getBody()->write(json_encode($data));
-        return $response->withStatus($status);
-    }
-
-    private function errorResponse(Response $response, string $message, int $status): Response
-    {
-        return $this->jsonResponse($response, ['error' => $message], $status);
-    }
 }
-

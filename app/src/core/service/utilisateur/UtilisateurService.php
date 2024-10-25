@@ -21,16 +21,11 @@ class UtilisateurService
 
     public function inscription(string $email, string $prenom, string $nom, string $password): UtilisateurDTO
     {
-        $existingUtilisateur = null;
 
-        try {
-            $existingUtilisateur = $this->utilisateurRepository->getUtilisateurByEmail($email);
-        } catch (\Exception $e) {
-            //ignore le catch si c'est une nouvelle inscription
-        }
+        $existingUtilisateur = $this->utilisateurRepository->getUtilisateurByEmail($email);
 
-        if ($existingUtilisateur) {
-            throw new \Exception('Cet email est deja utilise.');
+        if($existingUtilisateur){
+            throw new \Exception('Utilisateur déjà existant.');
         }
 
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);

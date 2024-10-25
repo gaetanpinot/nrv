@@ -10,6 +10,7 @@ use nrv\core\repositoryInterfaces\ArtisteRepositoryInterface;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
 use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
 use PDO;
+use Ramsey\Uuid\Uuid;
 
 class PanierRepository implements PanierRepositoryInterface
 {
@@ -23,31 +24,48 @@ class PanierRepository implements PanierRepositoryInterface
         return $this->pdo->query('SELECT * FROM panier')->fetchAll();
     }
 
-    public function getPanierById(string $id): Panier
+    public function getPanierById(string $id): ?Panier
     {
-        $result = $this->pdo->query('SELECT * FROM panier WHERE id = ' . $id)->fetch();
-        return new Panier($result['id'], $result['id_utilisateur'], $result['id_billet'], $result['is_valide']);
+        $stmt = $this->pdo->prepare('SELECT * FROM panier WHERE id = :id');
+
+        $stmt->execute(['id' => $id]);
+
+        $result = $stmt->fetch();
+
+        if (!$result) {
+            return null;
+        }
+        return new Panier($result['id'], $result['id_utilisateur'], $result['is_valide']);
 
     }
 
     public function save(Panier $panier): void
     {
-        $request = $this->pdo->prepare('INSERT INTO panier (id, id_utilisateur, id_billet, is_valide) VALUES (:id, :id_utilisateur, :id_billet, :is_valide) ON CONFLICT (id) DO UPDATE SET id_utilisateur = :id_utilisateur, id_billet = :id_billet, is_valide = :is_valide');
+        $request = $this->pdo->prepare('
+        INSERT INTO panier (id, id_utilisateur, is_valide) 
+        VALUES (:id, :id_utilisateur, :is_valide) 
+        ON CONFLICT (id) DO UPDATE 
+        SET id_utilisateur = :id_utilisateur, is_valide = :is_valide
+                            
+    ');
+        $isValide = "0";
         $request->execute([
             'id' => $panier->id,
             'id_utilisateur' => $panier->id_utilisateur,
-            'id_billet' => $panier->id_billet,
-            'is_valide' => $panier->is_valide,
+            'is_valide' => $isValide,
         ]);
+        $request->fetch();
+
+        $request->fetch();
     }
+
 
     public function updatePanier(Panier $panier): void
     {
-        $request = $this->pdo->prepare('UPDATE panier SET id_utilisateur = :id_utilisateur, id_billet = :id_billet, is_valide = :is_valide WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE panier SET id_utilisateur = :id_utilisateur, is_valide = :is_valide WHERE id = :id');
         $request->execute([
             'id' => $panier->id,
             'id_utilisateur' => $panier->id_utilisateur,
-            'id_billet' => $panier->id_billet,
             'is_valide' => $panier->is_valide,
         ]);
     }
@@ -58,17 +76,34 @@ class PanierRepository implements PanierRepositoryInterface
         $request->execute(['id' => $id]);
     }
 
-    public function getPanierByUserId(string $id_utilisateur): Panier
+    public function getPanierByIdUtilisateur(string $id_utilisateur): ?Panier
     {
-        $request = $this->pdo->prepare('SELECT * FROM panier WHERE id_utilisateur = :id_utilisateur');
-        $request->execute(['id_utilisateur' => $id_utilisateur]);
-        $result = $request->fetch();
+        $stmt = $this->pdo->prepare('SELECT * FROM panier WHERE id_utilisateur = :id_utilisateur');
+
+        $stmt->execute(['id_utilisateur' => $id_utilisateur]);
+
+        $result = $stmt->fetch();
 
         if (!$result) {
-            throw new \Exception("Panier not found for user: $id_utilisateur");
+            return null;
         }
+        return new Panier($result['id'], $result['id_utilisateur'], $result['is_valide']);
 
-        return new Panier($result['id'], $result['id_utilisateur'], $result['id_billet'], $result['is_valide']);
     }
+
+    public function getPanierBillets(): array
+    {
+        $query = '
+        SELECT billet.* 
+        FROM billet
+        INNER JOIN billet_panier ON billet.id = billet_panier.id_billet
+        INNER JOIN panier ON panier.id = billet_panier.id_panier
+        WHERE panier.is_valide = false
+    ';
+
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+
 
 }

@@ -5,6 +5,7 @@ namespace nrv\application\actions;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use nrv\core\service\panier\PanierService;
+use nrv\application\renderer\JsonRenderer;
 
 class GetPanierByIdAction
 {
@@ -21,11 +22,9 @@ class GetPanierByIdAction
 
         try {
             $panier = $this->panierService->getPanierById($id);
-            $response->getBody()->write(json_encode($panier));
-            return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+            return JsonRenderer::render($response, 200, $panier);
         } catch (\Exception $e) {
-            $response->getBody()->write(json_encode(['error' => $e->getMessage()]));
-            return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+            return JsonRenderer::render($response, 500, ['error' => $e->getMessage()]);
         }
     }
 }

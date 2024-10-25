@@ -23,19 +23,25 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function getBilletById(string $id): Billet
     {
-        $result = $this->pdo->query('SELECT * FROM billet WHERE id = :id');
-        $result->execute(['id' => $id]);
-        $result = $result->fetch();
-        return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
+        $stmt = $this->pdo->prepare('SELECT * FROM billet WHERE id = :id');
 
+        $stmt->execute(['id' => $id]);
+
+        $result = $stmt->fetch();
+
+        if (!$result) {
+            throw new \Exception("Billet non trouvé : $id");
+        }
+
+        return new Billet($result['id'], $result['id_utilisateur'], $result['id_soiree'], $result['tarif']);
     }
 
     public function save(Billet $billet): void
     {
-        $request = $this->pdo->prepare('INSERT INTO billet (id, id_user, id_soiree, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_utilisateur, id_soiree = :id_soiree, tarif = :tarif');
+        $request = $this->pdo->prepare('INSERT INTO billet (id, id_utilisateur, id_soiree, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_utilisateur = :id_utilisateur, id_soiree = :id_soiree, tarif = :tarif');
         $request->execute([
             'id' => $billet->id,
-            'id_utilisateur' => $billet->id_user,
+            'id_utilisateur' => $billet->id_utilisateur,
             'id_soiree' => $billet->id_spectacle,
             'tarif' => $billet->tarif,
         ]);
@@ -43,10 +49,10 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function updateBillet(Billet $billet): void
     {
-        $request = $this->pdo->prepare('UPDATE billet SET id_user = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE billet SET id_utilisateur = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif WHERE id = :id');
         $request->execute([
             'id' => $billet->id,
-            'id_utilisateur' => $billet->id_user,
+            'id_utilisateur' => $billet->id_utilisateur,
             'id_soiree' => $billet->id_spectacle,
             'tarif' => $billet->tarif,
         ]);
@@ -57,4 +63,18 @@ class BilletRepository implements BilletRepositoryInterface
         $request = $this->pdo->prepare('DELETE FROM billet WHERE id = :id');
         $request->execute(['id' => $id]);
     }
+
+    public function getMesBillets(): array
+    {
+        $query = '
+        SELECT billet.* 
+        FROM billet
+        INNER JOIN billet_panier ON billet.id = billet_panier.id_billet
+        INNER JOIN panier ON panier.id = billet_panier.id_panier
+        WHERE panier.is_valide = true
+    ';
+
+        return $this->pdo->query($query)->fetchAll();
+    }
+
 }
