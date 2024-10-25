@@ -1,0 +1,30 @@
+meta {
+  name: creer soiree
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:44014/soirees
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "nom": "NOM",
+      "id_theme": 1,
+      "date": "2024-04-26",
+      "heure_debut": "02:03:00",
+      "duree": "00:57:00",
+      "lieu_id": "e833888c-436e-346f-8c21-c8695f4b3c34",
+      "nb_places_assises_restantes": 9999,
+      "nb_places_debout_restantes": 9999,
+      "tarif_normal": 123,
+      "tarif_reduit": 34,
+      "spectacles": [
+          "138cff5e-90ad-39fa-b1f4-1e7792a338ce"
+      ]
+  } 
+  
+}
