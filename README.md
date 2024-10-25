@@ -38,8 +38,10 @@ Yehor, Quentin
 - Accès aux billets achetés (« mes billets »).  
 Quentin
 ### Achats de billets :
-- Lors de la visualisation d’une soirée, possibilité d’ajouter des billets d’entrée pour cette soirée dans un panier.  
-- Visualisation de l’état courant du panier, calcul et affichage du montant total.  
+- Lors de la visualisation d’une soirée, possibilité d’ajouter des billets d’entrée pour cette soirée dans un panier.
+Quentin
+- Visualisation de l’état courant du panier, calcul et affichage du montant total.
+Quentin 
 - Validation du panier et transformation en commande, validation de la commande.  
 - Paiement de la commande : on simule en transmettant des données correspondant à une carte bancaire : n°, date expiration, code ; le contrôle de disponibilité des places est réalisé à ce moment-là, ainsi que la mise à jour du nombre de places disponibles pour la soirée.  
 - Création des billets qui doivent comporter : nom de l’acheteur, référence, date et horaire de la soirée, catégorie de tarif ; les billets doivent être imprimables et peuvent être réalisés en html/css avec @media print.  
