@@ -30,7 +30,6 @@ $panier = '
 create table panier(
 id uuid primary key,
 id_utilisateur uuid not null,
-id_billet uuid not null,
 is_valide bool not null,
 foreign key(id_utilisateur) references utilisateur(id)
 );';
@@ -115,6 +114,15 @@ foreign key(id_soiree) references soiree(id),
 foreign key(id_panier) references panier(id)
 );';
 
+$billet_panier = '
+create table billet_panier(
+id_billet uuid ,
+id_panier uuid ,
+primary key (id_billet, id_panier),
+foreign key(id_billet) references billet(id),
+foreign key(id_panier) references panier(id)
+);';
+
 $config= parse_ini_file(__DIR__ . '/../../config/pdoConfig.ini');
 $co =  new PDO($config['driver'].':host='.$config['host'].';port='.$config['port'].';dbname='.$config['dbname'].';user='.$config['user'].';password='.$config['password']);
 
@@ -130,6 +138,7 @@ $co->exec($spectacles_artistes);
 $co->exec($billet);
 $co->exec($soiree_panier);
 $co->exec($spectacles_soiree);
+$co->exec($billet_panier);
 $faker = Faker\Factory::create('fr_FR');
 
 $theme=[
@@ -184,8 +193,8 @@ for($i = 0; $i<$nbUser ; $i++){
 // is_valide bool not null,
 // foreign key(email_utilisateur) references utilisateur(email)
 $query = 'insert into panier 
-(id, id_utilisateur, id_billet, is_valide)
-values (:id, :id, :id, :valide);';
+(id, id_utilisateur, is_valide)
+values (:id, :id, :valide);';
 
 
 // id uuid primary key,

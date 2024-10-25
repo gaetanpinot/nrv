@@ -59,16 +59,20 @@
                 </ul>
                 <ul>
                     <li id="logo-panier">
-                        <img src="/img/panier.svg" alt="panier " onclick="window.location.href='panier.html'">
+                        <img src="./img/panier.svg " alt="panier ">
                     </li>
                     <li id="img-compte">
-                        <img src="/img/account.svg" alt="compte " onclick="window.location.href='compte.html'">
+                        <img src="https://i.pravatar.cc/300 " alt="compte ">
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
     <main>
+        <div id="loader" style="display: none;">Loading...</div>
+    </main>
+
+    <script id="templateConcerts" type="text/x-handlebars-template">
         <div id="description">
             <strong class="creme">Nancy Rock Vibration</strong> est un événement musical palpitant qui se déroule sur 12 soirées inoubliables, offrant une immersion totale dans l'univers du rock. Réparti dans 4 lieux emblématiques de la ville de Nancy,
             chaque lieu accueille 3 représentations uniques, chacune mettant en avant des artistes locaux et internationaux. Cependant, chaque soirée se concentre sur un seul lieu, permettant aux spectateurs de profiter d'une atmosphère immersive et d'une
@@ -133,16 +137,38 @@
             <div id="pagination">
                 <ul>
                     <li id="Pre">Précédent</li>
-                    <li id="actuelle">0</li>
+                    <li id="actuelle">{{pagination}}</li>
                     <li id="Suiv">Suivant</li>
                 </ul>
             </div>
         </div>
+    </script>
 
+    <script id="templateAccount" type="text/x-handlebars-template">
+        <div id="auth-container">
+            <div id="auth-options">
+                <button id="login-btn" class="auth-option active">Se connecter</button>
+                <button id="signup-btn" class="auth-option">Créer un compte</button>
+            </div>
+            <div id="auth-form">
+                <form id="login-form" class="auth-form active">
+                    <h2>Se connecter</h2>
+                    <input type="email" placeholder="Adresse email" required>
+                    <input type="password" placeholder="Mot de passe" required>
+                    <button type="submit">Connexion</button>
+                </form>
+                <form id="signup-form" class="auth-form">
+                    <h2>Créer un compte</h2>
+                    <input type="text" placeholder="Nom complet" required>
+                    <input type="text" placeholder="Prenom complet" required>
+                    <input type="email" placeholder="Adresse email" required>
+                    <input type="password" placeholder="Mot de passe" required>
+                    <button type="submit">Créer un compte</button>
+                </form>
+            </div>
+        </div>
+    </script>
 
-
-
-    </main>
     <footer>
         <div class="footer-content">
             <div class="about-festival">
@@ -187,54 +213,7 @@
     </footer>
 
 
-    <script id="BILLET" type="text/x-handlebars-template">
-
-        <form>
-            <h3>bILLET POUR </h3>
-            <ul>
-                <li class="info ">
-                    <ul>
-                        <li id="date ">Le {{this.date}}, <br>à {{this.lieu.nom}}</li>
-                        <li id="heures ">Commence à {{this.heure_debut}}, Durée: {{this.duree}}</li>
-                        <li id="style ">Style: {{this.theme.label}}</li>
-                    </ul>
-                </li>
-                <li class="info-perso">
-                    <ul>
-                        <li>
-                            <label>nom</label>
-                            <input type='text' id="nom">
-                        </li>
-                        <li>
-                            <label>Prénoms</label>
-                            <input type='text' id="prenom">
-                        </li>
-                    </ul>
-                </li>
-                <li class="tarif ">
-                    <ul>
-                        <label>Prix</label>
-                        <li id="normal ">Tarif normal: {{this.tarif_normal}}</li>
-                        <input type='checkbox' id="normal">
-                        <li id="reduit ">Tarif réduit: {{this.tarif_reduit}}</li>
-                        <input type='checkbox' id="reduit">
-                    </ul>
-                </li>
-                <li class="places ">
-                    <ul>
-                        <label>Choix de la place</label>
-                        <li id="assises ">{{this.nb_places_assises_restantes}} places assises restantes</li>
-                        <input type="checkbox" id="assises">
-                        <li id=" debout ">{{this.nb_places_debout_restantes}} places debout restantes</li>
-                        <input type="checkbox" id="debout">
-                    </ul>
-                </li>
-            </ul>
-            <button type="submit" data-soiree="{{this.id}}" data-user="">Valider</button>
-
-        </form>
-    </script>
-    <script id="templateSoiree " type="text/x-handlebars-template ">
+    <script id="templateSoiree" type="text/x-handlebars-template">
 
         <article>
             <h3>Répresentation de la soirée</h3>
@@ -289,7 +268,7 @@
     </script>
 
 
-    <script id="templateSpectacle " type="text/x-handlebars-template ">
+    <script id="templateSpectacle" type="text/x-handlebars-template">
         <article>
             <div class="info-concert ">
                 <div class="concert-image ">
@@ -310,7 +289,7 @@
     </script>
 
 
-    <script id="event-template " type="text/x-handlebars-template ">
+    <script id="event-template" type="text/x-handlebars-template">
         <select>
             <option value="{{theme.label}} ">{{theme.label}}</option>
         </select>
