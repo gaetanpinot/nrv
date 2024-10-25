@@ -1,19 +1,35 @@
 import Handlebars from "handlebars";
-const TEMPLATE_ACCOUNT = Handlebars.compile(document.querySelector("#templateAccount").innerHTML);
+
+let TEMPLATE_ACCOUNT;
 const URL_API = 'http://localhost:44010';
+
+function isAuthenticated() {
+    return localStorage.getItem("jwt") !== null;
+}
 
 function renderAccountTemplate() {
     const main = document.querySelector('main');
-    main.innerHTML = TEMPLATE_ACCOUNT(); 
-    setEventListeners();
+
+    if (isAuthenticated()) {
+        TEMPLATE_ACCOUNT = Handlebars.compile(document.querySelector("#templateAccountAuth").innerHTML);
+    } else {
+        TEMPLATE_ACCOUNT = Handlebars.compile(document.querySelector("#templateAccountNonAuth").innerHTML);
+    }
+
+    main.innerHTML = TEMPLATE_ACCOUNT();
+    isAuthenticated() ? setAuthenticatedEventListeners() : setUnauthenticatedEventListeners();
 }
 
-function setEventListeners() {
+function setUnauthenticatedEventListeners() {
     document.getElementById("login-btn").addEventListener("click", showLoginForm);
     document.getElementById("signup-btn").addEventListener("click", showSignupForm);
-
     document.getElementById("login-form").addEventListener("submit", handleLogin);
     document.getElementById("signup-form").addEventListener("submit", handleSignup);
+}
+
+function setAuthenticatedEventListeners() {
+    document.getElementById("logout-btn").addEventListener("click", handleLogout);
+    //EVENT LISTENERS WHEN AUTH
 }
 
 function showLoginForm() {
@@ -42,13 +58,14 @@ function handleLogin(event) {
     })
     .then(resp => resp.json())
     .then(data => {
-        if (data) {
-            alert('Login successful');
+        if (data && data.token) {
+            localStorage.setItem("jwt", data.token);
+            renderAccountTemplate();
         } else {
-            alert('Login failed: ' + data.message);
+            alert('Échec de la connexion: ' + data.message);
         }
     })
-    .catch(error => console.error('Login error:', error));
+    .catch(error => console.error('Erreur de connexion:', error));
 }
 
 function handleSignup(event) {
@@ -65,13 +82,20 @@ function handleSignup(event) {
     })
     .then(resp => resp.json())
     .then(data => {
-        if (data) {
-            alert('Signup successful');
+        if (data && data.token) {
+            localStorage.setItem("jwt", data.token);
+            renderAccountTemplate();
         } else {
-            alert('Signup failed: ' + data.message);
+            alert('Échec de l\'inscription: ' + data.message);
         }
     })
-    .catch(error => console.error('Signup error:', error));
+    .catch(error => console.error('Erreur d\'inscription:', error));
+}
+
+function handleLogout() {
+    localStorage.removeItem("jwt");
+    alert("Déconnexion réussie");
+    renderAccountTemplate();
 }
 
 export function afficheAccount() {
