@@ -18,7 +18,12 @@ document.querySelector('#home').addEventListener('click', () => {
 });
 
 
+import { affichePanier } from './lib/panier.js';
 
+document.getElementById("logo-panier").addEventListener("click", (event) => {
+    event.preventDefault();
+    affichePanier();
+});
 
 /*document.querySelector('#logo-panier').addEventListener('click', () => {
     panier();

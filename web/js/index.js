@@ -1099,7 +1099,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars4) {
+      exports["default"] = function(Handlebars6) {
         (function() {
           if (typeof globalThis === "object")
             return;
@@ -1110,11 +1110,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars4.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars4) {
+        Handlebars6.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars6) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars4;
+          return Handlebars6;
         };
       };
       module.exports = exports["default"];
@@ -5723,8 +5723,45 @@
 
   // lib/compte.js
   var import_handlebars = __toESM(require_handlebars());
-  var TEMPLATE_ACCOUNT;
+
+  // lib/settings.js
   var URL_API = "http://localhost:44010";
+
+  // lib/mesbillets.js
+  function fetchUserTickets() {
+    const userId = parseJwt(localStorage.getItem("jwt")).sub;
+    fetch(`${URL_API}/utilisateur/${userId}/billets`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json"
+      }
+    }).then((resp) => resp.json()).then((data) => {
+      if (data && data.billets) {
+        displayTickets(data.billets);
+      } else {
+        alert("Aucun billet achet\xE9 trouv\xE9.");
+      }
+    }).catch((error) => console.error("Erreur de r\xE9cup\xE9ration des billets:", error));
+  }
+  function parseJwt(token) {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(atob(base64).split("").map(function(c) {
+      return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(""));
+    return JSON.parse(jsonPayload);
+  }
+  function displayTickets(billets) {
+    const main = document.querySelector("main");
+    const templateSource = document.querySelector("#templateUserTickets").innerHTML;
+    const template = Handlebars.compile(templateSource);
+    main.innerHTML = template({ billets });
+  }
+
+  // lib/compte.js
+  var TEMPLATE_ACCOUNT;
+  var URL_API2 = "http://localhost:44010";
   function isAuthenticated() {
     return localStorage.getItem("jwt") != null;
   }
@@ -5747,6 +5784,7 @@
   }
   function setAuthenticatedEventListeners() {
     document.getElementById("logout-btn").addEventListener("click", handleLogout);
+    document.getElementById("billet-btn").addEventListener("click", fetchUserTickets);
   }
   function showLoginForm() {
     document.getElementById("login-form").classList.add("active");
@@ -5764,13 +5802,14 @@
     event.preventDefault();
     const email = document.querySelector("#login-form input[type='email']").value;
     const password = document.querySelector("#login-form input[type='password']").value;
-    fetch(`${URL_API}/connexion`, {
+    fetch(`${URL_API2}/connexion`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
     }).then((resp) => resp.json()).then((data) => {
       if (data && data.token) {
         localStorage.setItem("jwt", data.token);
+        localStorage.setItem("id", data.id);
         renderAccountTemplate();
       } else {
         alert("\xC9chec de la connexion: " + data.message);
@@ -5783,7 +5822,7 @@
     const prenom = document.querySelector("#signup-form input[placeholder='Prenom complet']").value;
     const email = document.querySelector("#signup-form input[type='email']").value;
     const password = document.querySelector("#signup-form input[type='password']").value;
-    fetch(`${URL_API}/inscription`, {
+    fetch(`${URL_API2}/inscription`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nom, prenom, email, password })
@@ -5801,16 +5840,16 @@
     alert("D\xE9connexion r\xE9ussie");
     renderAccountTemplate();
   }
-  function afficheAccount() {
+  function afficheAccount2() {
     renderAccountTemplate();
   }
 
   // lib/billet.js
-  var URL_API2 = "http://localhost:44010";
+  var URL_API3 = "http://localhost:44010";
   var TEMPLATE_BILLET = import_handlebars2.default.compile(document.querySelector("#templateBillet").innerHTML);
   function package_billet(idSoiree) {
     document.querySelector(".prendre-billet").addEventListener("click", function() {
-      const uri = `${URL_API2}/soirees/${idSoiree}`;
+      const uri = `${URL_API3}/soirees/${idSoiree}`;
       fetch(uri).then((resp) => resp.json()).then((data) => {
         create_billet(data, idSoiree);
       }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e :", err));
@@ -5844,7 +5883,7 @@
         let dataform = `token=${token}&place=${place}&tarif=${tarif}&soiree=${idSoiree}`;
         console.log(dataform);
         console.log(token);
-        fetch(`${URL_API2}/panier/ajouter-billet`, {
+        fetch(`${URL_API3}/panier/ajouter-billet`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -5874,7 +5913,7 @@
   }
 
   // lib/spectacle.js
-  var URL_API3 = "http://localhost:44010";
+  var URL_API4 = "http://localhost:44010";
   var FILTRES = "";
   var ancien_filtres = "";
   var TEMPLATE_CONCERTS = import_handlebars3.default.compile(document.querySelector("#templateConcerts").innerHTML);
@@ -5903,7 +5942,7 @@
     const select = document.getElementById("filtre-lieu");
     select.innerHTML = "";
     select.innerHTML += `<option value="all">Tous</option>`;
-    const uri = `${URL_API3}/lieux`;
+    const uri = `${URL_API4}/lieux`;
     fetch(uri).then((resp) => resp.json()).then((data) => {
       data.forEach((lieu) => {
         select.innerHTML += `<option value="${lieu.nom}">${lieu.nom}</option>`;
@@ -5929,7 +5968,7 @@
     showLoader();
     renderTemplate(TEMPLATE_CONCERTS, { pagination });
     const NEW_URI_SPECTACLES = `/spectacles?page=${pagination}&nombre=12`;
-    fetch(URL_API3 + NEW_URI_SPECTACLES + FILTRES).then((resp) => resp.json()).then((data) => {
+    fetch(URL_API4 + NEW_URI_SPECTACLES + FILTRES).then((resp) => resp.json()).then((data) => {
       const listeConcertContainer = document.getElementById("liste-concert");
       listeConcertContainer.innerHTML = "";
       data.forEach((item) => {
@@ -5958,7 +5997,7 @@
   }
   function afficheSoiree(idSpectacles) {
     showLoader();
-    const uri = `${URL_API3}/spectacles/${idSpectacles}/soirees`;
+    const uri = `${URL_API4}/spectacles/${idSpectacles}/soirees`;
     fetch(uri).then((resp) => resp.json()).then((data) => {
       rendersoiree(data);
     }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration des soirees :", err)).finally(() => hideLoader());
@@ -5996,17 +6035,86 @@
     loadConcerts();
   }
 
+  // lib/panier.js
+  var import_handlebars4 = __toESM(require_handlebars());
+  var TEMPLATE_TICKETS = import_handlebars4.default.compile(document.querySelector("#templateTickets").innerHTML);
+  function isAuthenticated2() {
+    return localStorage.getItem("jwt") !== null;
+  }
+  function affichePanier() {
+    const main = document.querySelector("main");
+    if (!isAuthenticated2()) {
+      afficheAccount();
+      return;
+    }
+    fetchPanierData().then((paniers) => {
+      main.innerHTML = TEMPLATE_TICKETS({ paniers });
+      setPanierEventListeners();
+    }).catch((error) => console.error("Erreur de chargement des billets:", error));
+  }
+  function fetchPanierData() {
+    const token = localStorage.getItem("jwt");
+    let userId = localStorage.getItem("id");
+    return fetch(`${URL_API}/utilisateur/${userId}/paniers`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }).then((response) => {
+      if (!response.ok)
+        throw new Error("Erreur de r\xE9cup\xE9ration des donn\xE9es du panier");
+      return response.json();
+    });
+  }
+  function setPanierEventListeners() {
+    console.log("bonojour");
+    document.getElementById("payment-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      handlePayment();
+    });
+    console.log("fin");
+  }
+  function handlePayment(panierId) {
+    const token = localStorage.getItem("jwt");
+    const cardNumber = document.getElementById(`card-number-${panierId}`).value;
+    const expiryDate = document.getElementById(`expiry-date-${panierId}`).value;
+    const cvc = document.getElementById(`cvc-${panierId}`).value;
+    let userId = localStorage.getItem("id");
+    fetch(`${URL_API}/utilisateur/${userId}/paniers/${panierId}/payment`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        card_number: cardNumber,
+        expiry_date: expiryDate,
+        cvc
+      })
+    }).then((response) => {
+      if (!response.ok)
+        throw new Error("Erreur de traitement du paiement");
+      return response.json();
+    }).then((data) => {
+      alert("Paiement effectu\xE9 avec succ\xE8s!");
+      affichePanier();
+    }).catch((error) => console.error("Erreur de paiement:", error));
+  }
+
   // index.js
   console.log("index js build");
   afficheSpectacles();
   document.querySelector("#img-compte").addEventListener("click", () => {
-    afficheAccount();
+    afficheAccount2();
   });
   document.querySelector("h1").addEventListener("click", () => {
     afficheSpectacles();
   });
   document.querySelector("#home").addEventListener("click", () => {
     afficheSpectacles();
+  });
+  document.getElementById("logo-panier").addEventListener("click", (event) => {
+    event.preventDefault();
+    affichePanier();
   });
 })();
 //# sourceMappingURL=index.js.map

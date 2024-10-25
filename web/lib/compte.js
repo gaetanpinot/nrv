@@ -1,4 +1,5 @@
 import Handlebars from "handlebars";
+import {fetchUserTickets} from './mesbillets.js';
 
 let TEMPLATE_ACCOUNT;
 const URL_API = 'http://localhost:44010';
@@ -30,9 +31,8 @@ function setUnauthenticatedEventListeners() {
 
 function setAuthenticatedEventListeners() {
     document.getElementById("logout-btn").addEventListener("click", handleLogout);
-    //EVENT LISTENERS WHEN AUTH
+    document.getElementById("billet-btn").addEventListener("click", fetchUserTickets);
 }
-
 function showLoginForm() {
     document.getElementById("login-form").classList.add("active");
     document.getElementById("signup-form").classList.remove("active");
@@ -61,6 +61,7 @@ function handleLogin(event) {
         .then(data => {
             if (data && data.token) {
                 localStorage.setItem("jwt", data.token);
+                localStorage.setItem("id", data.id);
                 renderAccountTemplate();
             } else {
                 alert('Échec de la connexion: ' + data.message);

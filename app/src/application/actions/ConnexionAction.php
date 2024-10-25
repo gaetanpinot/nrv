@@ -36,7 +36,7 @@ class ConnexionAction extends AbstractAction
 
         try {
             $jwt = $this->utilisateurService->connexion($email, $password);
-            return JsonRenderer::render($rs, 200, ['token' => $jwt]);
+            return JsonRenderer::render($rs, 200, $jwt);
         }catch (ValidatorException $e) {
             return JsonRenderer::render($rs, 400, ['error' => $e->getMessage()]);
         } catch (NoDataFoundException){

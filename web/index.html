@@ -176,7 +176,7 @@
     <script id="templateAccountAuth" type="text/x-handlebars-template">
         <div id="auth-container">
             <button id="logout-btn">Se déconnecter</button>
-            <button id="logout-btn">Mes billets</button>
+            <button id="billet-btn">Mes billets</button>
         </div>
     </script>
 
@@ -296,7 +296,46 @@
             <button type="submit" data-soiree="{{this.id}}">Valider</button>
         </form>
     </script>
+    <script id="templateUserTickets" type="text/x-handlebars-template">
+        <h2>Mes Billets</h2>
+        {{#if billets.length}}
+        <ul>
+            {{#each billets}}
+            <li>
+                <strong>Soirée:</strong> {{this.nom}} <br>
+                <strong>Tarif:</strong> {{this.tarif}} <br>
+                <strong>Place:</strong> {{this.place_type}}
+            </li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <p>Aucun billet acheté trouvé.</p>
+        {{/if}}
+    </script>
+    <script id="templateTickets" type="text/x-handlebars-template">
+    <h2>Votre Panier</h2>
+    <div id="tickets-list">
+        {{#each paniers}}
+            <div class="ticket">
+                <p>État: {{#if is_valide}}Payé{{else}}Non payé{{/if}}</p>
+                <p>Total: {{total}} €</p>
+            </div>
+        {{/each}}
+    </div>
 
+    {{#unless (every paniers 'is_valide')}}
+        <form id="payment-form">
+            <h3>Paiement</h3>
+            <label>Numéro de carte:</label>
+            <input type="text" id="card-number" required>
+            <label>Date d'expiration:</label>
+            <input type="text" id="expiry-date" required>
+            <label>CVC:</label>
+            <input type="text" id="cvc" required>
+            <button type="submit">Payer</button>
+        </form>
+    {{/unless}}
+</script>
     <footer>
         <div class="footer-content">
             <div class="about-festival">

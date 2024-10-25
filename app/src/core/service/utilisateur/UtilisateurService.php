@@ -39,7 +39,7 @@ class UtilisateurService
         return $utilisateur->toDTO();
     }
 
-    public function connexion(string $email, string $password): string
+    public function connexion(string $email, string $password): array
     {
         $utilisateur = $this->utilisateurRepository->getUtilisateurByEmail($email);
 
@@ -61,7 +61,7 @@ class UtilisateurService
 
         $jwt = JWT::encode($payload, $this->secretKey, 'HS256');
 
-        return $jwt;
+        return ['token'=>$jwt, 'id'=>$utilisateur->id];
     }
 
 }
