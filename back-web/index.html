@@ -76,7 +76,7 @@
 
     {{#each this.lieux}}
     <div class = "inputLieux">
-    <input type = "radio" id = "lieux{{@index}}" name = "lieux" value = "{{this.id}}" class="lieux">
+    <input type = "radio" id = "lieux{{@index}}" name = "lieux" value = "{{this.id}}" class="lieux" required>
     <label for = "lieux{{@index}}">
     <p>Lieux : {{this.nom}}</p>
     <p>Adresse : {{this.adresse}}</p>
@@ -86,13 +86,25 @@
     </div>
     {{/each}}
 
+    <p>Theme : </p>
     {{#each this.themes}} 
+    <div class = "inputThemes">
+    <input type = "radio" id = "themes{{@index}}" name = "theme" class = "themes" required value = {{this.id}}>
+    <label for = "themes{{@index}}">{{this.label}}</label>
+    </div>
 
     {{/each}}
 
     {{#each this.spectacles}} 
-
+    <div class = "inputSpectacles">
+    <input type = "checkbox" id = "spectacles{{@index}}" name = "spectacles{{@index}}" value = "{{this.id}}" class="spectacles">
+    <label for = "spectacles{{@index}}"> 
+    <h3>{{this.titre}}</h3>
+    <p>{{this.description}}</p>
+    <p>Artistes : {{#each this.artistes}} {{this.prenom}} {{/each}}</p>
+    </label>
     {{/each}}
+    <button id = "submitSoiree" type = "submit"> Créer la soiree </button>
     </form>
     </script>
 <script id="templateFormSpectacle" type="text/x-handlebars-template">
