@@ -22,12 +22,12 @@ mot de passe `1234`
 ### Fonctionnalité de base :
 #### Programme du festival:
 - Affichage de la liste des spectacles : pour chaque spectacle, on affiche le titre, la date et l’horaire, une image.  
-Sasha, Yehor
+Sasha, Yehor, Vincent(entité, dto, repo, interfaces)
 - Affichage du détail d’une soirée : nom de la soirée, thématique, date et horaire, lieu, tarifs, ainsi que la liste des spectacles : titre, artistes, description, style de musique, vidéo.  
-Sasha
+Sasha, Vincent(entité, dto, repo, interfaces)
 - En cliquant sur un spectacle dans la liste, le détail de la soirée correspondante est affiché.  
 - Filtrage de la liste des spectacles par date.  
-Sasha, Vincent  
+Sasha, Vincent 
 - Filtrage de la liste des spectacles par style de musique.  
 Sasha, Vincent  
 - Filtrage de la liste des spectacles par lieu.  
