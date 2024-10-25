@@ -9,6 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Respect\Validation\Exceptions\ValidatorException;
 use Respect\Validation\Validator;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class AjouterBilletDansPanierAction extends AbstractAction
 {
@@ -22,25 +24,36 @@ class AjouterBilletDansPanierAction extends AbstractAction
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface
     {
-        try {
-        $data = $rq->getParsedBody();
-        $id_utilisateur = $data['id_utilisateur'];
-        $id_soiree = $data['id_soiree'];
-        $tarif = 0;
-
-        Validator::uuid()->assert($id_utilisateur);
-        Validator::uuid()->assert($id_soiree);
-
-            $this->billetPanierService->ajouterBilletAuPanier($id_utilisateur, $id_soiree, $tarif);
-            return  JsonRenderer::render($rs, 200, ['status' => 'success', 'message' => 'Billet ajouté au panier']);
-        }  catch (ValidatorException $e) {
-            return JsonRenderer::render($rs, 400, ['status' => 'error', 'message' => $e->getMessage()]);
-        } catch (\PDOException $e) {
-            return JsonRenderer::render($rs, 500, ['status' => 'error', 'message' => $e->getMessage()]);
+        $authHeader = $rq->getHeaderLine('Authorization');
+        if (strpos($authHeader, 'Bearer ') === 0) {
+            $token = substr($authHeader, 7);
+        } else {
+            return $rs->withStatus(401)->withHeader('Content-Type', 'application/json')
+                ->getBody()->write(json_encode(['status' => 'error', 'message' => 'Token non fourni']));
         }
 
-        catch (\Exception $e) {
-            return JsonRenderer::render($rs, 500, ['status' => 'error', 'message' => $e->getMessage()]);
+        try {
+            $decoded = JWT::decode($token, new Key(getenv('JWT_SECRET_KEY'), 'HS256'));
+            $userId = $decoded->id ?? null;
+
+            if (!$userId) {
+                throw new \Exception('Utilisateur non trouvé dans le token');
+            }
+
+            $data = json_decode($rq->getBody()->getContents(), true);
+            $idSoiree = $data['soiree'];
+            $tarif = $data['tarif'];
+            $place = $data['place'];
+
+            $this->billetPanierService->ajouterBilletAuPanier($userId, $idSoiree, $tarif, $place);
+
+            $rs->getBody()->write(json_encode(['status' => 'success', 'message' => 'Billet ajouté au panier']));
+            return $rs->withStatus(200)->withHeader('Content-Type', 'application/json');
+        } catch (\Exception $e) {
+
+            $rs->getBody()->write(json_encode(['status' => 'error', 'message' => $e->getMessage()]));
+            return $rs->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
     }
+
 }

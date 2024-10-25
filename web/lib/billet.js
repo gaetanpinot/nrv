@@ -65,29 +65,33 @@ function create_billet(data, idSoiree) {
             let dataform = `token=${token}&place=${place}&tarif=${tarif}&soiree=${idSoiree}`;
             console.log(dataform); // Affiche les données assemblées
 
-            // Envoie les données au serveur
-            const uri = `${URL_API}${URI_BILLET}?${dataform}`; // Corrections apportées ici
-            fetch(uri)
-                .then((resp) => {
-                    if (resp.statusCode === 401) {
-                        alert('Veuillez vous connecter pour continuer.');
-                        localStorage.removeItem('token');
-                        afficheAccount();
-                    }
+            // Envoie les données au serveur en POST
+            fetch(`${URL_API}/panier/ajouter-billet`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    tarif: tarif,
+                    place: place,
+                    soiree: idSoiree
+                })
+            })
+                .then(resp => {
                     if (!resp.ok) {
                         throw new Error('Erreur dans la réponse du serveur');
                     }
                     return resp.json();
                 })
-                .then((data) => {
-                    if (data.success) { // Supposons que le serveur renvoie un attribut "success"
+                .then(data => {
+                    if (data.status === 'success') {
                         alert('Billet acheté avec succès.');
                     } else {
-                        alert('Billet pas acheté.'); // Message d'erreur générique
+                        alert('Billet pas acheté.');
                     }
                 })
-                .catch((err) => console.error("Erreur lors de l'achat du billet :", err));
-
+                .catch(err => console.error("Erreur lors de l'achat du billet :", err));
         });
     } else {
         console.error("Élément #billet-form introuvable.");

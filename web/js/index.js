@@ -5846,6 +5846,11 @@
         console.log(dataform);
         const uri = `${URL_API2}${URI_BILLET}?${dataform}`;
         fetch(uri).then((resp) => {
+          if (resp.statusCode === 401) {
+            alert("Veuillez vous connecter pour continuer.");
+            localStorage.removeItem("token");
+            afficheAccount();
+          }
           if (!resp.ok) {
             throw new Error("Erreur dans la r\xE9ponse du serveur");
           }
