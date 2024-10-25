@@ -5726,10 +5726,11 @@
   var TEMPLATE_ACCOUNT;
   var URL_API = "http://localhost:44010";
   function isAuthenticated() {
-    return localStorage.getItem("jwt") !== null;
+    return localStorage.getItem("jwt") != null;
   }
   function renderAccountTemplate() {
     const main = document.querySelector("main");
+    console.log(isAuthenticated());
     if (isAuthenticated()) {
       TEMPLATE_ACCOUNT = import_handlebars.default.compile(document.querySelector("#templateAccountAuth").innerHTML);
     } else {

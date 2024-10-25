@@ -97,7 +97,7 @@ function setEventListeners() {
 function handlePaginationChange(step) {
     pagination += step;
     pagination = Math.max(pagination, 0);
-    filtrer(); 
+    filtrer();
 }
 
 function afficheSoiree(idSpectacles) {
@@ -129,7 +129,6 @@ function rendersoiree(data) {
     const buttonsBillet = document.querySelectorAll('.prendre-billet');
     if (buttonsBillet.length > 0) {
         //console.log('buttonbillet event activated');
-
         buttonsBillet.forEach(button => {
             button.addEventListener('click', (event) => {
                 const soireeId = event.currentTarget.dataset.soiree;
@@ -146,7 +145,7 @@ function rendersoiree(data) {
 function resetToConcertList() {
     FILTRES = '&lieu=all&date=ASC&style=all';
     pagination = 0;
-    loadConcerts(); 
+    loadConcerts();
 }
 
 export function afficheSpectacles() {
