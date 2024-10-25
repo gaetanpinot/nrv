@@ -107,23 +107,32 @@
                         <select id="filtre-style">
                 <option value="all">Style</option>
                 <option value="all">Tous</option>
-                <option value="metal">Metal</option>
-                <option value="pop">Pop</option>
-                <option value="rock">Rock</option>
-                <option value="reggae">Reggae</option>
-                <option value="classique">Classique</option>
-                <option value="jazz">Jazz</option>
+                <option value="Metal">Metal</option>
+                <option value="Pop">Pop</option>
+                <option value="Rock">Rock</option>
+                <option value="Jazz">Jazz</option>
             </select>
                     </li>
                     <li>
                         <select id="filtre-lieu">
-                <option value="all">Aléatoire</option>
+                <option value="all">Lieu</option>
+                <option value="all">Tous</option>
+                <option value="Salle avenue Gallet">Salle avenue Gallet</option>
+                <option value="Salle impasse Thibault Pineau">Salle impasse Thibault Pineau</option>
+                <option value="Salle chemin Thierry Hebert">Salle chemin Thierry Hebert</option>
+                <option value="Salle impasse Virginie Guyot">Salle impasse Virginie Guyot</option>
+                <option value="Salle impasse Francois">Salle impasse Francois</option>
+                <option value="Salle impasse Patrick Riou">Salle impasse Patrick Riou</option>
+                <option value="Salle place Ollivier">Salle place Ollivier</option>
+                <option value="Salle impasse de Hubert">Salle impasse de Hubert</option>
+                <option value="Salle place Robert Loiseau">Salle place Robert Loiseau</option>
+                <option value="Salle place de Mendes">Salle place de Mendes</option>
             </select>
                     </li>
                     <li>
                         <select id="filtre-date">
-                <option value="recent">Récent</option>
-                <option value="ancient">Ancien</option>
+                <option value="ASC">ASC</option>
+                <option value="DESC">DESC</option>
             </select>
                     </li>
                 </ul>
@@ -144,12 +153,7 @@
         </div>
     </script>
 
-<<<<<<< HEAD
     <script id="templateAccount" type="text/x-handlebars-template">
-=======
-    <script id="templateAccountNonAuth"
-            type="text/x-handlebars-template">
->>>>>>> 133e5f4a3d22149d9a32a4b644171bb528f5d350
         <div id="auth-container">
             <div id="auth-options">
                 <button id="login-btn" class="auth-option active">Se connecter</button>
@@ -169,62 +173,17 @@
                     <input type="email" placeholder="Adresse email" required>
                     <input type="password" placeholder="Mot de passe" required>
                     <button type="submit">Créer un compte</button>
-                </form>                
+                </form>
             </div>
         </div>
     </script>
 
-    <script id="templateAccountAuth"
-            type="text/x-handlebars-template">
+    <script id="templateAccountAuth" type="text/x-handlebars-template">
         <div id="auth-container">
             <button id="logout-btn">Se déconnecter</button>
             <button id="logout-btn">Mes billets</button>
         </div>
     </script>
-
-    <footer>
-        <div class="footer-content">
-            <div class="about-festival">
-                <h4>Nancy Rock Vibration</h4>
-                <p>12 soirées de rock intense dans 4 lieux emblématiques de Nancy. Venez vibrer au rythme des guitares, des voix et des performances en live !</p>
-            </div>
-
-            <div class="contact-info">
-                <h4>Contactez-nous</h4>
-                <ul>
-                    <li>Email : <a href="mailto:contact@nrv-festival.com">contact@nrv-festival.com</a></li>
-                    <li>Téléphone : <a href="tel:+33383000000">+33 3 83 00 00 00</a></li>
-                    <li>Adresse : 123 Rue du Rock, 54000 Nancy, France</li>
-                </ul>
-            </div>
-
-            <div class="social-media">
-                <h4>Suivez-nous</h4>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">YouTube</a></li>
-                </ul>
-            </div>
-
-            <div class="useful-links">
-                <h4>Informations pratiques</h4>
-                <ul>
-                    <li><a href="#">Billetterie en ligne</a></li>
-                    <li><a href="#">Plan des lieux</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Conditions générales</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© 2024 Nancy Rock Vibration. Tous droits réservés.</p>
-            <p>Site web conçu par <a href="#">Nom de l'agence ou designer</a>.</p>
-        </div>
-    </footer>
-
 
     <script id="templateSoiree" type="text/x-handlebars-template">
         <article>
@@ -278,7 +237,6 @@
         </article>
     </script>
 
-
     <script id="templateSpectacle" type="text/x-handlebars-template">
         <article>
             <div class="info-concert">
@@ -298,7 +256,6 @@
             <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>
         </article>
     </script>
-
 
     <script id="event-template" type="text/x-handlebars-template">
         <select>
@@ -324,20 +281,20 @@
                 <li class="tarif">
                     <ul>
                         <label>Prix</label>
-                        <li id="normal">Tarif normal: {{this.tarif_normal}} €</li>
-                        <input type="radio" name="tarif" id="normal" value="{{this.tarif_normal}}">
-                        <li id="reduit">Tarif réduit: {{this.tarif_reduit}} €</li>
-                        <input type="radio" name="tarif" id="reduit" value="{{this.tarif_reduit}}">
+
+                        <li id="normal"><input type="radio" name="tarif" id="normal" value="{{this.tarif_normal}}">Tarif normal: {{this.tarif_normal}} €</li>
+
+                        <li id="reduit"> <input type="radio" name="tarif" id="reduit" value="{{this.tarif_reduit}}">Tarif réduit: {{this.tarif_reduit}} €</li>
                     </ul>
                 </li>
 
                 <li class="places">
                     <ul>
                         <label>Choix de la place</label>
-                        <li id="assises">{{this.nb_places_assises_restantes}} places assises restantes</li>
-                        <input type="radio" name="place" id="assises" value="assises">
-                        <li id="debout">{{this.nb_places_debout_restantes}} places debout restantes</li>
-                        <input type="radio" name="place" id="debout" value="debout">
+
+                        <li id="assises"><input type="radio" name="place" id="assises" value="assises">{{this.nb_places_assises_restantes}} places assises restantes</li>
+
+                        <li id="debout"><input type="radio" name="place" id="debout" value="debout">{{this.nb_places_debout_restantes}} places debout restantes</li>
                     </ul>
                 </li>
             </ul>
@@ -345,6 +302,48 @@
         </form>
     </script>
 
+    <footer>
+        <div class="footer-content">
+            <div class="about-festival">
+                <h4>Nancy Rock Vibration</h4>
+                <p>12 soirées de rock intense dans 4 lieux emblématiques de Nancy. Venez vibrer au rythme des guitares, des voix et des performances en live !</p>
+            </div>
+
+            <div class="contact-info">
+                <h4>Contactez-nous</h4>
+                <ul>
+                    <li>Email : <a href="mailto:contact@nrv-festival.com">contact@nrv-festival.com</a></li>
+                    <li>Téléphone : <a href="tel:+33383000000">+33 3 83 00 00 00</a></li>
+                    <li>Adresse : 123 Rue du Rock, 54000 Nancy, France</li>
+                </ul>
+            </div>
+
+            <div class="social-media">
+                <h4>Suivez-nous</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+
+            <div class="useful-links">
+                <h4>Informations pratiques</h4>
+                <ul>
+                    <li><a href="#">Billetterie en ligne</a></li>
+                    <li><a href="#">Plan des lieux</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Conditions générales</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 Nancy Rock Vibration. Tous droits réservés.</p>
+            <p>Site web conçu par <a href="#">Nom de l'agence ou designer</a>.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

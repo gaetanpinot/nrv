@@ -4,12 +4,13 @@ let TEMPLATE_ACCOUNT;
 const URL_API = 'http://localhost:44010';
 
 function isAuthenticated() {
-    return localStorage.getItem("jwt") !== null;
+
+    return localStorage.getItem("jwt") != null;
 }
 
 function renderAccountTemplate() {
     const main = document.querySelector('main');
-
+    console.log(isAuthenticated());
     if (isAuthenticated()) {
         TEMPLATE_ACCOUNT = Handlebars.compile(document.querySelector("#templateAccountAuth").innerHTML);
     } else {
@@ -52,20 +53,20 @@ function handleLogin(event) {
     const password = document.querySelector("#login-form input[type='password']").value;
 
     fetch(`${URL_API}/connexion`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    })
-    .then(resp => resp.json())
-    .then(data => {
-        if (data && data.token) {
-            localStorage.setItem("jwt", data.token);
-            renderAccountTemplate();
-        } else {
-            alert('Échec de la connexion: ' + data.message);
-        }
-    })
-    .catch(error => console.error('Erreur de connexion:', error));
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if (data && data.token) {
+                localStorage.setItem("jwt", data.token);
+                renderAccountTemplate();
+            } else {
+                alert('Échec de la connexion: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Erreur de connexion:', error));
 }
 
 function handleSignup(event) {
@@ -76,20 +77,20 @@ function handleSignup(event) {
     const password = document.querySelector("#signup-form input[type='password']").value;
 
     fetch(`${URL_API}/inscription`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nom, prenom, email, password })
-    })
-    .then(resp => resp.json())
-    .then(data => {
-        if (data && data.token) {
-            localStorage.setItem("jwt", data.token);
-            renderAccountTemplate();
-        } else {
-            alert('Échec de l\'inscription: ' + data.message);
-        }
-    })
-    .catch(error => console.error('Erreur d\'inscription:', error));
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nom, prenom, email, password })
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if (data && data.token) {
+                localStorage.setItem("jwt", data.token);
+                renderAccountTemplate();
+            } else {
+                alert('Échec de l\'inscription: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Erreur d\'inscription:', error));
 }
 
 function handleLogout() {

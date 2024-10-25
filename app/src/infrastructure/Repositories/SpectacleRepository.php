@@ -16,7 +16,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $this->pdo = $cont->get('pdo.commun');
     }
 
-    public function getSpectacles(int $offset = 0, int $nombre = 10, array $filtre = null): array{
+    public function getSpectacles(int $offset = 0, int $nombre = 12, array $filtre = null): array{
         //on veut un spectacle et tous ses artistes en une seul requete
         //on ne veut pas à avoir plusieurs lignes avec le meme id de spectacle pour les differents artistes
         //on fait le select avec un group by sur la table principale
@@ -25,21 +25,22 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         $tables = '';
         $where = '';
         $order = '';
+        $decalage = $offset * $nombre;
         $execute = array('limit'=>$nombre,
-        'offset'=> $offset * $nombre);
+        'offset'=> $decalage);
 
         if($filtre != null){
-            if(isset($filtre['date'])){
+            if(isset($filtre['date']) && $filtre['date'] != null && $filtre['date']['sens'] != 'all'){
                 $where .= ' ';
                 $order = ' order by soiree.date '.$filtre['date']['sens'].' ';
             }
-            if(isset($filtre['style'])){
+            if(isset($filtre['style']) && $filtre['style']['label'] != null && $filtre['style']['label'] != 'all'){
                 $tables .= 'theme,';
                 $where .= ' soiree.id_theme = theme.id and
                     theme.label = :style and ';
                 $execute = array_merge(array('style' => $filtre['style']['label']), $execute);
             }
-            if(isset($filtre['lieu'])){
+            if(isset($filtre['lieu']) && $filtre['lieu']['nom'] != null && $filtre['lieu']['nom'] != 'all'){
                 $tables .= 'lieu_spectacle,';
                 $where .= ' soiree.id_lieu = lieu_spectacle.id and
                     lieu_spectacle.nom = :lieu and ';
@@ -52,7 +53,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             "spectacles_soiree,
             soiree
             where".$where.
-            "spectacle.id = spectacles_soiree.id_spectacle and
+            " spectacle.id = spectacles_soiree.id_spectacle and
             spectacles_soiree.id_soiree = soiree.id
             group by spectacle.id, soiree.date".$order."
             limit :limit
