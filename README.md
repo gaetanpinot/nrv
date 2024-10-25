@@ -25,7 +25,8 @@ mot de passe `1234`
 Sasha, Yehor, Vincent(entité, dto, repo, interfaces)
 - Affichage du détail d’une soirée : nom de la soirée, thématique, date et horaire, lieu, tarifs, ainsi que la liste des spectacles : titre, artistes, description, style de musique, vidéo.  
 Sasha, Vincent(entité, dto, repo, interfaces)
-- En cliquant sur un spectacle dans la liste, le détail de la soirée correspondante est affiché.  
+- En cliquant sur un spectacle dans la liste, le détail de la soirée correspondante est affiché.
+Sasha 
 - Filtrage de la liste des spectacles par date.  
 Sasha, Vincent 
 - Filtrage de la liste des spectacles par style de musique.  
