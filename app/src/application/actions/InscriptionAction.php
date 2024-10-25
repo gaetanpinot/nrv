@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
 use nrv\application\renderer\JsonRenderer;
 use Psr\Log\LoggerInterface;
+use Respect\Validation\Validator;
 
 class InscriptionAction extends AbstractAction
 {
@@ -30,6 +31,12 @@ class InscriptionAction extends AbstractAction
         }
 
         try {
+            Validator::key('email', Validator::email()
+                ->key('prenom', Validator::stringType()->notEmpty())
+                ->key('nom', Validator::stringType()->notEmpty())
+                ->key('password', Validator::stringType()->notEmpty()))
+                ->assert($data);
+
             $utilisateurDTO = $this->utilisateurService->inscription(
                 $data['email'],
                 $data['prenom'],
@@ -37,16 +44,28 @@ class InscriptionAction extends AbstractAction
                 $data['password']
             );
 
+
+
             return JsonRenderer::render($rs, 201, [
                 'message' => 'Inscription réussie',
                 'utilisateur' => $utilisateurDTO
             ]);
 
-        } catch (\Exception $e) {
-            $this->loger->error('Erreur lors de l\'inscription : ' . $e->getMessage());
+        }catch (\PDOException $e) {
+            return JsonRenderer::render($rs, 500, [
+                'error' => $e->getMessage()
+            ]);
+        }
+        catch (\Respect\Validation\Exceptions\ValidationException $e) {
             return JsonRenderer::render($rs, 400, [
                 'error' => $e->getMessage()
             ]);
         }
+        catch (\Exception $e) {
+            return JsonRenderer::render($rs, 500, [
+                'error' => $e->getMessage()
+            ]);
+        }
+
     }
 }

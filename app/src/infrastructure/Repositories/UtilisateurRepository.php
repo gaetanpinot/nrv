@@ -4,6 +4,7 @@ namespace nrv\infrastructure\Repositories;
 use DI\Container;
 use nrv\core\domain\entities\Utilisateur\Utilisateur;
 use nrv\core\repositoryInterfaces\UtilisateurRepositoryInterface;
+use nrv\infrastructure\Exceptions\NoDataFoundException;
 use PDO;
 
 class UtilisateurRepository implements UtilisateurRepositoryInterface{
@@ -16,6 +17,9 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
 
     public function getUtilisateurs(): array{
         $result = $this->pdo->query('SELECT * FROM utilisateur')->fetchAll();
+        if (!$result) {
+            throw new NoDataFoundException();
+        }
         $utilisateurs = [];
         foreach($result as $row){
             $utilisateurs[] = new Utilisateur($row['id'], $row['email'], $row['nom'], $row['prenom'], $row['password'], $row['role']);
@@ -30,7 +34,7 @@ class UtilisateurRepository implements UtilisateurRepositoryInterface{
         $result = $request->fetch();
 
         if (!$result) {
-            return null;
+            throw new NoDataFoundException("Utilisateur non trouvé : $email");
         }
 
         return new Utilisateur($result['id'], $result['email'], $result['nom'], $result['prenom'],
