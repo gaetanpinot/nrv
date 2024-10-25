@@ -7,6 +7,7 @@ use nrv\back\application\actions\AjouterSoireeAction;
 use nrv\back\application\actions\AjouterSpectacleAction;
 use nrv\back\application\actions\GetArtistes;
 use nrv\back\application\actions\GetLieus;
+use nrv\back\application\actions\GetThemesAction;
 use nrv\back\application\actions\SupprimerLieuAction;
 use Slim\Exception\HttpNotFoundException;
 use nrv\back\application\actions\HomeAction;
@@ -24,6 +25,8 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/artistes[/]', GetArtistes::class);
 
     $app->get('/lieus[/]', GetLieus::class);
+
+    $app->get('/themes[/]', GetThemesAction::class);
 
     $app->delete('/lieus[/]', SupprimerLieuAction::class);
 

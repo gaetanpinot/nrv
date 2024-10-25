@@ -63,7 +63,28 @@
 
 <script id="templateFormSoiree" type="text/x-handlebars-template">
     <form enctype="multipart/form-data" id ="formSpectacle">
+    <label for  = "nom">Nom de la soiree </label>
+    <input type="text" id="nom" name="nom" required>
+    <label for = "date">Date et heure</label>
+    <input type = "datetime" id="date" name="date" required>
+    <label for = "duree" > Duree</label>
+    <input type = "time" id="duree" name = "duree" min = "01:00" max = "10:00" required>
+    <label for = "tarif_normal"> Tarif Normal</label>
+    <input id = "tarif_normal" type = "number" max = "1000">
+    <label for = "tarif_reduit"> Tarif Reduit</label>
+    <input id = "tarif_reduit" type = "number" max = "750">
+
+    {{#each this.lieux}}
+
+    {{/each}}
+
+    {{#each this.themes}} 
+
+    {{/each}}
+
+    {{#each this.spectacles}} 
     
+    {{/each}}
     </form>
 </script>
 <script id="templateFormSpectacle" type="text/x-handlebars-template">
