@@ -1,13 +1,27 @@
 main {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  align-items: center;
+  padding: 0.3em; }
   main form {
     display: flex;
     flex-direction: column;
-    width: 50%; }
-
+    width: 30em; }
+    main form > *[type='text'],
+    main form input {
+      width: 100%;
+      box-sizing: border-box; }
+    @media (max-width: 30em) {
+      main form {
+        width: 100%; } }
 #description {
-  height: 10em; }
+  height: 10em;
+  width: 100%;
+  resize: none; }
+
+#submitSpectacle {
+  height: 4.5em;
+  width: 7em; }
 
 #inputsArtists {
   display: flex;
