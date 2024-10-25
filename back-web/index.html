@@ -11,10 +11,18 @@
 </head>
 
 <body>
+    <nav>
+        <button id="afficherSoiree">
+            Afficher jauge soirees
+        </button>
+        <button id="ajouterSpectacle">
+            Ajouter spectacle
+        </button>
 
-    <div id="soirees">
+    </nav>
+    <main>
 
-    </div>
+    </main>
 
     <script id="templateLieu" type="text/x-handlebars-template">
 </script>
@@ -41,11 +49,30 @@
         Lieu de la soiree : {{this.lieu.nom}}
         </div>
         <div class = "infoPlacesSoiree">
-    <p>Nombre de places assises vendu : {{subtract this.lieu.nb_places_assises  this.nb_places_assises_restantes}} sur {{this.lieu.nb_places_assises}} disponible</p>
-    <p>Nombre de places debout vendu : {{subtract this.lieu.nb_places_debout  this.nb_places_debout_restantes}} sur {{this.lieu.nb_places_debout}} disponible</p>
+    <p>Nombre de places assises vendues : {{subtract this.lieu.nb_places_assises  this.nb_places_assises_restantes }} sur {{this.lieu.nb_places_assises}} disponible</p>
+    <p>Nombre de places debout vendues : {{subtract this.lieu.nb_places_debout  this.nb_places_debout_restantes}} sur {{this.lieu.nb_places_debout}} disponible</p>
+    <p>Nombre de places total : {{ totalPlaces this.lieu.nb_places_debout  
+    this.lieu.nb_places_assises this.nb_places_debout_restantes this.nb_places_assises_restantes}} sur {{add this.lieu.nb_places_debout this.lieu.nb_places_assises }} disponible</p>
         </div>
         </div>
         {{/each}}
+</script>
+<script id="templateFormSpectacle" type="text/x-handlebars-template">
+    <form enctype="multipart/form-data" id ="formSpectacle">
+    <label for = "titre"> Titre du spectacle</label>
+    <input type ="text" id="titre" name = "titre" required>
+    <label for = "description">Description </label>
+    <input type ="text" id="description" name = "description required>
+    <label for ="url_image"> Url de l'image </label>
+    <input type = "url" id = "url_image" name = "url_image">
+    <label for ="url_video"> Url de la vidéo </label>
+    <input type = "url" id = "url_video" name = "url_video">
+    {{#each this}}
+        <label for = "artiste{{@index}}">Artiste {{this.prenom}}</label>
+        <input type = "checkbox" id = "artiste{{@index}}" name = "artiste{{@index}}" value = "{{this.id}}" class="artistes">
+    {{/each}}
+    <button id = "submitSpectacle" type="submit">Créer le spectacle</button>
+    </form>
 </script>
 
 </html>

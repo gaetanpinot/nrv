@@ -11,9 +11,9 @@ class Lieu extends Entity{
     protected string|null $adresse;
     protected string|null $nb_places_assises;
     protected string|null $nb_places_debout;
-    protected string|null $lien_image;
+    protected array|null $lien_image;
 
-    public function __construct(string $id, string|null $nom, string|null $adresse, string|null $nb_places_assises, string|null $nb_places_debout, string|null $lien_image){
+    public function __construct(string $id, string|null $nom, string|null $adresse, string|null $nb_places_assises, string|null $nb_places_debout, array|null $lien_image){
         $this->id = $id;
         $this->nom = $nom;
         $this->adresse = $adresse;

@@ -5,6 +5,8 @@ use nrv\back\application\actions\AfficherJaugeSpectacleAction;
 use nrv\back\application\actions\AjouterModifierLieuAction;
 use nrv\back\application\actions\AjouterSoireeAction;
 use nrv\back\application\actions\AjouterSpectacleAction;
+use nrv\back\application\actions\GetArtistes;
+use nrv\back\application\actions\GetLieus;
 use nrv\back\application\actions\SupprimerLieuAction;
 use Slim\Exception\HttpNotFoundException;
 use nrv\back\application\actions\HomeAction;
@@ -19,9 +21,13 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->post('/soirees[/]', AjouterSoireeAction::class);
 
-    $app->delete('/lieu[/]', SupprimerLieuAction::class);
+    $app->get('/artistes[/]', GetArtistes::class);
 
-    $app->put('/lieu[/]', AjouterModifierLieuAction::class);
+    $app->get('/lieus[/]', GetLieus::class);
+
+    $app->delete('/lieus[/]', SupprimerLieuAction::class);
+
+    $app->put('/lieus[/]', AjouterModifierLieuAction::class);
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
