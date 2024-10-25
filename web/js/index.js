@@ -5798,6 +5798,17 @@
       });
     });
   }
+  var billetElement = document.querySelector("#billet");
+  if (billetElement) {
+    billetElement.addEventListener("click", function() {
+      const token = localStorage.getItem("token");
+      console.log(token);
+      if (token) {
+        fetch(URL_API + "/billet?token=" + token + "&soiree=" + dataset.id);
+        console.log(URL_API + "/billet?token=" + token + "&soiree=" + dataset.id);
+      }
+    });
+  }
 
   // index.js
   console.log("index js build");
