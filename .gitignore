@@ -22,6 +22,7 @@ backoffice/var/logs
 !/app/logs/README.md
 /app/vendor
 # Cache
+*.map
 /var/cache/*
 .phpunit.result.cache
 cache.properties
