@@ -14,6 +14,17 @@ main {
     @media (max-width: 30em) {
       main form {
         width: 100%; } }
+.inputCheck {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+  .inputCheck input {
+    width: 1.5em;
+    height: 1.5em;
+    min-width: 1.5em;
+    min-height: 1.5em;
+    box-sizing: border-box; }
+
 #description {
   height: 10em;
   width: 100%;
@@ -26,6 +37,3 @@ main {
 #inputsArtists {
   display: flex;
   flex-direction: column; }
-  #inputsArtists .inputArtist input {
-    height: 1.5em;
-    width: 1.5em; }

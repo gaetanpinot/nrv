@@ -5725,6 +5725,7 @@
   var URI_ARTISTES = "/artistes";
   var URI_THEMES = "/themes";
   var URI_LIEUX = "/lieux";
+  var URI_SOIREE = "/soirees";
 
   // lib/jauge.js
   var TEMPLATE_SOIREES = import_handlebars.default.compile(
@@ -5772,7 +5773,7 @@
       url_video: getD("url_video")
     };
     let artistes = Array.from(e.target.querySelectorAll(".artistes"));
-    let checkedArtisteId = artistes.filter((artiste) => artiste.checked).map((artiste) => artiste.value);
+    let checkedArtisteId = artistes.filter((artiste) => artiste.checked).map((artiste) => artiste.value.trim());
     if (checkedArtisteId.length === 0) {
       alert("Vous n'avez pas sellection\xE9 d'artiste");
     } else {
@@ -5817,10 +5818,48 @@
       dataForm.themes = yield fetch(URL_API + URI_THEMES).then(handleResp);
       dataForm.spectacles = yield fetch(URL_API + URI_SPECTACLES).then(handleResp);
       document.querySelector("main").innerHTML = TEMPLATE_FORM_SOIREE(dataForm);
-      document.querySelector("#submitSoiree").addEventListener("submit", submitSoireeForm);
+      document.querySelector("#formSoiree").addEventListener("submit", submitSoireeForm);
     });
   };
   var submitSoireeForm = function(e) {
+    e.preventDefault();
+    let formData = e.target.elements;
+    let getD = function($ch) {
+      return formData[$ch].value.trim();
+    };
+    console.log(getD("date"));
+    let submitData = {
+      nom: getD("nom"),
+      id_theme: getD("theme"),
+      date: getD("date"),
+      heure_debut: getD("debut"),
+      duree: getD("duree"),
+      lieu_id: getD("lieux"),
+      tarif_normal: getD("tarif_normal"),
+      tarif_reduit: getD("tarif_reduit")
+    };
+    let spectacles = Array.from(e.target.querySelectorAll(".spectacles"));
+    let checkedSpectaclesId = spectacles.filter((spectacle) => spectacle.checked).map((spectacle) => spectacle.value.trim());
+    if (checkedSpectaclesId.length === 0) {
+      window.alert("Vous n'avez pas s\xE9ll\xE9ction\xE9 de spectacles");
+    } else {
+      submitData.spectacles = checkedSpectaclesId;
+      console.log(submitData);
+      fetch(URL_API + URI_SOIREE, {
+        body: JSON.stringify(submitData),
+        headers: {
+          "content-type": "application/json"
+        },
+        method: "POST"
+      }).then((resp) => {
+        if (resp.ok) {
+          alert("La soiree \xE0 \xE9t\xE9 cr\xE9e sans probl\xE8me");
+        } else {
+          console.log(resp.status + " " + resp.body);
+          alert("Probl\xE8me lors de la cr\xE9ation de la soiree");
+        }
+      });
+    }
   };
   function listenerSoireeForm() {
     document.querySelector("#ajouterSoiree").addEventListener("click", getInfoSoireeForm);

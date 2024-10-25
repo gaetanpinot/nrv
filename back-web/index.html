@@ -62,48 +62,60 @@
 </script>
 
 <script id="templateFormSoiree" type="text/x-handlebars-template">
-    <form enctype="multipart/form-data" id ="formSpectacle">
+    <form  id ="formSoiree">
+    <div id = "champsSoireeForm">
     <label for  = "nom">Nom de la soiree </label>
     <input type="text" id="nom" name="nom" required>
-    <label for = "date">Date et heure</label>
-    <input type = "datetime" id="date" name="date" required>
-    <label for = "duree" > Duree</label>
+    <label for = "date">Date </label>
+    <input type = "date" id="date" name="date" required>
+    <label for = "debut" >Heure Debut</label>
+    <input type = "time" id="debut" name = "debut" required>
+    <label for = "duree" >Duree</label>
     <input type = "time" id="duree" name = "duree" min = "01:00" max = "10:00" required>
     <label for = "tarif_normal"> Tarif Normal</label>
-    <input id = "tarif_normal" type = "number" max = "1000">
+    <input id = "tarif_normal" type = "number" max = "1000" step ="0.01">
     <label for = "tarif_reduit"> Tarif Reduit</label>
-    <input id = "tarif_reduit" type = "number" max = "750">
+    <input id = "tarif_reduit" type = "number" max = "750" step ="0.01">
+    </div>
 
+    <div id = "lieuxSoireeForm">
+    <h3> Lieux </h3>
     {{#each this.lieux}}
-    <div class = "inputLieux">
+    <div class = "inputCheck inputLieux">
     <input type = "radio" id = "lieux{{@index}}" name = "lieux" value = "{{this.id}}" class="lieux" required>
     <label for = "lieux{{@index}}">
-    <p>Lieux : {{this.nom}}</p>
+    <h4>{{this.nom}}</h4>
     <p>Adresse : {{this.adresse}}</p>
     <p>Nombre de places assises : {{this.nb_places_assises}} </p>
     <p>Nombre de places debout : {{this.nb_places_debout}} </p>
     </label>
     </div>
     {{/each}}
+    </div>
 
-    <p>Theme : </p>
+    <div id = "themesSoireeForm">
+    <h3>Theme : </h3>
     {{#each this.themes}} 
-    <div class = "inputThemes">
+    <div class = "inputCheck inputThemes">
     <input type = "radio" id = "themes{{@index}}" name = "theme" class = "themes" required value = {{this.id}}>
     <label for = "themes{{@index}}">{{this.label}}</label>
     </div>
-
     {{/each}}
+    </div>
 
+    <div id = "spectaclesSoireeForm">
+    <h3>Spectacles : </h3>
     {{#each this.spectacles}} 
-    <div class = "inputSpectacles">
+    <div class = "inputCheck inputSpectacles">
     <input type = "checkbox" id = "spectacles{{@index}}" name = "spectacles{{@index}}" value = "{{this.id}}" class="spectacles">
     <label for = "spectacles{{@index}}"> 
-    <h3>{{this.titre}}</h3>
+    <h4>{{this.titre}}</h4>
     <p>{{this.description}}</p>
     <p>Artistes : {{#each this.artistes}} {{this.prenom}} {{/each}}</p>
     </label>
+    </div>
     {{/each}}
+    </div>
     <button id = "submitSoiree" type = "submit"> Créer la soiree </button>
     </form>
     </script>
@@ -119,7 +131,7 @@
     <input type = "url" id = "url_video" name = "url_video">
     <div id = "inputsArtists">
     {{#each this}}
-    <div class = "inputArtist">
+    <div class = "inputCheck inputArtist">
     <input type = "checkbox" id = "artiste{{@index}}" name = "artiste{{@index}}" value = "{{this.id}}" class="artistes">
     <label for = "artiste{{@index}}">Artiste {{this.prenom}}</label>
     </div>
