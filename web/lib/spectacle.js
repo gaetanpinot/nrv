@@ -138,7 +138,7 @@ if (billetElement) {
 }
 
 
-function filter() {
+function Mes_filtres() {
     // todo fetch all soirées and sort distinct dates, place, style
 
     // todo insert this in appropriate select 
