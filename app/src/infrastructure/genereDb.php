@@ -9,7 +9,7 @@ $nbSoire = 13;
 $nbBillet = 30;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$drop = 'drop table if exists spectacle,soiree_panier,billet,spectacle_artistes,soiree,theme,panier,lieu_spectacle,utilisateur,artiste, spectacles_soiree cascade;';
+$drop = 'drop table if exists spectacle,soiree_panier,billet,spectacle_artistes,soiree,theme,panier,lieu_spectacle,utilisateur,artiste, spectacles_soiree,billet_panier cascade;';
 $theme = '
 create table theme(
 id int primary key,

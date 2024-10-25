@@ -7,16 +7,20 @@ use Monolog\Logger;
 use nrv\back\core\repositoryInterfaces\ArtisteRepositoryInterface;
 use nrv\back\core\repositoryInterfaces\SoireeRepositoryInterface;
 use nrv\back\core\repositoryInterfaces\SpectacleRepositoryInterface;
+use nrv\back\core\repositoryInterfaces\ThemeRepositoryInterface;
 use nrv\back\core\service\ArtisteService;
 use nrv\back\core\service\ArtisteServiceInterface;
+use nrv\back\core\service\Theme\ThemeServiceInterface;
 use nrv\back\core\service\lieu\LieuService;
 use nrv\back\core\service\lieu\LieuServiceInterface;
 use nrv\back\core\service\spectacle\SpectacleService;
 use nrv\back\core\service\spectacle\SpectacleServiceInterface;
+use nrv\back\core\service\theme\ThemeService;
 use nrv\back\infrastructure\Repositories\ArtisteRepository;
 use nrv\back\infrastructure\Repositories\LieuRepository;
 use nrv\back\infrastructure\Repositories\SoireeRepository;
 use nrv\back\infrastructure\Repositories\SpectacleRepository;
+use nrv\back\infrastructure\Repositories\ThemeRepository;
 use nrv\core\repositoryInterfaces\LieuRepositoryInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
@@ -32,10 +36,12 @@ return [
     SoireeRepositoryInterface::class => DI\autowire(SoireeRepository::class),
     LieuRepositoryInterface::class=>DI\autowire(LieuRepository::class),
     ArtisteRepositoryInterface::class=>DI\autowire(ArtisteRepository::class),
+    ThemeRepositoryInterface::class=> DI\autowire(ThemeRepository::class),
     //Services
     LieuServiceInterface::class=>DI\autowire(LieuService::class),
     SpectacleServiceInterface::class => DI\create(SpectacleService::class)->constructor(DI\get(ContainerInterface::class)),
     ArtisteServiceInterface::class=> DI\autowire(ArtisteService::class),
+    ThemeServiceInterface::class => DI\autowire(ThemeService::class),
     //PDO
     'pdo.commun' => function(ContainerInterface $c){
         $config= parse_ini_file($c->get('db.config'));

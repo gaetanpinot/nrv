@@ -24,6 +24,26 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
+  var __async = (__this, __arguments, generator) => {
+    return new Promise((resolve, reject) => {
+      var fulfilled = (value) => {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var rejected = (value) => {
+        try {
+          step(generator.throw(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+      step((generator = generator.apply(__this, __arguments)).next());
+    });
+  };
 
   // node_modules/handlebars/dist/cjs/handlebars/utils.js
   var require_utils = __commonJS({
@@ -1098,7 +1118,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars3) {
+      exports["default"] = function(Handlebars4) {
         (function() {
           if (typeof globalThis === "object") return;
           Object.prototype.__defineGetter__("__magic__", function() {
@@ -1108,11 +1128,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars3.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars3) {
+        Handlebars4.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars4) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars3;
+          return Handlebars4;
         };
       };
       module.exports = exports["default"];
@@ -5703,6 +5723,9 @@
   var URI_JAUGE = "/jauge";
   var URI_SPECTACLES = "/spectacles";
   var URI_ARTISTES = "/artistes";
+  var URI_THEMES = "/themes";
+  var URI_LIEUX = "/lieux";
+  var URI_SOIREE = "/soirees";
 
   // lib/jauge.js
   var TEMPLATE_SOIREES = import_handlebars.default.compile(
@@ -5750,7 +5773,7 @@
       url_video: getD("url_video")
     };
     let artistes = Array.from(e.target.querySelectorAll(".artistes"));
-    let checkedArtisteId = artistes.filter((artiste) => artiste.checked).map((artiste) => artiste.value);
+    let checkedArtisteId = artistes.filter((artiste) => artiste.checked).map((artiste) => artiste.value.trim());
     if (checkedArtisteId.length === 0) {
       alert("Vous n'avez pas sellection\xE9 d'artiste");
     } else {
@@ -5774,8 +5797,77 @@
     document.querySelector("#ajouterSpectacle").addEventListener("click", afficherSpectacleForm);
   }
 
+  // lib/soiree.js
+  var import_handlebars3 = __toESM(require_handlebars());
+  var TEMPLATE_FORM_SOIREE = import_handlebars3.default.compile(
+    document.querySelector("#templateFormSoiree").innerHTML
+  );
+  var handleResp = function(resp) {
+    if (resp.ok) {
+      return resp.json();
+    } else {
+      window.alert("Erreur lors de la requete");
+      console.log(resp.body);
+      return null;
+    }
+  };
+  var getInfoSoireeForm = function() {
+    return __async(this, null, function* () {
+      let dataForm = {};
+      dataForm.lieux = yield fetch(URL_API + URI_LIEUX).then(handleResp);
+      dataForm.themes = yield fetch(URL_API + URI_THEMES).then(handleResp);
+      dataForm.spectacles = yield fetch(URL_API + URI_SPECTACLES).then(handleResp);
+      document.querySelector("main").innerHTML = TEMPLATE_FORM_SOIREE(dataForm);
+      document.querySelector("#formSoiree").addEventListener("submit", submitSoireeForm);
+    });
+  };
+  var submitSoireeForm = function(e) {
+    e.preventDefault();
+    let formData = e.target.elements;
+    let getD = function($ch) {
+      return formData[$ch].value.trim();
+    };
+    console.log(getD("date"));
+    let submitData = {
+      nom: getD("nom"),
+      id_theme: getD("theme"),
+      date: getD("date"),
+      heure_debut: getD("debut"),
+      duree: getD("duree"),
+      lieu_id: getD("lieux"),
+      tarif_normal: getD("tarif_normal"),
+      tarif_reduit: getD("tarif_reduit")
+    };
+    let spectacles = Array.from(e.target.querySelectorAll(".spectacles"));
+    let checkedSpectaclesId = spectacles.filter((spectacle) => spectacle.checked).map((spectacle) => spectacle.value.trim());
+    if (checkedSpectaclesId.length === 0) {
+      window.alert("Vous n'avez pas s\xE9ll\xE9ction\xE9 de spectacles");
+    } else {
+      submitData.spectacles = checkedSpectaclesId;
+      console.log(submitData);
+      fetch(URL_API + URI_SOIREE, {
+        body: JSON.stringify(submitData),
+        headers: {
+          "content-type": "application/json"
+        },
+        method: "POST"
+      }).then((resp) => {
+        if (resp.ok) {
+          alert("La soiree \xE0 \xE9t\xE9 cr\xE9e sans probl\xE8me");
+        } else {
+          console.log(resp.status + " " + resp.body);
+          alert("Probl\xE8me lors de la cr\xE9ation de la soiree");
+        }
+      });
+    }
+  };
+  function listenerSoireeForm() {
+    document.querySelector("#ajouterSoiree").addEventListener("click", getInfoSoireeForm);
+  }
+
   // index.js
   listenerSpectacleForm();
   listenerJauge();
+  listenerSoireeForm();
 })();
 //# sourceMappingURL=index.js.map

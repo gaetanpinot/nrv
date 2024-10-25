@@ -4,7 +4,6 @@
   "description": "site web nancy rock vibration",
   "main": "index.js",
   "dependencies": {
-    "build": "^0.1.4",
     "esbuild": "^0.17.19",
     "handlebars": "^4.7.8"
   },

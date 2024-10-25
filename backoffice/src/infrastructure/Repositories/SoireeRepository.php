@@ -31,6 +31,8 @@ class SoireeRepository implements SoireeRepositoryInterface{
     }
     public function getSoirees(): array{
         $request = $this->pdo->prepare("SELECT soiree.*,
+            to_char(soiree.heure_debut, 'HH:MM') as heure_debut_format,
+            to_char(soiree.duree, 'HH:MM') as duree_format,
                                                 json_agg(json_build_object('id', spectacle.id, 'titre', spectacle.titre, 'description', spectacle.description, 'url_image', spectacle.url_image, 'url_video', spectacle.url_video, 
                                                     'artistes', (
                                                                    SELECT json_agg(json_build_object(
@@ -76,7 +78,8 @@ class SoireeRepository implements SoireeRepositoryInterface{
             }
 
             $retour = [];
-            $retour[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $lieu, $spectacles,
+            var_dump( $soiree['heure_debut_format']);
+            $retour[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut_format'], $soiree['duree_format'], $lieu, $spectacles,
                 $soiree['nb_places_assises_restantes'], $soiree['nb_places_debout_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
         }
         return $retour;
@@ -151,7 +154,22 @@ GROUP BY soiree.id, lieu_spectacle.id;
     }
 
     public function save(Soiree $soiree, array $spectacles = array()): void{
-        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heure_debut, duree, id_lieu, nb_places_assises_restantes, nb_places_debout_restantes, tarif_normal, tarif_reduit) VALUES (:id, :nom, :id_theme, :date, :heure_debut, :duree, :id_lieu, :nb_places_assises_restantes, :nb_places_debout_restantes, :tarif_normal, :tarif_reduit) ON CONFLICT (id) DO UPDATE SET nom = :nom, id_theme = :id_theme, date = :date, heure_debut = :heure_debut, duree = :duree, id_lieu = :id_lieu, nb_places_assises_restantes = :nb_places_assises_restantes, nb_places_debout_restantes = :nb_places_debout_restantes, tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit');
+        $request = $this->pdo->prepare('INSERT INTO soiree (id, nom, id_theme, date, heure_debut, duree, id_lieu, nb_places_assises_restantes, nb_places_debout_restantes, tarif_normal, tarif_reduit)
+            VALUES (:id, :nom, :id_theme, :date, :heure_debut, :duree, :id_lieu,
+            (select nb_places_assises from lieu_spectacle where id = :id_lieu),
+            (select nb_places_debout from lieu_spectacle where id = :id_lieu),
+            :tarif_normal, :tarif_reduit)
+            ON CONFLICT (id)
+            DO UPDATE SET 
+            nom = :nom,
+            id_theme = :id_theme,
+            date = :date,
+            heure_debut = :heure_debut,
+            duree = :duree,
+            id_lieu = :id_lieu,
+            nb_places_assises_restantes = (select nb_places_assises from lieu_spectacle where id = :id_lieu),
+            nb_places_debout_restantes = (select nb_places_debout from lieu_spectacle where id = :id_lieu),
+            tarif_normal = :tarif_normal, tarif_reduit = :tarif_reduit');
         $request->execute([
             'id' => $soiree->id,
             'nom' => $soiree->nom,
@@ -160,8 +178,6 @@ GROUP BY soiree.id, lieu_spectacle.id;
             'heure_debut' => $soiree->heure_debut->format('H:i:s'),
             'duree' => $soiree->duree->format('H:i:s'),
             'id_lieu' => $soiree->lieu->id,
-                'nb_places_assises_restantes' => $soiree->nb_places_assises_restantes,
-            'nb_places_debout_restantes' => $soiree->nb_places_debout_restantes,
             'tarif_normal' => $soiree->tarif_normal,
             'tarif_reduit' => $soiree->tarif_reduit
         ]);
@@ -206,6 +222,8 @@ GROUP BY soiree.id, lieu_spectacle.id;
         $query = "
 SELECT 
     soiree.*,
+            to_char(soiree.heure_debut, 'HH:MM') as heure_debut_format,
+            to_char(soiree.duree, 'HH:MM') as duree_format,
     json_build_object(
         'id', lieu_spectacle.id, 
         'nom', lieu_spectacle.nom, 
@@ -227,7 +245,7 @@ FROM soiree, lieu_spectacle where soiree.id_lieu = lieu_spectacle.id;
             // var_dump($l['lien_image']);
     // public function __construct(string $id, string $nom, string $adresse, string $nb_places_assises, string $nb_places_debout, array $lien_image)
             $lieu = new Lieu($l['id'],$l['nom'],$l['adresse'],$l['nb_places_assises'],$l['nb_places_debout'], (array)$l['lien_image']);
-            $res[] =  new Soiree($s['id'], $s['nom'], $s['id_theme'], $s['date'], $s['heure_debut'], $s['duree'], $lieu, [], $s['nb_places_assises_restantes'], $s['nb_places_debout_restantes'], $s['tarif_normal'], $s['tarif_reduit']) ;
+            $res[] =  new Soiree($s['id'], $s['nom'], $s['id_theme'], $s['date'], $s['heure_debut_format'], $s['duree_format'], $lieu, [], $s['nb_places_assises_restantes'], $s['nb_places_debout_restantes'], $s['tarif_normal'], $s['tarif_reduit']) ;
         }
 
         return $res;
