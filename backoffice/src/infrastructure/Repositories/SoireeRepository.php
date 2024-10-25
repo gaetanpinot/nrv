@@ -31,6 +31,8 @@ class SoireeRepository implements SoireeRepositoryInterface{
     }
     public function getSoirees(): array{
         $request = $this->pdo->prepare("SELECT soiree.*,
+            to_char(soiree.heure_debut, 'HH:MM') as heure_debut_format,
+            to_char(soiree.duree, 'HH:MM') as duree_format,
                                                 json_agg(json_build_object('id', spectacle.id, 'titre', spectacle.titre, 'description', spectacle.description, 'url_image', spectacle.url_image, 'url_video', spectacle.url_video, 
                                                     'artistes', (
                                                                    SELECT json_agg(json_build_object(
@@ -76,7 +78,8 @@ class SoireeRepository implements SoireeRepositoryInterface{
             }
 
             $retour = [];
-            $retour[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut'], $soiree['duree'], $lieu, $spectacles,
+            var_dump( $soiree['heure_debut_format']);
+            $retour[] = new Soiree($soiree['id'], $soiree['nom'], $soiree['id_theme'], $soiree['date'], $soiree['heure_debut_format'], $soiree['duree_format'], $lieu, $spectacles,
                 $soiree['nb_places_assises_restantes'], $soiree['nb_places_debout_restantes'], $soiree['tarif_normal'], $soiree['tarif_reduit']);
         }
         return $retour;
@@ -219,6 +222,8 @@ GROUP BY soiree.id, lieu_spectacle.id;
         $query = "
 SELECT 
     soiree.*,
+            to_char(soiree.heure_debut, 'HH:MM') as heure_debut_format,
+            to_char(soiree.duree, 'HH:MM') as duree_format,
     json_build_object(
         'id', lieu_spectacle.id, 
         'nom', lieu_spectacle.nom, 
@@ -240,7 +245,7 @@ FROM soiree, lieu_spectacle where soiree.id_lieu = lieu_spectacle.id;
             // var_dump($l['lien_image']);
     // public function __construct(string $id, string $nom, string $adresse, string $nb_places_assises, string $nb_places_debout, array $lien_image)
             $lieu = new Lieu($l['id'],$l['nom'],$l['adresse'],$l['nb_places_assises'],$l['nb_places_debout'], (array)$l['lien_image']);
-            $res[] =  new Soiree($s['id'], $s['nom'], $s['id_theme'], $s['date'], $s['heure_debut'], $s['duree'], $lieu, [], $s['nb_places_assises_restantes'], $s['nb_places_debout_restantes'], $s['tarif_normal'], $s['tarif_reduit']) ;
+            $res[] =  new Soiree($s['id'], $s['nom'], $s['id_theme'], $s['date'], $s['heure_debut_format'], $s['duree_format'], $lieu, [], $s['nb_places_assises_restantes'], $s['nb_places_debout_restantes'], $s['tarif_normal'], $s['tarif_reduit']) ;
         }
 
         return $res;
