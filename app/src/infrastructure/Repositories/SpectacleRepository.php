@@ -30,7 +30,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         'offset'=> $decalage);
 
         if($filtre != null){
-            if(isset($filtre['date']) && $filtre['date'] != null){
+            if(isset($filtre['date']) && $filtre['date'] != null && $filtre['date']['sens'] != 'all'){
                 $where .= ' ';
                 $order = ' order by soiree.date '.$filtre['date']['sens'].' ';
             }
@@ -53,7 +53,7 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             "spectacles_soiree,
             soiree
             where".$where.
-            "spectacle.id = spectacles_soiree.id_spectacle and
+            " spectacle.id = spectacles_soiree.id_spectacle and
             spectacles_soiree.id_soiree = soiree.id
             group by spectacle.id, soiree.date".$order."
             limit :limit
