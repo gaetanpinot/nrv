@@ -28,7 +28,7 @@ function pagi(aa) {
         .then((resp) => resp.json())
         .then((data) => {
             data.forEach(function(val) {
-                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val);
+                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val.trim());
             });
         })
         .then(() => {
@@ -106,7 +106,7 @@ export function afficheSpectacles() {
             renderTemplate('main-content', data, TEMPLATE_SPECTACLE);
             console.log(data);
             data.forEach(function(val) {
-                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val);
+                document.querySelector('#liste-concert').innerHTML += TEMPLATE_SPECTACLE(val.trim());
             });
         }).then(() => {
             document.querySelectorAll(".footer-concert-button").forEach((e) => {
@@ -119,23 +119,26 @@ export function afficheSpectacles() {
 }
 
 function afficheSoiree(idSpectacles) {
-    //console.log('affiche soiree ' + idSpectacles);
     let uri = URL_API + '/spectacles/' + idSpectacles + '/soirees';
-    //console.log(uri);
     fetch(uri)
         .then((resp) => resp.json())
         .then((data) => {
+            let insertion = document.querySelector('#liste-concert');
+            if (insertion) {
+                insertion.setAttribute("id", "liste-soiree");
+            } else {
+                console.error("Élément #liste-concert introuvable.");
+                return;
+            }
+
+            insertion.innerHTML = "";
             data.forEach((val) => {
-                let insertion = document.querySelector('#liste-concert');
-                //console.log(insertion);
-                insertion.innerHTML = "";
                 insertion.innerHTML += TEMPLATE_SOIREE(val);
-                if (insertion) {
-                    insertion.setAttribute("id", "template-soiree");
-                }
             });
-        });
+        })
+        .catch((error) => console.error("Erreur lors de la récupération des données:", error));
 }
+
 
 
 function filter() {

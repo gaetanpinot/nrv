@@ -62,7 +62,7 @@
                         <img src="./img/panier.svg " alt="panier ">
                     </li>
                     <li id="img-compte">
-                        <img src="https://i.pravatar.cc/300 " alt="compte ">
+                        <img src="./img/account.svg" alt="compte ">
                     </li>
                 </ul>
             </nav>
@@ -233,19 +233,19 @@
                         <li id="reduit ">Tarif réduit: {{this.tarif_reduit}}</li>
                     </ul>
                 </li>
-                <li class="places ">
+                <li class="places">
                     <ul>
                         <li>Places restantes</li>
-                        <li id="assises ">{{this.nb_places_assises_restantes}} places assises</li>
-                        <li id="debout ">{{this.nb_places_debout_restantes}} places debout</li>
+                        <li id="assises">{{this.nb_places_assises_restantes}} places assises</li>
+                        <li id="debout">{{this.nb_places_debout_restantes}} places debout</li>
                     </ul>
                 </li>
             </ul>
-            <div id="grid-concerts ">
+            <div id="grid-concerts">
                 {{#each this.spectacles}}
-                <div class="concerts " data-id="{{this.id}} ">
+                <div class="concerts" data-id="{{this.id}}">
 
-                    <h4 class="title representation toggle ">{{this.titre}}</h4>
+                    <h4 class="title representation toggle">{{this.titre}}</h4>
                     <div class="info-concert ">
 
                         <div class="description ">
@@ -262,7 +262,7 @@
                 </div>
                 {{/each}}
             </div>
-            <button id="billet " data-soiree="{{this.id}} ">Prendre un billet</button>
+            <button id="billet " data-soiree="{{this.id}}">Prendre un billet</button>
 
         </article>
     </script>
@@ -284,7 +284,7 @@
                     </ul>
                 </div>
             </div>
-            <button class="footer-concert-button " data-id="{{this.id}} ">Soir ou ce concert est présent</button>
+            <button class="footer-concert-button " data-id="{{this.id}}">Soir ou ce concert est présent</button>
         </article>
     </script>
 

@@ -5758,7 +5758,7 @@
     document.getElementById("retour-concert").addEventListener("click", resetToConcertList);
     document.querySelectorAll(".footer-concert-button").forEach((e) => {
       e.addEventListener("click", () => {
-        afficheSoiree(e.dataset.id);
+        afficheSoiree(e.dataset.id.trim());
       });
     });
   }
@@ -5772,8 +5772,21 @@
     showLoader();
     const uri = `${URL_API}/spectacles/${idSpectacles}/soirees`;
     fetch(uri).then((resp) => resp.json()).then((data) => {
-      renderTemplate(TEMPLATE_SOIREE, { soiree: data });
+      rendersoiree(data);
     }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration des soirees :", err)).finally(() => hideLoader());
+  }
+  function rendersoiree(data) {
+    let insertion = document.querySelector("#liste-concert");
+    if (insertion) {
+      insertion.setAttribute("id", "liste-soiree");
+    } else {
+      console.error("\xC9l\xE9ment #liste-concert introuvable.");
+      return;
+    }
+    insertion.innerHTML = "";
+    data.forEach((val) => {
+      insertion.innerHTML += TEMPLATE_SOIREE(val);
+    });
   }
   function resetToConcertList() {
     loadConcerts();
