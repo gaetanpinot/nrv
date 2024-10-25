@@ -27,13 +27,13 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->get('/artistes[/]', GetArtistes::class);
 
-    $app->get('/lieus[/]', GetLieus::class);
+    $app->get('/lieux[/]', GetLieus::class);
 
     $app->get('/themes[/]', GetThemesAction::class);
 
-    $app->delete('/lieus[/]', SupprimerLieuAction::class);
+    $app->delete('/lieux[/]', SupprimerLieuAction::class);
 
-    $app->put('/lieus[/]', AjouterModifierLieuAction::class);
+    $app->put('/lieux[/]', AjouterModifierLieuAction::class);
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;

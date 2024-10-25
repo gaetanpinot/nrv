@@ -75,7 +75,15 @@
     <input id = "tarif_reduit" type = "number" max = "750">
 
     {{#each this.lieux}}
-
+    <div class = "inputLieux">
+    <input type = "radio" id = "lieux{{@index}}" name = "lieux" value = "{{this.id}}" class="lieux">
+    <label for = "lieux{{@index}}">
+    <p>Lieux : {{this.nom}}</p>
+    <p>Adresse : {{this.adresse}}</p>
+    <p>Nombre de places assises : {{this.nb_places_assises}} </p>
+    <p>Nombre de places debout : {{this.nb_places_debout}} </p>
+    </label>
+    </div>
     {{/each}}
 
     {{#each this.themes}} 
@@ -83,10 +91,10 @@
     {{/each}}
 
     {{#each this.spectacles}} 
-    
+
     {{/each}}
     </form>
-</script>
+    </script>
 <script id="templateFormSpectacle" type="text/x-handlebars-template">
     <form enctype="multipart/form-data" id ="formSpectacle">
     <label for = "titre"> Titre du spectacle</label>
@@ -100,13 +108,13 @@
     <div id = "inputsArtists">
     {{#each this}}
     <div class = "inputArtist">
-        <input type = "checkbox" id = "artiste{{@index}}" name = "artiste{{@index}}" value = "{{this.id}}" class="artistes">
-        <label for = "artiste{{@index}}">Artiste {{this.prenom}}</label>
+    <input type = "checkbox" id = "artiste{{@index}}" name = "artiste{{@index}}" value = "{{this.id}}" class="artistes">
+    <label for = "artiste{{@index}}">Artiste {{this.prenom}}</label>
     </div>
     {{/each}}
     </div>
     <button id = "submitSpectacle" type="submit">Créer le spectacle</button>
     </form>
-</script>
+    </script>
 
 </html>
