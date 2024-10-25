@@ -5752,7 +5752,7 @@
     pagi(1);
   });
   document.querySelector("#retour-concert").addEventListener("click", function() {
-    let insertion = document.querySelector("#template-soiree");
+    let insertion = document.querySelector("#liste-soiree");
     pagination = 0;
     if (insertion) {
       insertion.setAttribute("id", "liste-concert");
@@ -5788,15 +5788,18 @@
   function afficheSoiree(idSpectacles) {
     let uri = URL_API + "/spectacles/" + idSpectacles + "/soirees";
     fetch(uri).then((resp) => resp.json()).then((data) => {
+      let insertion = document.querySelector("#liste-concert");
+      if (insertion) {
+        insertion.setAttribute("id", "liste-soiree");
+      } else {
+        console.error("\xC9l\xE9ment #liste-concert introuvable.");
+        return;
+      }
+      insertion.innerHTML = "";
       data.forEach((val) => {
-        let insertion = document.querySelector("#liste-concert");
-        insertion.innerHTML = "";
         insertion.innerHTML += TEMPLATE_SOIREE(val);
-        if (insertion) {
-          insertion.setAttribute("id", "template-soiree");
-        }
       });
-    });
+    }).catch((error) => console.error("Erreur lors de la r\xE9cup\xE9ration des donn\xE9es:", error));
   }
   var billetElement = document.querySelector("#billet");
   if (billetElement) {

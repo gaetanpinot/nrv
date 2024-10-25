@@ -291,7 +291,7 @@ main #pagination {
     }
 }
 
-main #template-soiree {
+main #liste-soiree {
     #filtre {
         @extend %second-background;
         height: 80px;
@@ -543,7 +543,7 @@ footer {
                 }
             }
         }
-        main #template-soiree {
+        main #liste-soiree {
             padding-top: 20px;
             grid-template-columns: repeat(1, 1fr);
             grid-template-rows: minmax(800px, 2000px) auto;
@@ -711,7 +711,7 @@ footer {
                 }
             }
         }
-        main #template-soiree {
+        main #liste-soiree {
             padding-top: 20px;
             grid-template-columns: repeat(1, 1fr);
             grid-template-rows: minmax(800px, 2000px) auto;
@@ -879,7 +879,7 @@ footer {
                 }
             }
         }
-        main #template-soiree {
+        main #liste-soiree {
             padding-top: 20px;
             grid-template-columns: repeat(1, 1fr);
             grid-template-rows: minmax(800px, 2000px) auto;
