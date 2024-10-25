@@ -114,6 +114,15 @@ foreign key(id_soiree) references soiree(id),
 foreign key(id_panier) references panier(id)
 );';
 
+$billet_panier = '
+create table billet_panier(
+id_billet uuid ,
+id_panier uuid ,
+primary key (id_billet, id_panier),
+foreign key(id_billet) references billet(id),
+foreign key(id_panier) references panier(id)
+);';
+
 $config= parse_ini_file(__DIR__ . '/../../config/pdoConfig.ini');
 $co =  new PDO($config['driver'].':host='.$config['host'].';port='.$config['port'].';dbname='.$config['dbname'].';user='.$config['user'].';password='.$config['password']);
 
@@ -129,6 +138,7 @@ $co->exec($spectacles_artistes);
 $co->exec($billet);
 $co->exec($soiree_panier);
 $co->exec($spectacles_soiree);
+$co->exec($billet_panier);
 $faker = Faker\Factory::create('fr_FR');
 
 $theme=[
@@ -368,4 +378,6 @@ foreach($soireeArray as $soir){
 	}
 
 }
+
+
 

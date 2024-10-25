@@ -22,7 +22,7 @@ return function (\Slim\App $app): \Slim\App {
     
     $app->get('/spectacles[/]', AfficheListeSpectaclesAction::class);
 
-    $app->post('/inscription[/]', [InscriptionAction::class, 'inscription']);
+    $app->post('/inscription[/]', InscriptionAction::class);
 
     $app->post('/connexion[/]', ConnexionAction::class);
 
@@ -31,7 +31,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/utilisateur/{id}/paniers[/]', GetPanierByIdAction::class);
 
     $app->post('/panier/ajouter-billet', AjouterBilletDansPanierAction::class);
-    
+
     $app->get('/lieux[/]', \nrv\application\actions\GetLieuxAction::class);
 
     $app->options('/{routes:.+}', function ($request, $response, $args) {

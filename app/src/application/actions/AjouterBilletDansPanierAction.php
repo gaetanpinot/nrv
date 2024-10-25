@@ -25,6 +25,7 @@ class AjouterBilletDansPanierAction extends AbstractAction
         $id_soiree = $data['id_soiree'];
         $tarif = 0;
 
+
         try {
             $this->billetPanierService->ajouterBilletAuPanier($id_utilisateur, $id_soiree, $tarif);
             $rs->getBody()->write(json_encode(['status' => 'success', 'message' => 'Billet ajouté au panier']));

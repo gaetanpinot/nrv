@@ -38,10 +38,10 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function save(Billet $billet): void
     {
-        $request = $this->pdo->prepare('INSERT INTO billet (id, id_user, id_soiree, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_user = :id_utilisateur, id_soiree = :id_soiree, tarif = :tarif');
+        $request = $this->pdo->prepare('INSERT INTO billet (id, id_utilisateur, id_soiree, tarif) VALUES (:id, :id_utilisateur, :id_soiree, :tarif) ON CONFLICT (id) DO UPDATE SET id_utilisateur = :id_utilisateur, id_soiree = :id_soiree, tarif = :tarif');
         $request->execute([
             'id' => $billet->id,
-            'id_utilisateur' => $billet->id_user,
+            'id_utilisateur' => $billet->id_utilisateur,
             'id_soiree' => $billet->id_spectacle,
             'tarif' => $billet->tarif,
         ]);
@@ -49,10 +49,10 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function updateBillet(Billet $billet): void
     {
-        $request = $this->pdo->prepare('UPDATE billet SET id_user = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif WHERE id = :id');
+        $request = $this->pdo->prepare('UPDATE billet SET id_utilisateur = :id_utilisateur, id_spectacle = :id_soiree, tarif = :tarif WHERE id = :id');
         $request->execute([
             'id' => $billet->id,
-            'id_utilisateur' => $billet->id_user,
+            'id_utilisateur' => $billet->id_utilisateur,
             'id_soiree' => $billet->id_spectacle,
             'tarif' => $billet->tarif,
         ]);
@@ -64,18 +64,17 @@ class BilletRepository implements BilletRepositoryInterface
         $request->execute(['id' => $id]);
     }
 
-    public function findByUserIdAndSoiree(string $id_utilisateur, string $id_soiree): ?Billet
+    public function getMesBillets(): array
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM billet WHERE id_user = :id_utilisateur AND id_soiree = :id_soiree');
-        $stmt->execute(['id_utilisateur' => $id_utilisateur, 'id_soiree' => $id_soiree]);
+        $query = '
+        SELECT billet.* 
+        FROM billet
+        INNER JOIN billet_panier ON billet.id = billet_panier.id_billet
+        INNER JOIN panier ON panier.id = billet_panier.id_panier
+        WHERE panier.is_valide = true
+    ';
 
-        $result = $stmt->fetch();
-
-        if (!$result) {
-            return null;
-        }
-
-        return new Billet($result['id'], $result['id_user'], $result['id_soiree'], $result['tarif']);
+        return $this->pdo->query($query)->fetchAll();
     }
 
 }
