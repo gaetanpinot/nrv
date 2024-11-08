@@ -30,7 +30,7 @@ function fetchPanierData() {
     const token = localStorage.getItem("jwt");
 
     let userId= localStorage.getItem('id');
-    return fetch(`${URL_API}/utilisateur/${userId}/paniers`, {
+    return fetch(`${URL_API}/utilisateurs/${userId}/panier`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -61,7 +61,7 @@ function handlePayment(panierId) {
     const cvc = document.getElementById(`cvc-${panierId}`).value;
 
     let userId= localStorage.getItem('id');
-    fetch(`${URL_API}/utilisateur/${userId}/paniers/${panierId}/payment`, {
+    fetch(`${URL_API}/utilisateurs/${userId}/panier/${panierId}/payment`, {
         method: "POST",
         headers: {
             'Authorization': `Bearer ${token}`,

@@ -67,7 +67,7 @@ function create_billet(data, idSoiree) {
 
             console.log(token);
             // Envoie les données au serveur en POST
-            fetch(`${URL_API}/panier/ajouter-billet`, {
+            fetch(`${URL_API}/panier/billet`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

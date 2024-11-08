@@ -26,13 +26,13 @@ return function (\Slim\App $app): \Slim\App {
 
     $app->post('/inscription[/]', InscriptionAction::class);
 
-    $app->post('/connexion[/]', ConnexionAction::class);
+    $app->post('/utilisateur[/]', ConnexionAction::class);
 
-    $app->get('/utilisateur/{id}/billets[/]', GetUserBilletsAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
+    $app->get('/utilisateurs/{id}/billets[/]', GetUserBilletsAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
 
-    $app->get('/utilisateur/{id}/paniers[/]', GetPanierByIdAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
+    $app->get('/utilisateurs/{id}/panier[/]', GetPanierByIdAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
 
-    $app->post('/panier/ajouter-billet', AjouterBilletDansPanierAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
+    $app->post('/panier/billet', AjouterBilletDansPanierAction::class)->add(new \nrv\application\middlewares\JwtMiddleware());
 
     $app->get('/lieux[/]', GetLieuxAction::class);
 
