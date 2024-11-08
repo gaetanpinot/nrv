@@ -5730,7 +5730,7 @@
   // lib/mesbillets.js
   function fetchUserTickets() {
     const userId = parseJwt(localStorage.getItem("jwt")).sub;
-    fetch(`${URL_API}/utilisateur/${userId}/billets`, {
+    fetch(`${URL_API}/utilisateurs/${userId}/billets`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
@@ -5802,7 +5802,7 @@
     event.preventDefault();
     const email = document.querySelector("#login-form input[type='email']").value;
     const password = document.querySelector("#login-form input[type='password']").value;
-    fetch(`${URL_API2}/connexion`, {
+    fetch(`${URL_API2}/utilisateur`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
@@ -5883,7 +5883,7 @@
         let dataform = `token=${token}&place=${place}&tarif=${tarif}&soiree=${idSoiree}`;
         console.log(dataform);
         console.log(token);
-        fetch(`${URL_API3}/panier/ajouter-billet`, {
+        fetch(`${URL_API3}/panier/billet`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -6055,7 +6055,7 @@
   function fetchPanierData() {
     const token = localStorage.getItem("jwt");
     let userId = localStorage.getItem("id");
-    return fetch(`${URL_API}/utilisateur/${userId}/paniers`, {
+    return fetch(`${URL_API}/utilisateurs/${userId}/panier`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
@@ -6079,7 +6079,7 @@
     const expiryDate = document.getElementById(`expiry-date-${panierId}`).value;
     const cvc = document.getElementById(`cvc-${panierId}`).value;
     let userId = localStorage.getItem("id");
-    fetch(`${URL_API}/utilisateur/${userId}/paniers/${panierId}/payment`, {
+    fetch(`${URL_API}/utilisateurs/${userId}/panier/${panierId}/payment`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,

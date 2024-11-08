@@ -52,7 +52,7 @@ function handleLogin(event) {
     const email = document.querySelector("#login-form input[type='email']").value;
     const password = document.querySelector("#login-form input[type='password']").value;
 
-    fetch(`${URL_API}/connexion`, {
+    fetch(`${URL_API}/utilisateur`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })

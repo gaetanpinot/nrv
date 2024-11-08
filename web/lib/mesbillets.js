@@ -2,7 +2,7 @@ import {URL_API} from './settings.js';
 export function fetchUserTickets() {
     const userId= parseJwt(localStorage.getItem("jwt")).sub;
 
-    fetch(`${URL_API}/utilisateur/${userId}/billets`, {
+    fetch(`${URL_API}/utilisateurs/${userId}/billets`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem("jwt")}`,
