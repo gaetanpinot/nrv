@@ -17,9 +17,9 @@ $app = AppFactory::createFromContainer($c);
 
 
 $app->addBodyParsingMiddleware();
-$app->addRoutingMiddleware();
 $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false);
 $app->addMiddleware($c->get(CorsMiddleware::class));
+$app->addRoutingMiddleware();
 //$app->addMiddleware($c->get(\nrv\application\middlewares\JwtMiddleware::class));
 
 $app = (require_once __DIR__ . '/routes.php')($app);
