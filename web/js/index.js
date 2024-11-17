@@ -24,6 +24,26 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
+  var __async = (__this, __arguments, generator) => {
+    return new Promise((resolve, reject) => {
+      var fulfilled = (value) => {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var rejected = (value) => {
+        try {
+          step(generator.throw(value));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+      step((generator = generator.apply(__this, __arguments)).next());
+    });
+  };
 
   // node_modules/handlebars/dist/cjs/handlebars/utils.js
   var require_utils = __commonJS({
@@ -5716,12 +5736,15 @@
   });
 
   // lib/spectacle.js
-  var import_handlebars3 = __toESM(require_handlebars());
+  var import_handlebars4 = __toESM(require_handlebars());
 
   // lib/billet.js
-  var import_handlebars2 = __toESM(require_handlebars());
+  var import_handlebars3 = __toESM(require_handlebars());
 
   // lib/compte.js
+  var import_handlebars2 = __toESM(require_handlebars());
+
+  // lib/mesbillets.js
   var import_handlebars = __toESM(require_handlebars());
 
   // lib/settings.js
@@ -5737,8 +5760,8 @@
         "Content-Type": "application/json"
       }
     }).then((resp) => resp.json()).then((data) => {
-      if (data && data.billets) {
-        displayTickets(data.billets);
+      if (data) {
+        displayTickets(data);
       } else {
         alert("Aucun billet achet\xE9 trouv\xE9.");
       }
@@ -5755,7 +5778,7 @@
   function displayTickets(billets) {
     const main = document.querySelector("main");
     const templateSource = document.querySelector("#templateUserTickets").innerHTML;
-    const template = Handlebars.compile(templateSource);
+    const template = import_handlebars.default.compile(templateSource);
     main.innerHTML = template({ billets });
   }
 
@@ -5769,9 +5792,9 @@
     const main = document.querySelector("main");
     console.log(isAuthenticated());
     if (isAuthenticated()) {
-      TEMPLATE_ACCOUNT = import_handlebars.default.compile(document.querySelector("#templateAccountAuth").innerHTML);
+      TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccountAuth").innerHTML);
     } else {
-      TEMPLATE_ACCOUNT = import_handlebars.default.compile(document.querySelector("#templateAccountNonAuth").innerHTML);
+      TEMPLATE_ACCOUNT = import_handlebars2.default.compile(document.querySelector("#templateAccountNonAuth").innerHTML);
     }
     main.innerHTML = TEMPLATE_ACCOUNT();
     isAuthenticated() ? setAuthenticatedEventListeners() : setUnauthenticatedEventListeners();
@@ -5846,7 +5869,7 @@
 
   // lib/billet.js
   var URL_API3 = "http://localhost:44010";
-  var TEMPLATE_BILLET = import_handlebars2.default.compile(document.querySelector("#templateBillet").innerHTML);
+  var TEMPLATE_BILLET = import_handlebars3.default.compile(document.querySelector("#templateBillet").innerHTML);
   function package_billet(idSoiree) {
     document.querySelector(".prendre-billet").addEventListener("click", function() {
       const uri = `${URL_API3}/soirees/${idSoiree}`;
@@ -5916,9 +5939,9 @@
   var URL_API4 = "http://localhost:44010";
   var FILTRES = "";
   var ancien_filtres = "";
-  var TEMPLATE_CONCERTS = import_handlebars3.default.compile(document.querySelector("#templateConcerts").innerHTML);
-  var TEMPLATE_SPECTACLE = import_handlebars3.default.compile(document.querySelector("#templateSpectacle").innerHTML);
-  var TEMPLATE_SOIREE = import_handlebars3.default.compile(document.querySelector("#templateSoiree").innerHTML);
+  var TEMPLATE_CONCERTS = import_handlebars4.default.compile(document.querySelector("#templateConcerts").innerHTML);
+  var TEMPLATE_SPECTACLE = import_handlebars4.default.compile(document.querySelector("#templateSpectacle").innerHTML);
+  var TEMPLATE_SOIREE = import_handlebars4.default.compile(document.querySelector("#templateSoiree").innerHTML);
   var pagination = 0;
   function showLoader() {
     const loader = document.getElementById("loader");
@@ -6036,8 +6059,8 @@
   }
 
   // lib/panier.js
-  var import_handlebars4 = __toESM(require_handlebars());
-  var TEMPLATE_TICKETS = import_handlebars4.default.compile(document.querySelector("#templateTickets").innerHTML);
+  var import_handlebars5 = __toESM(require_handlebars());
+  var TEMPLATE_TICKETS = import_handlebars5.default.compile(document.querySelector("#templateTickets").innerHTML);
   function isAuthenticated2() {
     return localStorage.getItem("jwt") !== null;
   }
@@ -6048,21 +6071,27 @@
       return;
     }
     fetchPanierData().then((paniers) => {
-      main.innerHTML = TEMPLATE_TICKETS({ paniers });
+      let total = paniers.reduce((ac, cur) => ac + cur.tarif, 0);
+      main.innerHTML = TEMPLATE_TICKETS({ paniers, total });
+      console.log(paniers);
       setPanierEventListeners();
     }).catch((error) => console.error("Erreur de chargement des billets:", error));
   }
   function fetchPanierData() {
-    const token = localStorage.getItem("jwt");
-    let userId = localStorage.getItem("id");
-    return fetch(`${URL_API}/utilisateurs/${userId}/panier`, {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }).then((response) => {
-      if (!response.ok)
-        throw new Error("Erreur de r\xE9cup\xE9ration des donn\xE9es du panier");
-      return response.json();
+    return __async(this, null, function* () {
+      const token = localStorage.getItem("jwt");
+      let userId = localStorage.getItem("id");
+      let json = yield fetch(`${URL_API}/utilisateurs/${userId}/panier`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur de r\xE9cup\xE9ration des donn\xE9es du panier");
+        }
+        return response.json();
+      });
+      return json;
     });
   }
   function setPanierEventListeners() {

@@ -1,0 +1,22 @@
+meta {
+  name: signin
+  type: http
+  seq: 11
+}
+
+post {
+  url: http://localhost:44010/utilisateur
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email":"user@mail.com",
+    "password":"1234"
+  }
+}
+
+script:post-response {
+  bru.setVar("token", res.body.token )
+}

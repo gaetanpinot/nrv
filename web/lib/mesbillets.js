@@ -1,6 +1,7 @@
-import {URL_API} from './settings.js';
+import Handlebars from 'handlebars';
+import { URL_API } from './settings.js';
 export function fetchUserTickets() {
-    const userId= parseJwt(localStorage.getItem("jwt")).sub;
+    const userId = parseJwt(localStorage.getItem("jwt")).sub;
 
     fetch(`${URL_API}/utilisateurs/${userId}/billets`, {
         method: 'GET',
@@ -11,8 +12,8 @@ export function fetchUserTickets() {
     })
         .then(resp => resp.json())
         .then(data => {
-            if (data && data.billets) {
-                displayTickets(data.billets);
+            if (data) {
+                displayTickets(data);
             } else {
                 alert('Aucun billet acheté trouvé.');
             }

@@ -21,23 +21,13 @@ class PanierService
         $this->pdo = $cont->get('pdo.commun');
     }
 
-    public function getPanierById(string $userId): array
+    public function getPanierByUserId(string $userId): array
     {
-        $billets = $this->panierRepository->getPanierBillets();
-        $userBillets = [];
+        $billets = $this->panierRepository->getPanierBilletsByUserId($userId);
 
-        foreach ($billets as $billet) {
-            if ($billet['id_utilisateur'] === $userId) {
-                $userBillets[] = new BilletDTO(new Billet(
-                    $billet['id'],
-                    $billet['id_utilisateur'],
-                    $billet['id_soiree'],
-                    $billet['tarif']
-                ));
-            }
-        }
-
-        return $userBillets;
+        return array_map(function($b){
+            return new BilletDTO($b);
+        }, $billets);
     }
 
 }

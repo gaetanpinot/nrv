@@ -326,13 +326,14 @@
     <div id="tickets-list">
         {{#each paniers}}
             <div class="ticket">
+        <p>Soiree : {{soiree.nom}}, le {{soiree.date}} à {{soiree.heure_debut}} </p>
                 <p>État: {{#if is_valide}}Payé{{else}}Non payé{{/if}}</p>
-                <p>Total: {{total}} €</p>
+                <p>Prix: {{tarif}} €</p>
             </div>
         {{/each}}
+        <p>Total : {{total}} €</p>
     </div>
 
-    {{#unless (every paniers 'is_valide')}}
         <form id="payment-form">
             <h3>Paiement</h3>
             <label>Numéro de carte:</label>
@@ -343,7 +344,6 @@
             <input type="text" id="cvc" required>
             <button type="submit">Payer</button>
         </form>
-    {{/unless}}
 </script>
     <footer>
         <div class="footer-content">

@@ -4,6 +4,9 @@ namespace nrv\infrastructure\Repositories;
 
 use DI\Container;
 use nrv\core\domain\entities\Billet\Billet;
+use nrv\core\domain\entities\Lieu\Lieu;
+use nrv\core\domain\entities\Soiree\Soiree;
+use nrv\core\domain\entities\Theme\Theme;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
 use nrv\infrastructure\Exceptions\NoDataFoundException;
 use PDO;
@@ -67,26 +70,33 @@ class BilletRepository implements BilletRepositoryInterface
 
     public function getMesBillets(string $id): array
     {
-        $query = '
-        select billet.* from 
+$query = '
+        select 
+        billet.* ,
+        soiree.*
+        from 
             panier,
             billet_panier,
-            billet
+        billet,
+        soiree
         where 
             panier.id = billet_panier.id_panier and
             billet.id = billet_panier.id_billet and
             panier.id_utilisateur = :id and
-            panier.is_valide = false;';
+            soiree.id = billet.id_soiree and
+            panier.is_valide = true;';
         try{
         $res = $this->pdo->prepare($query);
         $res->execute(['id' => $id]);
         $billets = $res->fetchAll(PDO::FETCH_ASSOC);
 
         $retour = array_map(function($b){
+                $soiree = new Soiree($b['id_soiree'], $b['nom'], new Theme($b['id_theme'],""), $b['date'], $b['heure_debut'], $b['duree'], new Lieu('','','','','',[]), [],
+                $b['nb_places_assises_restantes'], $b['nb_places_debout_restantes'], $b['tarif_normal'], $b['tarif_reduit']);
             return new Billet(
                 $b['id'],
                 $b['id_utilisateur'],
-                $b['id_soiree'],
+                    $soiree,
                 $b['tarif']
             );
         },$billets);

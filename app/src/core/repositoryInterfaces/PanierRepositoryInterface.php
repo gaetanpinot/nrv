@@ -13,4 +13,5 @@ interface PanierRepositoryInterface
     public function save(Panier $panier): void;
     public function updatePanier(Panier $panier): void;
     public function deletePanier(string $id): void;
+    public function getPanierBilletsByUserId(string $userId): array;
 }

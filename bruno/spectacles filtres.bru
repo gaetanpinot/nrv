@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: http://localhost:44010/spectacles?page=0&nombre=12
+  url: http://localhost:44010/spectacles?page=0&nombre=12&lieu=all&date=DESC&style=all
   body: none
   auth: none
 }
@@ -13,7 +13,7 @@ get {
 params:query {
   page: 0
   nombre: 12
-  ~lieu: all
-  ~date: DESC
-  ~style: all
+  lieu: all
+  date: DESC
+  style: all
 }

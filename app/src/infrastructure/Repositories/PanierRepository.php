@@ -5,7 +5,10 @@ namespace nrv\infrastructure\Repositories;
 use DI\Container;
 use nrv\core\domain\entities\Artiste\Artiste;
 use nrv\core\domain\entities\Billet\Billet;
+use nrv\core\domain\entities\Lieu\Lieu;
 use nrv\core\domain\entities\Panier\Panier;
+use nrv\core\domain\entities\Soiree\Soiree;
+use nrv\core\domain\entities\Theme\Theme;
 use nrv\core\repositoryInterfaces\ArtisteRepositoryInterface;
 use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
 use nrv\core\repositoryInterfaces\PanierRepositoryInterface;
@@ -91,17 +94,43 @@ class PanierRepository implements PanierRepositoryInterface
 
     }
 
-    public function getPanierBillets(): array
+    public function getPanierBilletsByUserId(string $id): array
     {
-        $query = '
-        SELECT billet.* 
-        FROM billet
-        INNER JOIN billet_panier ON billet.id = billet_panier.id_billet
-        INNER JOIN panier ON panier.id = billet_panier.id_panier
-        WHERE panier.is_valide = false
-    ';
+ $query = '
+        select 
+        billet.* ,
+        soiree.*
+        from 
+            panier,
+            billet_panier,
+        billet,
+        soiree
+        where 
+            panier.id = billet_panier.id_panier and
+            billet.id = billet_panier.id_billet and
+            panier.id_utilisateur = :id and
+            soiree.id = billet.id_soiree and
+            panier.is_valide = false;';
+        try{
+        $res = $this->pdo->prepare($query);
+        $res->execute(['id' => $id]);
+        $billets = $res->fetchAll(PDO::FETCH_ASSOC);
 
-        return $this->pdo->query($query)->fetchAll();
+        $retour = array_map(function($b){
+                $soiree = new Soiree($b['id_soiree'], $b['nom'], new Theme($b['id_theme'],""), $b['date'], $b['heure_debut'], $b['duree'], new Lieu('','','','','',[]), [],
+                $b['nb_places_assises_restantes'], $b['nb_places_debout_restantes'], $b['tarif_normal'], $b['tarif_reduit']);
+            return new Billet(
+                $b['id'],
+                $b['id_utilisateur'],
+                    $soiree,
+                $b['tarif']
+            );
+        },$billets);
+
+        return $retour;
+        }catch(\PDOException $e){
+            throw new \Exception( $e->getMessage() );
+        }
     }
 
 

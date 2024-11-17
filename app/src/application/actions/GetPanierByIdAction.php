@@ -26,7 +26,7 @@ class GetPanierByIdAction
         Validator::uuid()->assert($id);
 
         try {
-            $panier = $this->panierService->getPanierById($id);
+            $panier = $this->panierService->getPanierByUserId($id);
             return JsonRenderer::render($response, 200, $panier);
         } catch(ValidatorException $e) {
             return JsonRenderer::render($response, 400, ['error' => $e->getMessage()]);

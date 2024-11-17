@@ -2,3 +2,11 @@ headers {
   Access-Control-Request-Headers: 
   Origin: 
 }
+
+auth {
+  mode: none
+}
+
+script:pre-request {
+  req.setHeader('Authorization', "Bearer "+ bru.getVar('token'));
+}
