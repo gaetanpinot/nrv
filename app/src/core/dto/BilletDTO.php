@@ -16,7 +16,7 @@ class BilletDTO extends DTO
     {
         $this->id = $billet->id;
         $this->id_utilisateur = $billet->id_utilisateur;
-        $this->id_spectacle = $billet->id_spectacle;
+        $this->id_spectacle = $billet->id_soiree;
         $this->tarif = $billet->tarif;
     }
 

@@ -4,11 +4,12 @@ namespace nrv\core\service\billet;
 
 use nrv\core\domain\entities\Billet\Billet;
 use nrv\core\dto\BilletDTO;
+use nrv\core\repositoryInterfaces\BilletRepositoryInterface;
 use nrv\infrastructure\Repositories\BilletRepository;
 
 class BilletService
 {
-    protected BilletRepository $billetRepository;
+    protected BilletRepositoryInterface $billetRepository;
 
     public function __construct(BilletRepository $billetRepository)
     {
@@ -17,21 +18,11 @@ class BilletService
 
     public function getBilletsByUserId(string $userId): array
     {
-        $billets = $this->billetRepository->getMesBillets();
-        $userBillets = [];
+        $billets = $this->billetRepository->getMesBillets($userId);
 
-        foreach ($billets as $billet) {
-            if ($billet['id_utilisateur'] === $userId) {
-                $userBillets[] = new BilletDTO(new Billet(
-                    $billet['id'],
-                    $billet['id_utilisateur'],
-                    $billet['id_soiree'],
-                    $billet['tarif']
-                ));
-            }
-        }
-
-        return $userBillets;
+        return array_map(function($b){
+            return new BilletDTO($b);
+        },$billets);
     }
 
     public function getBilletById(string $id_billet): Billet

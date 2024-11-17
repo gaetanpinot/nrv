@@ -43,7 +43,7 @@ class BilletRepository implements BilletRepositoryInterface
         $request->execute([
             'id' => $billet->id,
             'id_utilisateur' => $billet->id_utilisateur,
-            'id_soiree' => $billet->id_spectacle,
+            'id_soiree' => $billet->id_soiree,
             'tarif' => $billet->tarif,
         ]);
     }
@@ -54,7 +54,7 @@ class BilletRepository implements BilletRepositoryInterface
         $request->execute([
             'id' => $billet->id,
             'id_utilisateur' => $billet->id_utilisateur,
-            'id_soiree' => $billet->id_spectacle,
+            'id_soiree' => $billet->id_soiree,
             'tarif' => $billet->tarif,
         ]);
     }
@@ -65,22 +65,36 @@ class BilletRepository implements BilletRepositoryInterface
         $request->execute(['id' => $id]);
     }
 
-    public function getMesBillets(): array
+    public function getMesBillets(string $id): array
     {
         $query = '
-        SELECT billet.* 
-        FROM billet
-        INNER JOIN billet_panier ON billet.id = billet_panier.id_billet
-        INNER JOIN panier ON panier.id = billet_panier.id_panier
-        WHERE panier.is_valide = true
-    ';
-        $res = $this->pdo->query($query)->fetchAll();
+        select billet.* from 
+            panier,
+            billet_panier,
+            billet
+        where 
+            panier.id = billet_panier.id_panier and
+            billet.id = billet_panier.id_billet and
+            panier.id_utilisateur = :id and
+            panier.is_valide = false;';
+        try{
+        $res = $this->pdo->prepare($query);
+        $res->execute(['id' => $id]);
+        $billets = $res->fetchAll(PDO::FETCH_ASSOC);
 
-        if (!$res) {
-            throw new NoDataFoundException("Aucun billet trouvé");
+        $retour = array_map(function($b){
+            return new Billet(
+                $b['id'],
+                $b['id_utilisateur'],
+                $b['id_soiree'],
+                $b['tarif']
+            );
+        },$billets);
+
+        return $retour;
+        }catch(\PDOException $e){
+            throw new \Exception( $e->getMessage() );
         }
-
-        return $res;
     }
 
 }

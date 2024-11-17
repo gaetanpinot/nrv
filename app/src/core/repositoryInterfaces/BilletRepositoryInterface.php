@@ -11,4 +11,5 @@ interface BilletRepositoryInterface
     public function save(Billet $billet): void;
     public function updateBillet(Billet $billet): void;
     public function deleteBillet(string $id): void;
+    public function getMesBillets(string $id): array;
 }
