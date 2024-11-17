@@ -45,7 +45,6 @@ class AfficheListeSpectaclesAction extends AbstractAction
             $sens = $params['date'];
             $filtre = array_merge($filtre ,array('date' => array('sens' => $sens)));
         }
-        $this->log->info( json_encode($filtre));
         try{
             $pageValidator->assert($params);
             $page = $params['page'];
@@ -57,7 +56,6 @@ class AfficheListeSpectaclesAction extends AbstractAction
         }
         try{
             $spectacles = $this->spectacleService->getSpectacles($page, $nombre, $filtre);
-            $this->log->info(($spectacles[0]->id));
             return JsonRenderer::render($rs, 200, $spectacles);
         }catch(\Exception $e){
             throw new HttpInternalServerErrorException($rq, $e->getMessage());

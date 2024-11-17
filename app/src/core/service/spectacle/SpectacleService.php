@@ -29,7 +29,6 @@ class SpectacleService implements SpectacleServiceInterface
             $res[] = new SpectacleDTO($spectacle);
 
         }
-            $this->log->info(gettype($res));
         return $res;
         }catch(\Error $e){
         $this->log->error($e->getMessage());
