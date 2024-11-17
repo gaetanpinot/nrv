@@ -11,9 +11,11 @@ use \DateTime;
 class SpectacleRepository implements SpectacleRepositoryInterface{
 
     protected PDO $pdo;
+    protected string $formaDate;
 
     public function __construct(Container $cont){
         $this->pdo = $cont->get('pdo.commun');
+        $this->formaDate = $cont->get('date.format');
     }
 
     public function getSpectacles(int $offset = 0, int $nombre = 12, array $filtre = null): array{
@@ -62,8 +64,15 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
         }else{
             $query = "
             select
-            spectacle.*
-            from spectacle
+            spectacle.*,
+            json_agg(soiree.date) as dates
+            from spectacle,
+            soiree,
+            spectacles_soiree
+            where 
+            spectacle.id = spectacles_soiree.id_spectacle and
+            spectacles_soiree.id_soiree = soiree.id
+            group by spectacle.id
             limit :limit
             offset :offset 
             ;";
@@ -90,13 +99,22 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
                 $artistes_decodee[] = new Artiste($artiste['id'], $artiste['prenom']);
             }
 
+        //on decodes les multiples artistes des spectacles
+        $dates = json_decode($spectacle['dates'],true);
+        $dates_decodee=[];
+
+        //on créer une entité pour chaque artiste du spectacle
+        foreach($dates as $date) {
+            $dates_decodee[] = DateTime::createFromFormat($this->formaDate, $date) ;
+        }
             //on l'ajoute au spectacle
             $retour[] = new Spectacle($spectacle['id'],
                 $spectacle['titre'],
                 $spectacle['description'],
                 $spectacle['url_video'],
                 $spectacle['url_image'],
-                $artistes_decodee);
+                $artistes_decodee,
+                $dates_decodee);
         }
         return $retour;
     }

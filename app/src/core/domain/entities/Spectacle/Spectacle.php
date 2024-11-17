@@ -13,14 +13,16 @@ class Spectacle extends Entity{
     protected string $url_video;
     protected string $url_image;
     protected array $artistes;
+    protected array $dates;
 
-    public function __construct(string $id, string $titre, string $description, string $url_video, string $url_image, array $artistes){
+    public function __construct(string $id, string $titre, string $description, string $url_video, string $url_image, array $artistes, array $dates = []){
         $this->id = $id;
         $this->titre = $titre;
         $this->description = $description;
         $this->url_video = $url_video;
         $this->url_image = $url_image;
         $this->artistes = $artistes;
+        $this->dates = $dates;
     }
 
     public function toDTO(): SpectacleDTO{

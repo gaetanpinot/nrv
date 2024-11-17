@@ -5,6 +5,7 @@ namespace nrv\application\actions;
 use DI\Container;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator;
+use Slim\Exception\HttpInternalServerErrorException;
 use nrv\application\renderer\JsonRenderer;
 use nrv\core\service\spectacle\SpectacleService;
 use nrv\core\service\spectacle\SpectacleServiceInterface;
@@ -50,7 +51,11 @@ class AfficheListeSpectaclesAction extends AbstractAction
             $nombre = $params['nombre'];
         }catch(NestedValidationException $e){
         }
-        $spectacles = $this->spectacleService->getSpectacles($page, $nombre, $filtre);
-        return JsonRenderer::render($rs, 200, $spectacles);
+        try{
+            $spectacles = $this->spectacleService->getSpectacles($page, $nombre, $filtre);
+            return JsonRenderer::render($rs, 200, $spectacles);
+        }catch(\Exception $e){
+            throw new HttpInternalServerErrorException($rq, $e->getMessage());
+        }
     }
 }

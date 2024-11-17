@@ -14,6 +14,7 @@ class SpectacleDTO extends DTO{
     public string $url_video;
     public string $url_image;
     public array  $artistes;
+    public array  $dates;
 
     public function __construct(Spectacle $spectacle){
         $this->id = $spectacle->id;
@@ -25,6 +26,17 @@ class SpectacleDTO extends DTO{
         array_map(function (Artiste $a){
             return new ArtisteDTO($a);
         },$spectacle->artistes);   
+        $this->dates = $spectacle->dates;
         
     }
+
+    public function jsonSerialize(): array
+    {
+        $retour = parent::jsonSerialize();
+        $retour['dates'] = array_map(function($e){
+            return $e->format('Y-m-d');
+        },$this->dates);
+return $retour;
+    }
+
 }
