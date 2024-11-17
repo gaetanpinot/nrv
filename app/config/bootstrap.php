@@ -5,7 +5,6 @@ use Slim\Factory\AppFactory;
 use nrv\middlewares\CorsMiddleware;
 
 
-
 $builder = new ContainerBuilder();
 $builder->addDefinitions(__DIR__ . '/constantes.php');
 $builder->addDefinitions(__DIR__ . '/settings.php' );

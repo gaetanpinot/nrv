@@ -1,0 +1,19 @@
+meta {
+  name: spectacles filtres
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:44010/spectacles?page=0&nombre=12
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 0
+  nombre: 12
+  ~lieu: all
+  ~date: DESC
+  ~style: all
+}

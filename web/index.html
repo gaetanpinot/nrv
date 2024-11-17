@@ -246,6 +246,15 @@
                         <li>{{this.prenom}}</li>
                         {{/each}}
                     </ul>
+                    <div class = "datesSpectacle">
+        <p> Dates :</p> 
+        {{#each this.dates}}
+        <p class = "dateSepctacle">
+        {{this}}
+        </p>
+        {{/each}}
+
+        </div>
                 </div>
             </div>
             <button class="footer-concert-button" data-id="{{this.id}}">Soir ou ce concert est présent</button>

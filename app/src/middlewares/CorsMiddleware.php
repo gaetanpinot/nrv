@@ -17,7 +17,6 @@ class CorsMiddleware implements MiddlewareInterface{
         $resquestHeaders = $rq->getHeaderLine('Access-Control-Request-Headers');
 
         $origin = $rq->hasHeader('Origin') ? $rq->getHeaderLine('Origin') : '*';
-
         $response = $handler->handle($rq);
 
         return $response

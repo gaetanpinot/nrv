@@ -50,7 +50,8 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
             }
             $query = "
             select
-            spectacle.*
+            spectacle.*,
+            json_agg(soiree.date) as dates
             from spectacle,".$tables.
             "spectacles_soiree,
             soiree
@@ -99,14 +100,14 @@ class SpectacleRepository implements SpectacleRepositoryInterface{
                 $artistes_decodee[] = new Artiste($artiste['id'], $artiste['prenom']);
             }
 
-        //on decodes les multiples artistes des spectacles
-        $dates = json_decode($spectacle['dates'],true);
-        $dates_decodee=[];
+            //on decodes les multiples artistes des spectacles
+            $dates = json_decode($spectacle['dates'],true);
+            $dates_decodee=[];
 
-        //on créer une entité pour chaque artiste du spectacle
-        foreach($dates as $date) {
-            $dates_decodee[] = DateTime::createFromFormat($this->formaDate, $date) ;
-        }
+            //on créer une entité pour chaque artiste du spectacle
+            foreach($dates as $date) {
+                $dates_decodee[] = DateTime::createFromFormat($this->formaDate, $date) ;
+            }
             //on l'ajoute au spectacle
             $retour[] = new Spectacle($spectacle['id'],
                 $spectacle['titre'],

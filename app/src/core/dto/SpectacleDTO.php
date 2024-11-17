@@ -36,7 +36,7 @@ class SpectacleDTO extends DTO{
         $retour['dates'] = array_map(function($e){
             return $e->format('Y-m-d');
         },$this->dates);
-return $retour;
+        return $retour;
     }
 
 }

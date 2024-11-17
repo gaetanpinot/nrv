@@ -470,6 +470,12 @@ footer {
     width: 100%;
     transition: background-color 0.3s; }
 
+.description {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; }
+
 body {
   margin: 0px; }
   @media screen and (max-width: 600px) {
