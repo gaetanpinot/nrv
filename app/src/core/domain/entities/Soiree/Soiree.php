@@ -23,7 +23,18 @@ class Soiree extends Entity
     protected float $tarif_normal;
     protected float $tarif_reduit;
 
-    public function __construct($id, $nom,Theme $theme, $date, $heure_debut, $duree, $lieu, $spectacles, $nb_places_assises_restantes, $nb_places_debout_restantes, $tarif_normal, $tarif_reduit)
+    public function __construct($id = "",
+        $nom = "",
+        Theme $theme = new Theme('',''),
+        $date = "1-1-1",
+        $heure_debut = "00:00:00",
+        $duree = "00:00:00", 
+        $lieu = new Lieu(),
+        $spectacles = [],
+        $nb_places_assises_restantes = 0,
+        $nb_places_debout_restantes = 0,
+        $tarif_normal = 0,
+        $tarif_reduit = 0)
     {
         $this->id = $id;
         $this->nom = $nom;

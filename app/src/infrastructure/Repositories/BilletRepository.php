@@ -46,7 +46,7 @@ class BilletRepository implements BilletRepositoryInterface
         $request->execute([
             'id' => $billet->id,
             'id_utilisateur' => $billet->id_utilisateur,
-            'id_soiree' => $billet->id_soiree,
+            'id_soiree' => $billet->soiree->id,
             'tarif' => $billet->tarif,
         ]);
     }

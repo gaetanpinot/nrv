@@ -2,8 +2,10 @@
 
 namespace nrv\core\service\billet_panier;
 
+use PHPUnit\Exception;
 use nrv\core\domain\entities\Billet\Billet;
 use nrv\core\domain\entities\Panier\Panier;
+use nrv\core\domain\entities\Soiree\Soiree;
 use nrv\infrastructure\Repositories\BilletPanierRepository;
 use nrv\infrastructure\Repositories\BilletRepository;
 use nrv\infrastructure\Repositories\PanierRepository;
@@ -36,7 +38,7 @@ class BilletPanierService
         }
 
         $uuid = Uuid::uuid4()->toString();
-        $nouveauBillet = new Billet($uuid, $id_utilisateur, $id_soiree, $tarif);
+        $nouveauBillet = new Billet($uuid, $id_utilisateur, new Soiree($id_soiree), $tarif);
         $this->billetRepository->save($nouveauBillet);
 
         $this->billetPanierRepository->ajouterBilletAuPanier($uuid, $panier->getId());

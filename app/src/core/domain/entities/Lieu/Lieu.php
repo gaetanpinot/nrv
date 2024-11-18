@@ -13,7 +13,7 @@ class Lieu extends Entity{
     protected string $nb_places_debout;
     protected array $lien_image;
 
-    public function __construct(string $id, string $nom, string $adresse, string $nb_places_assises, string $nb_places_debout, array $lien_image){
+    public function __construct(string $id = "", string $nom = "", string $adresse = "", string $nb_places_assises = "", string $nb_places_debout = "", array $lien_image = []){
         $this->id = $id;
         $this->nom = $nom;
         $this->adresse = $adresse;
