@@ -5784,7 +5784,6 @@
 
   // lib/compte.js
   var TEMPLATE_ACCOUNT;
-  var URL_API2 = "http://localhost:44010";
   function isAuthenticated() {
     return localStorage.getItem("jwt") != null;
   }
@@ -5825,7 +5824,7 @@
     event.preventDefault();
     const email = document.querySelector("#login-form input[type='email']").value;
     const password = document.querySelector("#login-form input[type='password']").value;
-    fetch(`${URL_API2}/utilisateur`, {
+    fetch(`${URL_API}/utilisateur`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
@@ -5845,7 +5844,7 @@
     const prenom = document.querySelector("#signup-form input[placeholder='Prenom complet']").value;
     const email = document.querySelector("#signup-form input[type='email']").value;
     const password = document.querySelector("#signup-form input[type='password']").value;
-    fetch(`${URL_API2}/inscription`, {
+    fetch(`${URL_API}/inscription`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nom, prenom, email, password })
@@ -5868,11 +5867,10 @@
   }
 
   // lib/billet.js
-  var URL_API3 = "http://localhost:44010";
   var TEMPLATE_BILLET = import_handlebars3.default.compile(document.querySelector("#templateBillet").innerHTML);
   function package_billet(idSoiree) {
     document.querySelector(".prendre-billet").addEventListener("click", function() {
-      const uri = `${URL_API3}/soirees/${idSoiree}`;
+      const uri = `${URL_API}/soirees/${idSoiree}`;
       fetch(uri).then((resp) => resp.json()).then((data) => {
         create_billet(data, idSoiree);
       }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration de la soir\xE9e :", err));
@@ -5906,7 +5904,7 @@
         let dataform = `token=${token}&place=${place}&tarif=${tarif}&soiree=${idSoiree}`;
         console.log(dataform);
         console.log(token);
-        fetch(`${URL_API3}/panier/billet`, {
+        fetch(`${URL_API}/panier/billet`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -5936,7 +5934,6 @@
   }
 
   // lib/spectacle.js
-  var URL_API4 = "http://localhost:44010";
   var FILTRES = "";
   var ancien_filtres = "";
   var TEMPLATE_CONCERTS = import_handlebars4.default.compile(document.querySelector("#templateConcerts").innerHTML);
@@ -5965,7 +5962,7 @@
     const select = document.getElementById("filtre-lieu");
     select.innerHTML = "";
     select.innerHTML += `<option value="all">Tous</option>`;
-    const uri = `${URL_API4}/lieux`;
+    const uri = `${URL_API}/lieux`;
     fetch(uri).then((resp) => resp.json()).then((data) => {
       data.forEach((lieu) => {
         select.innerHTML += `<option value="${lieu.nom}">${lieu.nom}</option>`;
@@ -5991,7 +5988,7 @@
     showLoader();
     renderTemplate(TEMPLATE_CONCERTS, { pagination });
     const NEW_URI_SPECTACLES = `/spectacles?page=${pagination}&nombre=12`;
-    fetch(URL_API4 + NEW_URI_SPECTACLES + FILTRES).then((resp) => resp.json()).then((data) => {
+    fetch(URL_API + NEW_URI_SPECTACLES + FILTRES).then((resp) => resp.json()).then((data) => {
       const listeConcertContainer = document.getElementById("liste-concert");
       listeConcertContainer.innerHTML = "";
       data.forEach((item) => {
@@ -6020,7 +6017,7 @@
   }
   function afficheSoiree(idSpectacles) {
     showLoader();
-    const uri = `${URL_API4}/spectacles/${idSpectacles}/soirees`;
+    const uri = `${URL_API}/spectacles/${idSpectacles}/soirees`;
     fetch(uri).then((resp) => resp.json()).then((data) => {
       rendersoiree(data);
     }).catch((err) => console.error("Erreur lors de la r\xE9cup\xE9ration des soirees :", err)).finally(() => hideLoader());

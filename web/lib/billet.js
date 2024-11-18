@@ -1,7 +1,6 @@
 import Handlebars from "handlebars";
 import { afficheAccount } from './compte.js';
-
-const URL_API = 'http://localhost:44010';
+import { URL_API } from "./settings.js";
 const URI_BILLET = '/billet';
 const TEMPLATE_BILLET = Handlebars.compile(document.querySelector("#templateBillet").innerHTML);
 

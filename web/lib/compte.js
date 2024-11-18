@@ -1,9 +1,8 @@
 import Handlebars from "handlebars";
-import {fetchUserTickets} from './mesbillets.js';
+import { fetchUserTickets } from './mesbillets.js';
+import { URL_API } from "./settings.js";
 
 let TEMPLATE_ACCOUNT;
-const URL_API = 'http://localhost:44010';
-
 function isAuthenticated() {
 
     return localStorage.getItem("jwt") != null;
@@ -53,10 +52,10 @@ function handleLogin(event) {
     const password = document.querySelector("#login-form input[type='password']").value;
 
     fetch(`${URL_API}/utilisateur`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    })
         .then(resp => resp.json())
         .then(data => {
             if (data && data.token) {
@@ -78,10 +77,10 @@ function handleSignup(event) {
     const password = document.querySelector("#signup-form input[type='password']").value;
 
     fetch(`${URL_API}/inscription`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nom, prenom, email, password })
-        })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nom, prenom, email, password })
+    })
         .then(resp => resp.json())
         .then(data => {
             if (data && data.token) {

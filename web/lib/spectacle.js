@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import { package_billet } from './billet.js';
 
-const URL_API = 'http://localhost:44010';
+import { URL_API } from "./settings.js";
 const URI_SPECTACLES = '/spectacles?page=0&nombre=12';
 var FILTRES = '';
 let ancien_filtres = '';
