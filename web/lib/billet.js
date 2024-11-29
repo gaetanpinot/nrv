@@ -52,12 +52,12 @@ function create_billet(data, idSoiree) {
             const token = localStorage.getItem('jwt') || '';
 
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            /*if (!token) {
+            if (!token) {
                 alert('Veuillez vous connecter pour continuer.');
                 afficheAccount();
                 return;
-            }*/
-            console.error('active token verification');
+            }
+            //console.error('active token verification');
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             // Assemble les données
